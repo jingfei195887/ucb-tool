@@ -63,3 +63,11 @@ files = ["src/ucb_tool/core"]
 [[tool.mypy.overrides]]
 module = "intelhex"
 ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "jsonschema"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "asteval"
+ignore_missing_imports = true
