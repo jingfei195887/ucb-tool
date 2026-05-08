@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from PySide6.QtCore import Qt
 from PySide6.QtGui import QAction
 from PySide6.QtWidgets import (
     QCheckBox,
@@ -20,6 +21,7 @@ from ucb_tool.core.validator import validate_bundle
 from ucb_tool.gui.dialogs.chip_picker import ChipPickerDialog
 from ucb_tool.gui.dialogs.danger_confirm import DangerConfirmDialog
 from ucb_tool.gui.views.field_form import FieldForm
+from ucb_tool.gui.widgets.hex_dump_view import HexDumpView
 
 
 class MainWindow(QMainWindow):
@@ -39,7 +41,12 @@ class MainWindow(QMainWindow):
 
         split = QSplitter()
         split.addWidget(self.tree)
-        split.addWidget(self.form)
+        right = QSplitter(Qt.Orientation.Vertical)
+        right.addWidget(self.form)
+        self.hex_dump = HexDumpView()
+        right.addWidget(self.hex_dump)
+        right.setSizes([600, 200])
+        split.addWidget(right)
         split.setSizes([320, 880])
         self.setCentralWidget(split)
 
@@ -129,6 +136,7 @@ class MainWindow(QMainWindow):
         inst = self._bundle.instances.get(name)
         if inst is not None:
             self.form.set_instance(inst)
+            self.hex_dump.set_bytes(bytes(inst.buf_orig))
 
     def _on_advanced_toggle(self, on: bool) -> None:
         if self._bundle:
