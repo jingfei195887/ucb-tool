@@ -1,8 +1,11 @@
 import pytest
 
 from ucb_tool.core.field_codec import (
+    ConfirmationState,
+    confirmation_magic,
     crc32_aurix,
     decode_int,
+    detect_confirmation,
     encode_int,
     pack_bitfield,
     unpack_bitfield,
@@ -74,3 +77,27 @@ def test_crc32_empty():
 def test_crc32_single_zero():
     # CRC-32/IEEE of b"\x00" = 0xD202EF8D
     assert crc32_aurix(b"\x00") == 0xD202EF8D
+
+
+def test_magic_lengths_are_8_bytes():
+    for state in ConfirmationState:
+        assert len(confirmation_magic(state, mode=0)) == 8
+        assert len(confirmation_magic(state, mode=1)) == 8
+
+
+def test_confirmed_mode0_matches_aurix_ucb_c():
+    # From aurix_ucb.c:178 confirmation_code[] when UCB_CONFIRMATION_MODE=0
+    assert confirmation_magic(ConfirmationState.CONFIRMED, mode=0) == \
+        b"\x34\x12\x21\x43\x00\x00\x00\x00"
+
+
+def test_confirmed_mode1_matches_aurix_ucb_c():
+    # From aurix_ucb.c:173 confirmation_code[] when UCB_CONFIRMATION_MODE=1
+    assert confirmation_magic(ConfirmationState.CONFIRMED, mode=1) == \
+        b"\x7f\x32\xb5\x57\x00\x00\x00\x00"
+
+
+def test_detect_roundtrip():
+    for state in ConfirmationState:
+        blob = confirmation_magic(state, mode=0)
+        assert detect_confirmation(blob, mode=0) == state
