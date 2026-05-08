@@ -15,7 +15,12 @@ from ucb_tool.core.field_codec import (
     encode_int,
 )
 from ucb_tool.core.hex_io import merge_range, read_hex, slice_range, write_hex
-from ucb_tool.core.schema_loader import SchemaRegistry, UcbSchema, load_schemas
+from ucb_tool.core.schema_loader import (
+    SchemaRegistry,
+    UcbSchema,
+    load_schemas,
+    resolve_profile_addresses,
+)
 
 _ARRAY_RE = re.compile(r"^([^\[]+)\[(\d+)\]$")
 
@@ -209,6 +214,7 @@ class UcbBundle:
              chip_schema_dir: Path | None) -> UcbBundle:
         profile = get_profile(chip_id)
         schemas: SchemaRegistry = load_schemas(common_dirs, chip_schema_dir)
+        resolve_profile_addresses(schemas, chip_id)
         raw = read_hex(hex_path)
 
         instances: dict[str, UcbInstance] = {}

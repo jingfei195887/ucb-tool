@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://common/SWAP",
+  "title": "SWAP UCB (A/B partition log, skeleton)",
+
+  "x-ucb-meta": {
+    "name": "SWAP",
+    "size": 256,
+    "has_orig_copy": true,
+    "addresses": {
+      "TC4Dx": { "orig": "__COMPUTE_FROM_PROFILE__", "copy": "__COMPUTE_FROM_PROFILE__" },
+      "TC48x": { "orig": "__COMPUTE_FROM_PROFILE__", "copy": "__COMPUTE_FROM_PROFILE__" },
+      "TC4Zx": { "orig": "__COMPUTE_FROM_PROFILE__", "copy": "__COMPUTE_FROM_PROFILE__" }
+    }
+  },
+
+  "type": "object",
+  "properties": {
+    "CRC": {
+      "type": "integer",
+      "x-offset": 0, "x-size": 4, "x-endian": "little",
+      "x-computed": "crc32-aurix", "readOnly": true,
+      "x-help": "CRC of the 128-word entry region."
+    },
+    "ENTRIES_RAW": {
+      "type": "array",
+      "items": { "type": "integer", "minimum": 0, "maximum": 4294967295 },
+      "minItems": 63, "maxItems": 63,
+      "x-offset": 4, "x-size": 252, "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "63 × uint32 raw words. Product schema should expand to 128 × 16B entries."
+    }
+  }
+}

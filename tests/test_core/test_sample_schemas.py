@@ -19,3 +19,19 @@ def test_common_BMHD_0_addresses_all_families():
         orig, copy = schema.address_for_family(fam)
         assert orig == 0xAF400000
         assert copy is None  # has_orig_copy: false
+
+
+def test_swap_addresses_resolved(tmp_path):
+    from ucb_tool.core.hex_io import write_hex
+    from ucb_tool.core.ucb_bundle import UcbBundle
+
+    hex_path = tmp_path / "u.hex"
+    write_hex(hex_path, {0: 0xFF})
+    bundle = UcbBundle.load(hex_path, "tc4d9",
+                            common_dirs=[REPO_SCHEMAS / "common"],
+                            chip_schema_dir=None)
+    assert "SWAP" in bundle.instances
+    inst = bundle.instances["SWAP"]
+    # TC4Dx RTC SWAP ORIG = 0xAE400000 + 19 * 0x800 = 0xAE409800
+    assert inst.orig_addr == 0xAE400000 + 19 * 0x800
+    assert inst.copy_addr == 0xAE400000 + 20 * 0x800

@@ -101,3 +101,17 @@ def load_schemas(common_dirs: Iterable[Path], chip_schema_dir: Path | None) -> S
         meta = _validate_ucb_meta(schema, source_of_id[sid])
         reg[meta["name"]] = UcbSchema(name=meta["name"], schema=schema, meta=meta)
     return reg
+
+
+def resolve_profile_addresses(reg: SchemaRegistry, chip_id: str) -> None:
+    """Replace '__COMPUTE_FROM_PROFILE__' address placeholders using chip_profile."""
+    from ucb_tool.core.chip_profile import get_profile
+
+    profile = get_profile(chip_id)
+    for name, us in reg.items():
+        addrs = us.meta.get("addresses") or {}
+        for _family_key, entry in addrs.items():
+            if entry.get("orig") == "__COMPUTE_FROM_PROFILE__":
+                entry["orig"] = profile.address(f"{name}_ORIG_RTC")
+            if entry.get("copy") == "__COMPUTE_FROM_PROFILE__":
+                entry["copy"] = profile.address(f"{name}_COPY_RTC")
