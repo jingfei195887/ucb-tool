@@ -1,6 +1,10 @@
 import pytest
+
 from ucb_tool.core.chip_profile import (
-    ChipFamily, get_profile, ucb_address, list_chips,
+    ChipFamily,
+    get_profile,
+    list_chips,
+    ucb_address,
 )
 
 

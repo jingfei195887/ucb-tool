@@ -1,8 +1,10 @@
 import json
 from pathlib import Path
+
 import pytest
-from ucb_tool.core.schema_loader import SchemaRegistry, load_schemas
+
 from ucb_tool.core.errors import SchemaError
+from ucb_tool.core.schema_loader import load_schemas
 
 FIX = Path(__file__).parent / "fixtures_schemas"
 

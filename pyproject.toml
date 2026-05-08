@@ -59,3 +59,7 @@ ignore = ["E501"]
 python_version = "3.10"
 strict = true
 files = ["src/ucb_tool/core"]
+
+[[tool.mypy.overrides]]
+module = "intelhex"
+ignore_missing_imports = true

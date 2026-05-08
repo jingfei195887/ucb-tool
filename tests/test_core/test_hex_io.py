@@ -1,7 +1,9 @@
-import pytest
 from pathlib import Path
-from ucb_tool.core.hex_io import read_hex, write_hex, slice_range, merge_range
+
+import pytest
+
 from ucb_tool.core.errors import HexParseError
+from ucb_tool.core.hex_io import merge_range, read_hex, slice_range, write_hex
 
 
 def test_roundtrip_tiny(tmp_path: Path):

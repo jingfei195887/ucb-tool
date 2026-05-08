@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable
+from typing import Any
 
 from ucb_tool.core.errors import SchemaError
 
@@ -19,8 +20,8 @@ def _parse_hex_or_int(v: object) -> int:
 @dataclass
 class UcbSchema:
     name: str
-    schema: dict
-    meta: dict
+    schema: dict[str, Any]
+    meta: dict[str, Any]
 
     @property
     def size(self) -> int:
@@ -45,7 +46,7 @@ class SchemaRegistry(dict[str, UcbSchema]):
     """Name → UcbSchema."""
 
 
-def _deep_merge(base: dict, overlay: dict) -> dict:
+def _deep_merge(base: dict[str, Any], overlay: dict[str, Any]) -> dict[str, Any]:
     """Recursive merge: overlay dict into base dict; scalar/list values replace."""
     out = dict(base)
     for k, v in overlay.items():
@@ -56,7 +57,7 @@ def _deep_merge(base: dict, overlay: dict) -> dict:
     return out
 
 
-def _validate_ucb_meta(schema: dict, path: Path) -> dict:
+def _validate_ucb_meta(schema: dict[str, Any], path: Path) -> dict[str, Any]:
     meta = schema.get("x-ucb-meta")
     if not isinstance(meta, dict):
         raise SchemaError(f"{path}: missing or invalid x-ucb-meta")
@@ -73,7 +74,7 @@ def load_schemas(common_dirs: Iterable[Path], chip_schema_dir: Path | None) -> S
         common_dirs: one or more directories treated as 'common' tier.
         chip_schema_dir: optional overlay dir (e.g., schemas/tc4dx).
     """
-    by_id: dict[str, dict] = {}
+    by_id: dict[str, dict[str, Any]] = {}
     source_of_id: dict[str, Path] = {}
 
     for d in common_dirs:

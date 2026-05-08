@@ -1,7 +1,11 @@
-import pytest
 from ucb_tool.core.errors import (
-    UcbError, HexParseError, SchemaError, ValidationError,
-    ConstraintViolation, DangerWithoutConsent, ComputedFieldError,
+    ComputedFieldError,
+    ConstraintViolation,
+    DangerWithoutConsent,
+    HexParseError,
+    SchemaError,
+    UcbError,
+    ValidationError,
 )
 
 
