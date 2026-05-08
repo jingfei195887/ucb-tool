@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, windows-2022]
+        python: ["3.10", "3.11", "3.12"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+      - name: Ruff
+        run: ruff check src tests
+      - name: Mypy (core only)
+        run: mypy src/ucb_tool/core
+      - name: Pytest
+        run: pytest --cov=ucb_tool --cov-report=xml --cov-fail-under=80
+      - uses: codecov/codecov-action@v4
+        if: matrix.os == 'ubuntu-22.04' && matrix.python == '3.12'
