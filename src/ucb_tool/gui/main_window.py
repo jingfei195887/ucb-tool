@@ -16,7 +16,9 @@ from PySide6.QtWidgets import (
 import ucb_tool
 from ucb_tool.core.chip_profile import get_profile
 from ucb_tool.core.ucb_bundle import UcbBundle
+from ucb_tool.core.validator import validate_bundle
 from ucb_tool.gui.dialogs.chip_picker import ChipPickerDialog
+from ucb_tool.gui.dialogs.danger_confirm import DangerConfirmDialog
 from ucb_tool.gui.views.field_form import FieldForm
 
 
@@ -78,13 +80,32 @@ class MainWindow(QMainWindow):
         self.statusBar().showMessage(f"Loaded {path_s} (chip={chip})")
 
     def on_save(self) -> None:
-        if self._bundle is None:
+        if self._bundle is None or self._current_chip is None or self._source_path is None:
             return
-        path_s, _ = QFileDialog.getSaveFileName(self, "Save ucb.hex", "", "Intel HEX (*.hex)")
+        # Re-load source as baseline (pre-edit state)
+        baseline = self._load(str(self._source_path), self._current_chip)
+        report = validate_bundle(self._bundle, baseline=baseline)
+        if report.has_blocking:
+            QMessageBox.critical(
+                self, "Validation errors",
+                "\n".join(str(e) for e in report.errors + report.constraint_violations),
+            )
+            return
+        danger = report.danger_summary
+        if danger:
+            dlg = DangerConfirmDialog(danger, self)
+            if dlg.exec() != dlg.DialogCode.Accepted:
+                return
+        path_s, _ = QFileDialog.getSaveFileName(
+            self, "Save ucb.hex", "", "Intel HEX (*.hex)"
+        )
         if not path_s:
             return
-        # M5.3 replaces this method with a full validator + danger dialog flow.
-        self._bundle.save(path_s)
+        try:
+            self._bundle.save(path_s)
+        except Exception as exc:  # noqa: BLE001
+            QMessageBox.critical(self, "Save failed", str(exc))
+            return
         self.statusBar().showMessage(f"Wrote {path_s}")
 
     # ---- Helpers ----
