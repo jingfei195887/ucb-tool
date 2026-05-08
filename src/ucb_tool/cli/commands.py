@@ -165,3 +165,53 @@ def export_xlsx_cmd(hex_path: Path, chip: str, out_path: Path,
         raise click.ClickException(str(exc)) from exc
     export_to_xlsx(bundle, out_path, source_hex=hex_path)
     click.echo(f"wrote {out_path}")
+
+
+@click.command(name="apply-xlsx")
+@click.argument("hex_path", type=click.Path(exists=True, dir_okay=False, path_type=Path))
+@click.option("--chip", required=True,
+              type=click.Choice(list_chips(), case_sensitive=False))
+@click.option("--xlsx", "xlsx_path", required=True,
+              type=click.Path(exists=True, dir_okay=False, path_type=Path))
+@click.option("--out", "out_path", required=True, type=click.Path(path_type=Path))
+@click.option("--lenient-xlsx", is_flag=True, default=False)
+@click.option("--yes-i-know-lock", is_flag=True, default=False)
+@click.option("--yes-i-know-brick", is_flag=True, default=False)
+@click.option("--schemas", "schemas_dir", multiple=True,
+              type=click.Path(exists=True, file_okay=False, path_type=Path))
+def apply_xlsx_cmd(hex_path: Path, chip: str, xlsx_path: Path, out_path: Path,
+                   lenient_xlsx: bool, yes_i_know_lock: bool,
+                   yes_i_know_brick: bool,
+                   schemas_dir: tuple[Path, ...]) -> None:
+    """Apply an edited .xlsx snapshot to produce a new hex."""
+    from ucb_tool.core.xlsx_io import apply_xlsx
+    try:
+        bundle = _load_bundle(hex_path, chip.lower(), schemas_dir)
+        baseline = _load_bundle(hex_path, chip.lower(), schemas_dir)
+    except UcbError as exc:
+        raise click.ClickException(str(exc)) from exc
+
+    try:
+        apply_xlsx(bundle, xlsx_path, lenient=lenient_xlsx)
+    except UcbError as exc:
+        raise click.ClickException(str(exc)) from exc
+
+    report = validate_bundle(bundle, baseline=baseline)
+    if report.has_blocking:
+        msg = "\n".join(str(e) for e in report.errors + report.constraint_violations)
+        raise click.ClickException(f"validation failed:\n{msg}")
+
+    danger = report.danger_summary
+    needs_brick = any(d in ("brick", "irreversible") for _, d in danger)
+    needs_lock = any(d == "lock" for _, d in danger)
+    if needs_brick and not yes_i_know_brick:
+        raise click.ClickException(
+            "Brick/irreversible changes present; pass --yes-i-know-brick:\n" +
+            "\n".join(f"  {p} ({d})" for p, d in danger))
+    if needs_lock and not (yes_i_know_lock or yes_i_know_brick):
+        raise click.ClickException(
+            "Lock changes present; pass --yes-i-know-lock:\n" +
+            "\n".join(f"  {p} ({d})" for p, d in danger))
+
+    bundle.save(out_path, recompute=True)
+    click.echo(f"wrote {out_path}")
