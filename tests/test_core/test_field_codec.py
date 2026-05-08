@@ -1,6 +1,11 @@
 import pytest
 
-from ucb_tool.core.field_codec import decode_int, encode_int
+from ucb_tool.core.field_codec import (
+    decode_int,
+    encode_int,
+    pack_bitfield,
+    unpack_bitfield,
+)
 
 
 @pytest.mark.parametrize("value, size, endian, expected", [
@@ -27,3 +32,29 @@ def test_decode_int_roundtrip():
         size = 4 if v > 0xFFFF else 2 if v > 0xFF else 1
         enc = encode_int(v, size, "little")
         assert decode_int(enc, "little") == v
+
+
+def test_pack_single_bit_boolean():
+    # PINDIS at bit [0,0]
+    assert pack_bitfield({"PINDIS": True}, {"PINDIS": (0, 0)}) == 0b1
+    assert pack_bitfield({"PINDIS": False}, {"PINDIS": (0, 0)}) == 0b0
+
+
+def test_pack_multi_field():
+    # PINDIS=bit 0, HWCFG=bits 1..3
+    layout = {"PINDIS": (0, 0), "HWCFG": (1, 3)}
+    assert pack_bitfield({"PINDIS": True, "HWCFG": 0b101}, layout) == 0b01011
+    assert pack_bitfield({"PINDIS": False, "HWCFG": 0b111}, layout) == 0b1110
+
+
+def test_unpack_inverse():
+    # unpack returns raw ints; caller handles type coercion.
+    layout = {"PINDIS": (0, 0), "HWCFG": (1, 3)}
+    packed = pack_bitfield({"PINDIS": True, "HWCFG": 0b101}, layout)
+    assert unpack_bitfield(packed, layout) == {"PINDIS": 1, "HWCFG": 0b101}
+
+
+def test_value_exceeds_range_raises():
+    layout = {"HWCFG": (1, 3)}
+    with pytest.raises(ValueError):
+        pack_bitfield({"HWCFG": 0b1000}, layout)  # 8 doesn't fit in 3 bits
