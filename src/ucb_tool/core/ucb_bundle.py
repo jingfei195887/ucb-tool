@@ -10,7 +10,10 @@ from ucb_tool.core.chip_profile import get_profile
 from ucb_tool.core.errors import SchemaError, ValidationError
 from ucb_tool.core.field_codec import (
     BitRange,
+    ConfirmationState,
     Endian,
+    confirmation_magic,
+    crc32_aurix,
     decode_int,
     encode_int,
 )
@@ -198,6 +201,35 @@ class UcbInstance:
         self._write(self.buf_copy, self.field_by_path(path), value)
 
 
+def _recompute_fields(inst: UcbInstance, mode: int = 0) -> None:
+    for f in inst.fields:
+        algo = f.computed
+        if not algo:
+            continue
+        if algo == "crc32-aurix":
+            payload = bytes(inst.buf_orig[:f.offset])
+            crc = crc32_aurix(payload)
+            inst.buf_orig[f.offset:f.offset + f.size] = crc.to_bytes(f.size, "little")
+            if inst.buf_copy is not None:
+                payload_c = bytes(inst.buf_copy[:f.offset])
+                crc_c = crc32_aurix(payload_c)
+                inst.buf_copy[f.offset:f.offset + f.size] = crc_c.to_bytes(
+                    f.size, "little"
+                )
+        elif algo == "confirmation":
+            magic = confirmation_magic(ConfirmationState.CONFIRMED, mode=mode)
+            # f.size should be 8; if the schema says otherwise, truncate/extend
+            magic = magic[:f.size].ljust(f.size, b"\x00")
+            inst.buf_orig[f.offset:f.offset + f.size] = magic
+            if inst.buf_copy is not None:
+                inst.buf_copy[f.offset:f.offset + f.size] = magic
+        elif algo == "zero_pad":
+            inst.buf_orig[f.offset:f.offset + f.size] = b"\x00" * f.size
+            if inst.buf_copy is not None:
+                inst.buf_copy[f.offset:f.offset + f.size] = b"\x00" * f.size
+        # Unknown algo: silently skip. Validator will flag unknowns separately.
+
+
 @dataclass
 class UcbBundle:
     chip_id: str
@@ -240,7 +272,10 @@ class UcbBundle:
         return cls(chip_id=chip_id, family=family_key,
                    instances=instances, raw_bytes=raw)
 
-    def save(self, out_path: str | Path) -> None:
+    def save(self, out_path: str | Path, recompute: bool = True) -> None:
+        if recompute:
+            for inst in self.instances.values():
+                _recompute_fields(inst)
         data = dict(self.raw_bytes)
         for inst in self.instances.values():
             merge_range(data, inst.orig_addr, bytes(inst.buf_orig))

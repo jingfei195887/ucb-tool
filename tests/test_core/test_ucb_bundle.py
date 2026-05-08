@@ -159,3 +159,29 @@ def test_set_copy_requires_advanced(tmp_path):
                             chip_schema_dir=FIX / "tc4dx")
     with pytest.raises(ValidationError):
         bundle["RICH"].set_copy("KEY[0]", 0xDEADBEEF)
+
+
+def test_save_recomputes_crc32(tmp_path):
+    from ucb_tool.core.field_codec import crc32_aurix
+    from ucb_tool.core.hex_io import read_hex, slice_range, write_hex
+
+    hex_path = tmp_path / "u.hex"
+    data = {0xAF400000 + i: 0xFF for i in range(256)}
+    write_hex(hex_path, data)
+
+    import ucb_tool
+    SCHEMAS = Path(ucb_tool.__file__).parent / "schemas"
+    bundle = UcbBundle.load(hex_path, "tc4d9",
+                            common_dirs=[SCHEMAS / "common"],
+                            chip_schema_dir=None)
+    bundle["BMHD_0"].set("STAD", 0x80000000)
+
+    out = tmp_path / "out.hex"
+    bundle.save(out, recompute=True)
+
+    reloaded = read_hex(out)
+    # BMHD_0 CRC at offset 248, 4 bytes, little-endian
+    payload = slice_range(reloaded, 0xAF400000, 248)
+    expected_crc = crc32_aurix(bytes(payload))
+    actual_crc = int.from_bytes(slice_range(reloaded, 0xAF400000 + 248, 4), "little")
+    assert actual_crc == expected_crc
