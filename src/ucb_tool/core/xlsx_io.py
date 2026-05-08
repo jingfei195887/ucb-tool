@@ -3,13 +3,15 @@ from __future__ import annotations
 import hashlib
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 
-from openpyxl import Workbook
+from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, Protection
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.protection import SheetProtection
 
 from ucb_tool import __version__ as TOOL_VERSION
+from ucb_tool.core.errors import SchemaError, ValidationError
 from ucb_tool.core.ucb_bundle import UcbBundle, UcbInstance
 
 _HEADERS = [
@@ -119,3 +121,87 @@ def export_to_xlsx(bundle: UcbBundle, out_path: str | Path, source_hex: Path) ->
     for inst in bundle.instances.values():
         _write_ucb_sheet(wb, inst)
     wb.save(str(out_path))
+
+
+def _parse_value(raw: object, schema: dict[str, Any]) -> int | None:
+    if raw is None or raw == "":
+        return None
+    if isinstance(raw, bool):
+        # bool is a subclass of int in Python; treat as int.
+        return int(raw)
+    if isinstance(raw, (int, float)):
+        return int(raw)
+    if isinstance(raw, str):
+        s = raw.strip()
+        if s == "":
+            return None
+        names = schema.get("x-enum-names") or {}
+        rev = {v: int(k) for k, v in names.items()}
+        if s in rev:
+            return rev[s]
+        try:
+            return int(s, 0)
+        except ValueError:
+            pass
+    raise ValidationError("<value>", f"cannot parse {raw!r}")
+
+
+def apply_xlsx(
+    bundle: UcbBundle,
+    xlsx_path: str | Path,
+    *,
+    lenient: bool = False,
+) -> None:
+    """Read an edited .xlsx back into `bundle` in place.
+
+    Strict mode (default) rejects unknown sheets and unknown field-path rows.
+    Lenient mode ignores them but still enforces schema_version match.
+    """
+    wb = load_workbook(str(xlsx_path), data_only=True)
+    sheets = set(wb.sheetnames)
+
+    if "_Meta" not in sheets:
+        raise SchemaError(f"{xlsx_path}: missing _Meta sheet")
+    if "Summary" not in sheets:
+        raise SchemaError(f"{xlsx_path}: missing Summary sheet")
+
+    known_ucbs = set(bundle.instances.keys())
+    expected = known_ucbs | {"_Meta", "Summary"}
+    unknown = sheets - expected
+    if unknown and not lenient:
+        raise SchemaError(f"{xlsx_path}: unknown sheets {sorted(unknown)}")
+
+    meta_ws = wb["_Meta"]
+    meta: dict[object, object] = {}
+    for r in meta_ws.iter_rows(min_row=1, max_col=2):
+        meta[r[0].value] = r[1].value
+    if meta.get("schema_version") != "0.1":
+        raise SchemaError(
+            f"schema_version mismatch: expected 0.1, got "
+            f"{meta.get('schema_version')!r}"
+        )
+
+    for name in known_ucbs:
+        if name not in sheets:
+            continue
+        ws = wb[name]
+        inst = bundle.instances[name]
+        by_path = {f.path: f for f in inst.fields}
+        for r in range(2, ws.max_row + 1):
+            path_cell = ws.cell(row=r, column=1).value
+            value_cell = ws.cell(row=r, column=6).value
+            if path_cell is None:
+                continue
+            if path_cell not in by_path:
+                if lenient:
+                    continue
+                raise SchemaError(
+                    f"{xlsx_path} sheet {name}: unknown field path "
+                    f"{path_cell!r}"
+                )
+            f = by_path[path_cell]
+            if f.read_only or f.computed:
+                continue
+            parsed = _parse_value(value_cell, f.schema)
+            if parsed is not None:
+                inst.set(path_cell, parsed)
