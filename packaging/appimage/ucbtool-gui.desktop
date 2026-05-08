@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=UCB Tool
+Exec=ucbtool-gui
+Icon=ucbtool
+Type=Application
+Categories=Development;
