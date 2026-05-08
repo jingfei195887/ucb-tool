@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://common/DEMO",
+  "title": "DEMO UCB",
+  "x-ucb-meta": {
+    "name": "DEMO",
+    "size": 32,
+    "has_orig_copy": true,
+    "addresses": {
+      "TC4Dx": { "orig": "0x1000", "copy": "0x1020" },
+      "TC48x": { "orig": "0x2000", "copy": "0x2010" }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "BASE_FIELD": {
+      "title": "base title",
+      "type": "integer",
+      "x-offset": 0, "x-size": 4, "x-endian": "little"
+    }
+  }
+}
