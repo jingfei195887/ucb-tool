@@ -64,6 +64,9 @@ class MainWindow(QMainWindow):
         self.action_save.setEnabled(False)
         bar.addAction(open_act)
         bar.addAction(save_act)
+        apply_act = QAction("&Apply Excel Edits...", self)
+        apply_act.triggered.connect(self.on_apply_xlsx)
+        bar.addAction(apply_act)
 
     # ---- Slots ----
     def on_open(self) -> None:
@@ -114,6 +117,35 @@ class MainWindow(QMainWindow):
             QMessageBox.critical(self, "Save failed", str(exc))
             return
         self.statusBar().showMessage(f"Wrote {path_s}")
+
+    def on_apply_xlsx(self) -> None:
+        if self._bundle is None or self._current_chip is None or self._source_path is None:
+            return
+        path_s, _ = QFileDialog.getOpenFileName(
+            self, "Apply Excel", "", "Excel Workbook (*.xlsx)"
+        )
+        if not path_s:
+            return
+        from ucb_tool.core.xlsx_io import apply_xlsx
+        try:
+            apply_xlsx(self._bundle, path_s)
+        except Exception as exc:  # noqa: BLE001
+            QMessageBox.critical(self, "Apply failed", str(exc))
+            return
+        baseline = self._load(str(self._source_path), self._current_chip)
+        report = validate_bundle(self._bundle, baseline=baseline)
+        if report.has_blocking:
+            QMessageBox.critical(
+                self, "Validation errors",
+                "\n".join(str(e) for e in report.errors + report.constraint_violations),
+            )
+            return
+        danger = report.danger_summary
+        if danger:
+            dlg = DangerConfirmDialog(danger, self)
+            if dlg.exec() != dlg.DialogCode.Accepted:
+                return
+        self.statusBar().showMessage(f"Applied {path_s}")
 
     # ---- Helpers ----
     def _load(self, path: str, chip: str) -> UcbBundle:
