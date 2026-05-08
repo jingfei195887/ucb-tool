@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://common/RICH",
+  "title": "RICH UCB — exercises bitfield + array",
+  "x-ucb-meta": {
+    "name": "RICH",
+    "size": 32,
+    "has_orig_copy": true,
+    "addresses": {
+      "TC4Dx": { "orig": "0x3000", "copy": "0x3020" },
+      "TC48x": { "orig": "0x4000", "copy": "0x4010" }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "FLAGS": {
+      "title": "Flag bits",
+      "type": "object",
+      "x-offset": 0, "x-size": 2, "x-endian": "little",
+      "x-bitfield": true,
+      "properties": {
+        "PINDIS": { "type": "integer", "x-bits": [0, 0] },
+        "HWCFG":  { "type": "integer", "x-bits": [1, 3] }
+      }
+    },
+    "KEY": {
+      "type": "array",
+      "items": { "type": "integer", "minimum": 0, "maximum": 4294967295 },
+      "minItems": 4, "maxItems": 4,
+      "x-offset": 4, "x-size": 16, "x-endian": "little",
+      "x-render": "password"
+    },
+    "CRC_RO": {
+      "type": "integer",
+      "x-offset": 24, "x-size": 4, "x-endian": "little",
+      "readOnly": true
+    }
+  }
+}
