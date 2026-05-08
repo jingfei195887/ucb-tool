@@ -1,6 +1,7 @@
 import pytest
 
 from ucb_tool.core.field_codec import (
+    crc32_aurix,
     decode_int,
     encode_int,
     pack_bitfield,
@@ -58,3 +59,18 @@ def test_value_exceeds_range_raises():
     layout = {"HWCFG": (1, 3)}
     with pytest.raises(ValueError):
         pack_bitfield({"HWCFG": 0b1000}, layout)  # 8 doesn't fit in 3 bits
+
+
+def test_crc32_ieee_vector_123456789():
+    # Standard CRC-32/IEEE 802.3 test vector
+    assert crc32_aurix(b"123456789") == 0xCBF43926
+
+
+def test_crc32_empty():
+    # init 0xFFFFFFFF XOR final 0xFFFFFFFF = 0
+    assert crc32_aurix(b"") == 0x00000000
+
+
+def test_crc32_single_zero():
+    # CRC-32/IEEE of b"\x00" = 0xD202EF8D
+    assert crc32_aurix(b"\x00") == 0xD202EF8D

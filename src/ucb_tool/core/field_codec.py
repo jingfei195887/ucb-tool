@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import zlib
 from typing import Literal
 
 Endian = Literal["little", "big"]
@@ -47,3 +48,13 @@ def unpack_bitfield(packed: int, layout: dict[str, BitRange]) -> dict[str, int]:
         mask = (1 << width) - 1
         out[name] = (packed >> lo) & mask
     return out
+
+
+def crc32_aurix(data: bytes) -> int:
+    """CRC-32/IEEE 802.3.
+
+    Matches vendor/infineon/chips/aurix/aurix_ucb.c:648 crc32_software().
+    Python's zlib.crc32 implements the same polynomial with the same
+    init/final XOR convention.
+    """
+    return zlib.crc32(data) & 0xFFFFFFFF
