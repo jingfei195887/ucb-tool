@@ -1,13 +1,28 @@
-"""CLI entry point (stub). Real implementation arrives in M4.1."""
 from __future__ import annotations
 
 import sys
 
+import click
 
-def main() -> int:
-    print("ucbtool CLI not yet implemented (see M4.1)", file=sys.stderr)
-    return 1
+from ucb_tool.cli.commands import (
+    export_xlsx_cmd,
+    set_cmd,
+    show_cmd,
+    validate_cmd,
+)
+
+
+@click.group()
+@click.version_option(package_name="ucb-tool")
+def main() -> None:
+    """ucb-tool — Infineon AURIX UCB hex editor."""
+
+
+main.add_command(show_cmd)
+main.add_command(set_cmd)
+main.add_command(validate_cmd)
+main.add_command(export_xlsx_cmd)
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    sys.exit(main())
