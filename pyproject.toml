@@ -1,0 +1,61 @@
+[build-system]
+requires = ["hatchling>=1.20"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ucb-tool"
+version = "0.1.0"
+description = "GUI + CLI tool for editing Infineon AURIX TC4x UCB hex files"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "CarOS Team" }]
+dependencies = [
+    "PySide6>=6.6",
+    "intelhex>=2.3",
+    "jsonschema>=4.21",
+    "openpyxl>=3.1",
+    "click>=8.1",
+    "asteval>=0.9.31",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-qt>=4.4",
+    "pytest-cov>=5.0",
+    "ruff>=0.4",
+    "mypy>=1.10",
+    "pyinstaller>=6.6",
+]
+
+[project.scripts]
+ucbtool = "ucb_tool.cli.__main__:main"
+ucbtool-gui = "ucb_tool.gui.__main__:main"
+
+[tool.hatch.build]
+include = [
+    "src/ucb_tool/**/*.py",
+    "src/ucb_tool/schemas/**/*.json",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ucb_tool"]
+
+[tool.pytest.ini_options]
+addopts = "-ra -q --strict-markers"
+testpaths = ["tests"]
+qt_api = "pyside6"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+files = ["src/ucb_tool/core"]
