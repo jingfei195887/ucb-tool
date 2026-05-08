@@ -31,7 +31,8 @@ def test_fields_fit_in_ucb():
         props = schema.get("properties") or {}
         for name, sub in props.items():
             if "x-offset" in sub and "x-size" in sub:
-                off = int(sub["x-offset"]); sz = int(sub["x-size"])
+                off = int(sub["x-offset"])
+                sz = int(sub["x-size"])
                 assert off + sz <= size, (
                     f"{path}: {name} off={off} size={sz} > UCB size {size}"
                 )
