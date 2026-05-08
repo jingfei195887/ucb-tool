@@ -205,3 +205,42 @@ def apply_xlsx(
             parsed = _parse_value(value_cell, f.schema)
             if parsed is not None:
                 inst.set(path_cell, parsed)
+
+
+def diff_bundles(a: UcbBundle, b: UcbBundle, out_path: str | Path) -> int:
+    """Write a 'Changes' sheet to out_path. Returns count of differing fields."""
+    wb = Workbook()
+    default_name = wb.active.title if wb.active else None
+    if default_name and default_name in wb.sheetnames:
+        del wb[default_name]
+    ws = wb.create_sheet("Changes")
+    headers = ["UCB.Field", "A value", "B value", "Danger"]
+    for c, h in enumerate(headers, start=1):
+        ws.cell(row=1, column=c, value=h).font = Font(bold=True)
+    r = 2
+    count = 0
+    for name in set(a.instances) | set(b.instances):
+        ia = a.instances.get(name)
+        ib = b.instances.get(name)
+        if ia is None or ib is None:
+            ws.cell(row=r, column=1, value=f"{name} (only in one side)")
+            r += 1
+            count += 1
+            continue
+        for f in ia.fields:
+            if f.read_only:
+                continue
+            try:
+                va = ia.get(f.path)
+                vb = ib.get(f.path)
+            except Exception:  # noqa: BLE001
+                continue
+            if va != vb:
+                ws.cell(row=r, column=1, value=f"{name}.{f.path}")
+                ws.cell(row=r, column=2, value=va)
+                ws.cell(row=r, column=3, value=vb)
+                ws.cell(row=r, column=4, value=f.danger)
+                r += 1
+                count += 1
+    wb.save(str(out_path))
+    return count

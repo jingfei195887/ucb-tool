@@ -215,3 +215,21 @@ def apply_xlsx_cmd(hex_path: Path, chip: str, xlsx_path: Path, out_path: Path,
 
     bundle.save(out_path, recompute=True)
     click.echo(f"wrote {out_path}")
+
+
+@click.command(name="diff")
+@click.argument("hex_a", type=click.Path(exists=True, dir_okay=False, path_type=Path))
+@click.argument("hex_b", type=click.Path(exists=True, dir_okay=False, path_type=Path))
+@click.option("--chip", required=True,
+              type=click.Choice(list_chips(), case_sensitive=False))
+@click.option("--out", "out_path", required=True, type=click.Path(path_type=Path))
+@click.option("--schemas", "schemas_dir", multiple=True,
+              type=click.Path(exists=True, file_okay=False, path_type=Path))
+def diff_cmd(hex_a: Path, hex_b: Path, chip: str, out_path: Path,
+             schemas_dir: tuple[Path, ...]) -> None:
+    """Produce an Excel diff report between two ucb.hex files."""
+    from ucb_tool.core.xlsx_io import diff_bundles
+    a = _load_bundle(hex_a, chip.lower(), schemas_dir)
+    b = _load_bundle(hex_b, chip.lower(), schemas_dir)
+    n = diff_bundles(a, b, out_path)
+    click.echo(f"wrote {out_path} ({n} changed field(s))")
