@@ -1,0 +1,112 @@
+from __future__ import annotations
+
+from pathlib import Path
+
+from PySide6.QtGui import QAction
+from PySide6.QtWidgets import (
+    QCheckBox,
+    QFileDialog,
+    QMainWindow,
+    QMessageBox,
+    QSplitter,
+    QTreeWidget,
+    QTreeWidgetItem,
+    QVBoxLayout,
+    QWidget,
+)
+
+import ucb_tool
+from ucb_tool.core.chip_profile import get_profile
+from ucb_tool.core.ucb_bundle import UcbBundle
+from ucb_tool.gui.dialogs.chip_picker import ChipPickerDialog
+
+
+class MainWindow(QMainWindow):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("UCB Tool")
+        self.resize(1200, 800)
+        self._bundle: UcbBundle | None = None
+        self._current_chip: str | None = None
+        self._source_path: Path | None = None
+
+        self.tree = QTreeWidget()
+        self.tree.setHeaderLabels(["UCB"])
+        self.tree.currentItemChanged.connect(self._on_select)
+
+        self.form_placeholder = QWidget()
+        QVBoxLayout(self.form_placeholder)
+
+        split = QSplitter()
+        split.addWidget(self.tree)
+        split.addWidget(self.form_placeholder)
+        split.setSizes([320, 880])
+        self.setCentralWidget(split)
+
+        self.advanced_check = QCheckBox("Advanced")
+        self.statusBar().addPermanentWidget(self.advanced_check)
+        self.advanced_check.toggled.connect(self._on_advanced_toggle)
+
+        bar = self.menuBar().addMenu("&File")
+        open_act = QAction("&Open...", self)
+        open_act.triggered.connect(self.on_open)
+        save_act = QAction("&Save As...", self)
+        save_act.triggered.connect(self.on_save)
+        self.action_open = open_act
+        self.action_save = save_act
+        self.action_save.setEnabled(False)
+        bar.addAction(open_act)
+        bar.addAction(save_act)
+
+    # ---- Slots ----
+    def on_open(self) -> None:
+        path_s, _ = QFileDialog.getOpenFileName(self, "Open ucb.hex", "", "Intel HEX (*.hex)")
+        if not path_s:
+            return
+        dlg = ChipPickerDialog(self)
+        if dlg.exec() != dlg.DialogCode.Accepted:
+            return
+        chip = dlg.chip_id
+        try:
+            bundle = self._load(path_s, chip)
+        except Exception as exc:  # noqa: BLE001
+            QMessageBox.critical(self, "Load failed", str(exc))
+            return
+        self._bundle = bundle
+        self._current_chip = chip
+        self._source_path = Path(path_s)
+        self._populate_tree()
+        self.action_save.setEnabled(True)
+        self.statusBar().showMessage(f"Loaded {path_s} (chip={chip})")
+
+    def on_save(self) -> None:
+        if self._bundle is None:
+            return
+        path_s, _ = QFileDialog.getSaveFileName(self, "Save ucb.hex", "", "Intel HEX (*.hex)")
+        if not path_s:
+            return
+        # M5.3 replaces this method with a full validator + danger dialog flow.
+        self._bundle.save(path_s)
+        self.statusBar().showMessage(f"Wrote {path_s}")
+
+    # ---- Helpers ----
+    def _load(self, path: str, chip: str) -> UcbBundle:
+        root = Path(ucb_tool.__file__).parent / "schemas"
+        chip_dir = root / get_profile(chip).schema_dir
+        return UcbBundle.load(Path(path), chip,
+                              common_dirs=[root / "common"],
+                              chip_schema_dir=chip_dir if chip_dir.is_dir() else None)
+
+    def _populate_tree(self) -> None:
+        self.tree.clear()
+        assert self._bundle is not None
+        for name in self._bundle.instances:
+            QTreeWidgetItem(self.tree, [name])
+
+    def _on_select(self, current, previous) -> None:
+        pass  # wired in M5.2
+
+    def _on_advanced_toggle(self, on: bool) -> None:
+        if self._bundle:
+            for inst in self._bundle.instances.values():
+                inst.advanced = on

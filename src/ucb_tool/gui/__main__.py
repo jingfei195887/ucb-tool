@@ -1,12 +1,17 @@
-"""GUI entry point (stub). Real implementation arrives in M5.1."""
 from __future__ import annotations
 
 import sys
 
+from PySide6.QtWidgets import QApplication
+
+from ucb_tool.gui.main_window import MainWindow
+
 
 def main() -> int:
-    print("ucbtool-gui not yet implemented (see M5.1)", file=sys.stderr)
-    return 1
+    app = QApplication(sys.argv)
+    win = MainWindow()
+    win.show()
+    return app.exec()
 
 
 if __name__ == "__main__":
