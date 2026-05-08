@@ -11,14 +11,13 @@ from PySide6.QtWidgets import (
     QSplitter,
     QTreeWidget,
     QTreeWidgetItem,
-    QVBoxLayout,
-    QWidget,
 )
 
 import ucb_tool
 from ucb_tool.core.chip_profile import get_profile
 from ucb_tool.core.ucb_bundle import UcbBundle
 from ucb_tool.gui.dialogs.chip_picker import ChipPickerDialog
+from ucb_tool.gui.views.field_form import FieldForm
 
 
 class MainWindow(QMainWindow):
@@ -34,12 +33,11 @@ class MainWindow(QMainWindow):
         self.tree.setHeaderLabels(["UCB"])
         self.tree.currentItemChanged.connect(self._on_select)
 
-        self.form_placeholder = QWidget()
-        QVBoxLayout(self.form_placeholder)
+        self.form = FieldForm()
 
         split = QSplitter()
         split.addWidget(self.tree)
-        split.addWidget(self.form_placeholder)
+        split.addWidget(self.form)
         split.setSizes([320, 880])
         self.setCentralWidget(split)
 
@@ -104,7 +102,12 @@ class MainWindow(QMainWindow):
             QTreeWidgetItem(self.tree, [name])
 
     def _on_select(self, current, previous) -> None:
-        pass  # wired in M5.2
+        if current is None or self._bundle is None:
+            return
+        name = current.text(0)
+        inst = self._bundle.instances.get(name)
+        if inst is not None:
+            self.form.set_instance(inst)
 
     def _on_advanced_toggle(self, on: bool) -> None:
         if self._bundle:
