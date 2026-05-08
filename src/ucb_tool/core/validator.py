@@ -26,9 +26,23 @@ class ValidationReport:
         return [(p, d) for p, d in self.danger_changes if d != "safe"]
 
 
+def _coerce_for_schema(schema: dict[str, Any], value: Any) -> Any:
+    """Decode integer storage into the type the JSON schema expects.
+
+    Bitfield reads always return ``int`` (see UcbInstance._read), but a
+    boolean-typed field in the schema will fail jsonschema validation on a
+    bare ``0``/``1``. Coerce on the read side.
+    """
+    t = schema.get("type")
+    if t == "boolean" and isinstance(value, int) and not isinstance(value, bool):
+        return bool(value)
+    return value
+
+
 def _validate_value(descriptor: FieldDescriptor, value: Any) -> list[ValidationError]:
+    coerced = _coerce_for_schema(descriptor.schema, value)
     try:
-        jsonschema.validate(value, descriptor.schema)
+        jsonschema.validate(coerced, descriptor.schema)
     except jsonschema.ValidationError as exc:
         return [ValidationError(descriptor.path, exc.message)]
     return []
