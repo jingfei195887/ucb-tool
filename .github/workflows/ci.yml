@@ -25,7 +25,7 @@ jobs:
       - name: Mypy (core only)
         run: mypy src/ucb_tool/core
       - name: Pytest
-        run: pytest --cov=ucb_tool --cov-report=xml --cov-fail-under=80
+        run: pytest --cov=ucb_tool --cov-branch --cov-report=xml --cov-report=term-missing --cov-fail-under=85
       - uses: codecov/codecov-action@v4
         if: matrix.os == 'ubuntu-22.04' && matrix.python == '3.12'
 
