@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://common/BMHD_0",
+  "title": "BMHD_0 — Boot Mode Header 0",
+
+  "x-ucb-meta": {
+    "name": "BMHD_0",
+    "size": 256,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC4Dx": { "orig": "0xAF400000" },
+      "TC48x": { "orig": "0xAF400000" },
+      "TC4Zx": { "orig": "0xAF400000" }
+    }
+  },
+
+  "type": "object",
+  "properties": {
+    "STAD": {
+      "title": "Start Address",
+      "type": "integer", "minimum": 0, "maximum": 4294967295,
+      "x-offset": 0, "x-size": 4, "x-endian": "little",
+      "x-render": "hex",
+      "x-danger": "brick",
+      "x-help": "Entry PC address; incorrect value prevents chip boot."
+    },
+    "BMI": {
+      "title": "Boot Mode Index",
+      "type": "object",
+      "x-offset": 4, "x-size": 2, "x-endian": "little",
+      "x-bitfield": true,
+      "properties": {
+        "PINDIS": { "type": "boolean", "x-bits": [0, 0],
+                    "title": "Disable config pins" },
+        "HWCFG":  { "type": "integer", "x-bits": [1, 3],
+                    "enum": [0, 1, 3, 7],
+                    "x-enum-names": {
+                      "0": "Internal flash", "1": "External SPI",
+                      "3": "ASC bootstrap",  "7": "CAN bootstrap"
+                    },
+                    "x-danger": "brick" }
+      }
+    },
+    "CRC": {
+      "type": "integer",
+      "x-offset": 248, "x-size": 4, "x-endian": "little",
+      "x-computed": "crc32-aurix", "readOnly": true
+    }
+  },
+  "required": ["STAD", "BMI"]
+}
