@@ -7,8 +7,12 @@ from PyInstaller.utils.hooks import collect_all
 
 REPO = Path(SPECPATH).resolve().parent
 SCHEMAS = REPO / "src" / "ucb_tool" / "schemas"
+TEMPLATES = REPO / "src" / "ucb_tool" / "templates"
 
-schema_data = [(str(SCHEMAS), "ucb_tool/schemas")]
+schema_data = [
+    (str(SCHEMAS),   "ucb_tool/schemas"),
+    (str(TEMPLATES), "ucb_tool/templates"),
+]
 
 # PySide6: pull in Qt DLLs, platform plugins (qwindows.dll), style plugins,
 # translations, and all hidden imports.  Without this, `ucbtool-gui.exe`
