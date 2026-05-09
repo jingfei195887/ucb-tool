@@ -67,19 +67,32 @@ class ConfirmationState(str, Enum):
     ERRORED = "ERRORED"
 
 
-# Source: vendor/infineon/chips/aurix/aurix_ucb.c
-# CONFIRMED is extracted directly from lines 173/178; UNLOCKED and ERRORED
-# require extraction at implementation time (see plan M2.4 notes).
+# Source: user-provided TC4Dx UM §49 UCB dump (empirically verified).
+#
+# In an *unlocked* (password-less, user-writable) UCB, both CONFIRMATION and
+# CONFIRMATION_COPY contain the UNLOCKED magic.  This was the meaning of
+# `confirmation_code[]` in vendor/infineon/chips/aurix/aurix_ucb.c:173/178 —
+# despite the variable name the code tests for the UNLOCKED state.
+#
+#   mode 0 (non-secure / default):  UNLOCKED = 0x0000_0000_4321_1234
+#   mode 1 (secure alternate):      UNLOCKED = 0x0000_0000_57B5_327F
+#
+# CONFIRMED magic (password-locked, writes require password) is documented in
+# the UM chapter on UCB confirmation codes but not yet extracted; we encode it
+# as a distinct sentinel here and treat any non-UNLOCKED value as ERRORED when
+# decoding.  TODO: extract CONFIRMED magic from UM §6.3.13 and aurix_ucb.c:334.
 _MAGIC: dict[tuple[int, ConfirmationState], bytes] = {
-    (0, ConfirmationState.CONFIRMED): b"\x34\x12\x21\x43\x00\x00\x00\x00",
-    (1, ConfirmationState.CONFIRMED): b"\x7f\x32\xb5\x57\x00\x00\x00\x00",
-    # UNLOCKED = all-0xFF (erased flash) per Infineon convention; confirm via C code.
-    (0, ConfirmationState.UNLOCKED): b"\xff\xff\xff\xff\xff\xff\xff\xff",
-    (1, ConfirmationState.UNLOCKED): b"\xff\xff\xff\xff\xff\xff\xff\xff",
-    # ERRORED sentinel: per aurix_ucb.c logic, any non-matching blob is ERRORED.
-    # For encoding, represent with all 0x00.
-    (0, ConfirmationState.ERRORED): b"\x00\x00\x00\x00\x00\x00\x00\x00",
-    (1, ConfirmationState.ERRORED): b"\x00\x00\x00\x00\x00\x00\x00\x00",
+    (0, ConfirmationState.UNLOCKED):  b"\x34\x12\x21\x43\x00\x00\x00\x00",
+    (1, ConfirmationState.UNLOCKED):  b"\x7f\x32\xb5\x57\x00\x00\x00\x00",
+    # CONFIRMED magic: placeholder distinct sentinel; decode uses negative
+    # match (anything not-UNLOCKED and not-ERRORED → CONFIRMED) so encoding
+    # accuracy here only matters if the caller explicitly writes CONFIRMED.
+    (0, ConfirmationState.CONFIRMED): b"\x43\x21\x34\x12\x00\x00\x00\x00",
+    (1, ConfirmationState.CONFIRMED): b"\xb5\x57\x7f\x32\x00\x00\x00\x00",
+    # ERRORED sentinel: erased flash (all 0xFF) is the canonical "errored /
+    # uninitialized" state — a virgin UCB with no confirmation written.
+    (0, ConfirmationState.ERRORED):   b"\xff\xff\xff\xff\xff\xff\xff\xff",
+    (1, ConfirmationState.ERRORED):   b"\xff\xff\xff\xff\xff\xff\xff\xff",
 }
 
 
