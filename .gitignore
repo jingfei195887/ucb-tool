@@ -13,3 +13,4 @@ dist/
 venv/
 *.spec
 !packaging/*.spec
+.winbuild/
