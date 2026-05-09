@@ -1,0 +1,476 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://tc4dx/CHIPINFO_UCB0_00",
+  "title": "CHIPINFO_UCB0_00 (TC4Dx UCB0_00)",
+  "x-ucb-meta": {
+    "name": "CHIPINFO_UCB0_00",
+    "size": 2048,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC4Dx": {
+        "orig": "0xAE400000"
+      }
+    },
+    "source": "TC4Dx UM \u00a749.4 (v1.1 (2025-04-22)) slot UCB0_00"
+  },
+  "type": "object",
+  "properties": {
+    "SAL": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 0,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "System Address of this Location"
+    },
+    "LENGTH1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 4,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Length of this table"
+    },
+    "CHIPID": {
+      "type": "object",
+      "x-offset": 8,
+      "x-size": 2,
+      "x-endian": "little",
+      "x-bitfield": true,
+      "title": "CHIPID",
+      "properties": {
+        "PINOUT": {
+          "type": "integer",
+          "x-bits": [
+            0,
+            3
+          ],
+          "title": "Package Type (Material/Type/Pinout) 0x0 = \"CC\" Cu Plane BGA COM Pinout 0x1 = \"CS\" Cu Plane BGA STD Pinout 0x2 = \"MC\" Molded BGA COM Pinout 0x3 = \"MS\" Molded BGA STD Pinout 0x4 = \"LC\" Lid BGA COM Pinout 0x5 = \"LS\" Lid BGA STD Pinout 0x6 = \"ML\" Molded LQFP 0x7 = \"MT\" Molded TQFP else - reserved",
+          "x-enum-names": {
+            "0": "No",
+            "1": "Entry",
+            "2": "3MB",
+            "3": "4MB",
+            "4": "5",
+            "5": "6MB",
+            "6": "8",
+            "7": "MT",
+            "8": "12",
+            "9": "16",
+            "10": "20MB",
+            "11": "24MB"
+          }
+        },
+        "FREQ": {
+          "type": "integer",
+          "x-bits": [
+            4,
+            6
+          ],
+          "title": "Max Frequency 0b010 - 400 MHz 0b100 - 500 MHz else - reserved",
+          "x-enum-names": {
+            "0": "No",
+            "1": "Entry",
+            "2": "3MB",
+            "3": "4MB",
+            "4": "5",
+            "5": "6MB",
+            "6": "8",
+            "7": "MT"
+          }
+        },
+        "SEC": {
+          "type": "integer",
+          "x-bits": [
+            7,
+            8
+          ],
+          "title": "Security 0b10 = \"F\" - Full CSRM 0b11 = \"O\" - Full CSRM + OSCCA else - reserved",
+          "x-enum-names": {
+            "0": "No",
+            "1": "Entry",
+            "2": "3MB",
+            "3": "4MB"
+          }
+        },
+        "ACC": {
+          "type": "integer",
+          "x-bits": [
+            9,
+            10
+          ],
+          "title": "Accelerator 0b00 - No PPU 0b01 - Entry PPU 128bits 0b10 - Mid PPU 256bits 0b11 - Full PPU 512bits",
+          "x-enum-names": {
+            "0": "No",
+            "1": "Entry",
+            "2": "3MB",
+            "3": "4MB"
+          }
+        },
+        "MEMSIZE": {
+          "type": "integer",
+          "x-bits": [
+            11,
+            14
+          ],
+          "title": "PFLASH Memory Size 0x2 - 3MB 0x3 - 4MB 0x4 - 5 MB 0x5 - 6MB 0x6 - 8 MB 0x8 - 12 MB 0x9 - 16 MB 0xA - 20MB 0xB - 24MB else - reserved",
+          "x-enum-names": {
+            "0": "No",
+            "1": "Entry",
+            "2": "3MB",
+            "3": "4MB",
+            "4": "5",
+            "5": "6MB",
+            "6": "8",
+            "7": "MT",
+            "8": "12",
+            "9": "16",
+            "10": "20MB",
+            "11": "24MB"
+          }
+        }
+      }
+    },
+    "PRODUCT_NAME0": {
+      "type": "object",
+      "x-offset": 12,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-bitfield": true,
+      "title": "Product Full Name, ASCII-coded text, Word0",
+      "properties": {
+        "PINOUT": {
+          "type": "integer",
+          "x-bits": [
+            0,
+            15
+          ],
+          "title": "Package Type (Material/Type/Pinout) CC - Cu Plane BGA COM Pinout CS - Cu Plane BGA STD Pinout MC - Molded BGA COM Pinout MS - Molded BGA STD Pinout LC - Lid BGA COM Pinout LS - Lid BGA STD Pinout ML - Molded LQFP MT - Molded TQFP"
+        },
+        "FREQ_low": {
+          "type": "integer",
+          "x-bits": [
+            16,
+            31
+          ],
+          "title": "Max Frequency 400 - 400 MHz 500 - 500 MHz"
+        }
+      }
+    },
+    "PRODUCT_NAME1": {
+      "type": "object",
+      "x-offset": 16,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-bitfield": true,
+      "title": "Product Full Name, ASCII-coded text, Word1",
+      "properties": {
+        "FREQ_high": {
+          "type": "integer",
+          "x-bits": [
+            0,
+            7
+          ],
+          "title": "Max Frequency 400 - 400 MHz 500 - 500 MHz",
+          "x-enum-names": {
+            "3": "3MB",
+            "4": "4MB",
+            "5": "5",
+            "6": "6MB",
+            "8": "8",
+            "12": "12",
+            "16": "16",
+            "20": "20MB",
+            "24": "24MB"
+          }
+        },
+        "SEC": {
+          "type": "integer",
+          "x-bits": [
+            8,
+            15
+          ],
+          "title": "Security F - Full CSRM O - Full CSRM + OSCCA",
+          "x-enum-names": {
+            "3": "3MB",
+            "4": "4MB",
+            "5": "5",
+            "6": "6MB",
+            "8": "8",
+            "12": "12",
+            "16": "16",
+            "20": "20MB",
+            "24": "24MB"
+          }
+        },
+        "ACC": {
+          "type": "integer",
+          "x-bits": [
+            16,
+            23
+          ],
+          "title": "Accelerator N - No PPU E - Entry PPU 128bits M - Mid PPU 256bits F - Full PPU 512bits",
+          "x-enum-names": {
+            "3": "3MB",
+            "4": "4MB",
+            "5": "5",
+            "6": "6MB",
+            "8": "8",
+            "12": "12",
+            "16": "16",
+            "20": "20MB",
+            "24": "24MB"
+          }
+        },
+        "MEMSIZE_low": {
+          "type": "integer",
+          "x-bits": [
+            24,
+            31
+          ],
+          "title": "PFLASH Memory Size 03 - 3MB 04 - 4MB 05 - 5 MB 06 - 6MB 08 - 8 MB 12 - 12 MB 16 - 16 MB 20 - 20MB 24 - 24MB",
+          "x-enum-names": {
+            "3": "3MB",
+            "4": "4MB",
+            "5": "5",
+            "6": "6MB",
+            "8": "8",
+            "12": "12",
+            "16": "16",
+            "20": "20MB",
+            "24": "24MB"
+          }
+        }
+      }
+    },
+    "PRODUCT_NAME2": {
+      "type": "object",
+      "x-offset": 20,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-bitfield": true,
+      "title": "Product Full Name, ASCII-coded text, Word2",
+      "properties": {
+        "MEMSIZE_high": {
+          "type": "integer",
+          "x-bits": [
+            0,
+            7
+          ],
+          "title": "PFLASH Memory Size 03 - 3MB 04 - 4MB 05 - 5 MB 06 - 6MB 08 - 8 MB 12 - 12 MB 16 - 16 MB 20 - 20MB 24 - 24MB",
+          "x-enum-names": {
+            "3": "3MB",
+            "4": "4MB",
+            "5": "5",
+            "6": "6MB",
+            "8": "8",
+            "12": "12",
+            "16": "16",
+            "20": "20MB",
+            "24": "24MB"
+          }
+        },
+        "RESERVED": {
+          "type": "integer",
+          "x-bits": [
+            8,
+            15
+          ],
+          "title": "Read as 0",
+          "x-enum-names": {
+            "3": "3MB",
+            "4": "4MB",
+            "5": "5",
+            "6": "6MB",
+            "8": "8",
+            "12": "12",
+            "16": "16",
+            "20": "20MB",
+            "24": "24MB"
+          }
+        },
+        "FEATURE": {
+          "type": "integer",
+          "x-bits": [
+            16,
+            23
+          ],
+          "title": "Feature Option Z - Zone architectures P - Standard X - Extended features C - Customer specific M - Customer specific Q - Standard + CAN-XL E - Emulation device",
+          "x-enum-names": {
+            "3": "3MB",
+            "4": "4MB",
+            "5": "5",
+            "6": "6MB",
+            "8": "8",
+            "12": "12",
+            "16": "16",
+            "20": "20MB",
+            "24": "24MB"
+          }
+        },
+        "CORES": {
+          "type": "integer",
+          "x-bits": [
+            24,
+            31
+          ],
+          "title": "Core Architecture L - Single D - Dual T - Triple Q - Quad P - Penta X - Hexa",
+          "x-enum-names": {
+            "3": "3MB",
+            "4": "4MB",
+            "5": "5",
+            "6": "6MB",
+            "8": "8",
+            "12": "12",
+            "16": "16",
+            "20": "20MB",
+            "24": "24MB"
+          }
+        }
+      }
+    },
+    "PRODUCT_NAME3": {
+      "type": "object",
+      "x-offset": 24,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-bitfield": true,
+      "title": "Product Full Name, ASCII-coded text, Word3",
+      "properties": {
+        "PCK": {
+          "type": "integer",
+          "x-bits": [
+            0,
+            7
+          ],
+          "title": "Package Class 0x2 - 100 pin 0x3 - 144 pin 0x4 - 176 pin 0x5 - 188 pin 0x6 - 224 pin 0x7 - 292 pin 0x8 - 324 pin 0x9 - 436 pin else - reserved",
+          "x-enum-names": {
+            "1": "TC41x",
+            "2": "TC42x",
+            "3": "TC43x",
+            "4": "A3G",
+            "5": "188",
+            "6": "TC46x",
+            "7": "292",
+            "8": "TC48x",
+            "9": "TC49x"
+          }
+        },
+        "SERIES": {
+          "type": "integer",
+          "x-bits": [
+            8,
+            15
+          ],
+          "title": "Device Series 1 - TC41x 2 - TC42x 3 - TC43x 4 - TC44x 6 - TC46x 8 - TC48x 9 - TC49x P - TC4Px S - TC4Sx R - TC4Rx D - TC4Dx E - TC4Ex",
+          "x-enum-names": {
+            "1": "TC41x",
+            "2": "TC42x",
+            "3": "TC43x",
+            "4": "A3G",
+            "5": "188",
+            "6": "TC46x",
+            "7": "292",
+            "8": "TC48x",
+            "9": "TC49x"
+          }
+        },
+        "GEN": {
+          "type": "integer",
+          "x-bits": [
+            16,
+            23
+          ],
+          "title": "Device Generation 4 - A3G",
+          "x-enum-names": {
+            "1": "TC41x",
+            "2": "TC42x",
+            "3": "TC43x",
+            "4": "A3G",
+            "5": "188",
+            "6": "TC46x",
+            "7": "292",
+            "8": "TC48x",
+            "9": "TC49x"
+          }
+        },
+        "TEMP": {
+          "type": "integer",
+          "x-bits": [
+            24,
+            31
+          ],
+          "title": "Temperature Range K -40..+125degC L -40..+150degC A -40..+105degC",
+          "x-enum-names": {
+            "1": "TC41x",
+            "2": "TC42x",
+            "3": "TC43x",
+            "4": "A3G",
+            "5": "188",
+            "6": "TC46x",
+            "7": "292",
+            "8": "TC48x",
+            "9": "TC49x"
+          }
+        }
+      }
+    },
+    "DEVCFG_MODEVCFG_MO": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 28,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "version, coded in format Va.Vb.Vc.Vx.Vy"
+    },
+    "MO_VER": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 32,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "MO list Excel version, coded in format Vx.Vy"
+    },
+    "CRC_RTCMOID1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 36,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "Check Result for this table",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "CONFIRMATION": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615,
+      "x-offset": 2032,
+      "x-size": 8,
+      "x-endian": "little",
+      "x-help": "Confirmation CODE ORIGINAL, 32-bit",
+      "x-danger": "lock",
+      "x-computed": "confirmation"
+    },
+    "CONFIRMATION_COPY": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615,
+      "x-offset": 2040,
+      "x-size": 8,
+      "x-endian": "little",
+      "x-help": "Confirmation CODE COPY, 32-bit",
+      "x-danger": "lock",
+      "x-computed": "confirmation"
+    }
+  }
+}

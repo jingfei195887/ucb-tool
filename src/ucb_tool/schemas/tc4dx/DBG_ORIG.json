@@ -1,0 +1,191 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://tc4dx/DBG_ORIG",
+  "title": "DBG_ORIG (TC4Dx UCB1_01)",
+  "x-ucb-meta": {
+    "name": "DBG_ORIG",
+    "size": 2048,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC4Dx": {
+        "orig": "0xAEC00800"
+      }
+    },
+    "source": "TC4Dx UM \u00a749.4 (v1.1 (2025-04-22)) slot UCB1_01"
+  },
+  "type": "object",
+  "properties": {
+    "SAL": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 0,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "System Address of this Location"
+    },
+    "TRI_DXCCTR": {
+      "type": "object",
+      "x-offset": 4,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-bitfield": true,
+      "title": "Debug over CAN Enabling Control",
+      "properties": {
+        "TIC": {
+          "type": "integer",
+          "x-bits": [
+            0,
+            3
+          ],
+          "title": "Tool Interface Control - DAP over CAN Physical Layer (DXCPL) 0h - DXCPL disabled 1h - DXCPL over standard CAN pins 2h - DXCPL over alternative CAN pins else - reserved DXCPLDIS 4 r Debug over CAN (DXCPL) mode control 0 - DXCPL can be enabled 1 - DXCPL can not be enabled ATMEN 5 r Application Test Mode (ATM) Control 0 - ATM cannot be enabled after DXCPL entry 1 - ATM can be enabled after DXCPL entry",
+          "x-enum-names": {
+            "0": "ATM",
+            "1": "ATM"
+          }
+        },
+        "RES": {
+          "type": "integer",
+          "x-bits": [
+            6,
+            31
+          ],
+          "title": "Reserved Shall be programmed to all zero, else - invalid."
+        }
+      }
+    },
+    "DMU_GP_CSRM_DBG": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 8,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "MODE Destructive Debug Entered marker",
+      "x-danger": "brick"
+    },
+    "DBGCON": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 12,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Debug configurations",
+      "x-danger": "brick"
+    },
+    "CRC_CSCFG01": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 16,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "Check Result for this table",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "PW0": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2000,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW0 (least significant)",
+      "x-danger": "lock"
+    },
+    "PW1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2004,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW1",
+      "x-danger": "lock"
+    },
+    "PW2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2008,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW2",
+      "x-danger": "lock"
+    },
+    "PW3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2012,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW3",
+      "x-danger": "lock"
+    },
+    "PW4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2016,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW4",
+      "x-danger": "lock"
+    },
+    "PW5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2020,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW5",
+      "x-danger": "lock"
+    },
+    "PW6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2024,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW6",
+      "x-danger": "lock"
+    },
+    "PW7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2028,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW7",
+      "x-danger": "lock"
+    },
+    "CONFIRMATION": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615,
+      "x-offset": 2032,
+      "x-size": 8,
+      "x-endian": "little",
+      "x-help": "Confirmation CODE ORIGINAL, 32-bit",
+      "x-danger": "lock",
+      "x-computed": "confirmation"
+    }
+  }
+}

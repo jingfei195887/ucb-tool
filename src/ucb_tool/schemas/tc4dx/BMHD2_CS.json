@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://tc4dx/BMHD2_CS",
+  "title": "BMHD2_CS (TC4Dx UCB1_05)",
+  "x-ucb-meta": {
+    "name": "BMHD2_CS",
+    "size": 2048,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC4Dx": {
+        "orig": "0xAEC02800"
+      }
+    },
+    "source": "TC4Dx UM \u00a749.4 (v1.1 (2025-04-22)) slot UCB1_05"
+  },
+  "type": "object",
+  "properties": {
+    "SAL": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 0,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "System Address of this Location"
+    },
+    "BMI_BMHDID": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 4,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Boot Mode Index (BMI) and Boot Mode Header ID (CODE) = B359H",
+      "x-danger": "brick"
+    }
+  }
+}

@@ -1,0 +1,1253 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://tc4dx/UCB0_37",
+  "title": "UCB0_37 (TC4Dx UCB0_37)",
+  "x-ucb-meta": {
+    "name": "UCB0_37",
+    "size": 2048,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC4Dx": {
+        "orig": "0xAE412800"
+      }
+    },
+    "source": "TC4Dx UM \u00a749.4 (v1.1 (2025-04-22)) slot UCB0_37"
+  },
+  "type": "object",
+  "properties": {
+    "SAL": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 0,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "System Address of this Location"
+    },
+    "LENGTH1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 4,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Length of this table"
+    },
+    "UCB0_PMS_VMONP_": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 8,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDCON VMONP_VDDCON register value"
+    },
+    "UCB0_PMS_VMONP__2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 12,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDRST VMONP_VDDRST register value"
+    },
+    "UCB0_PMS_VMONP__3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 16,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDCLDRST VMONP_VDDCLDRST register value"
+    },
+    "UCB0_PMS_VMONP__4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 20,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDEXTCON PMS_VMONP_VDDEXTCON register value"
+    },
+    "UCB0_PMS_VMONP__5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 24,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDEXTRST VMONP_VDDEXTRST register value"
+    },
+    "UCB0_PMS_VMONP__6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 28,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VSSDCHSCON VMONP_VSSDCHSCON register value"
+    },
+    "UCB0_PMS_VMONP__7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 32,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VSSDCHSRST VMONP_VSSDCHSRST register value"
+    },
+    "UCB0_PMS_VMONP__8": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 36,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDEXTDCCON VMONP_VDDEXTDCCON register value"
+    },
+    "UCB0_PMS_VMONP__9": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 40,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDEXTDCRST VMONP_VDDEXTDCRST register value"
+    },
+    "UCB0_PMS_VMONP__10": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 44,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDDCLSCON VMONP_VDDDCLSCON register value"
+    },
+    "UCB0_PMS_VMONP__11": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 48,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDDCLSRST VMONP_VDDDCLSRST register value"
+    },
+    "UCB0_PMS_VMONP__12": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 52,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDEVRSBCON VMONP_VDDEVRSBCON register value"
+    },
+    "UCB0_PMS_VMONP__13": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 56,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDEVRSBRST VMONP_VDDEVRSBRST register value"
+    },
+    "UCB0_PMS_VMONP__14": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 60,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDMCON VMONP_VDDMCON register value"
+    },
+    "UCB0_PMS_VMONP__15": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 64,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDMRST VMONP_VDDMRST register value"
+    },
+    "UCB0_PMS_VMONP__16": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 68,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDPHPHY0RST VMONP_VDDPHPHY0RST register value"
+    },
+    "UCB0_PMS_OVERLA": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 72,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "P_VDDPHPHY1PHRIF 0RST VMONP_VDDPHPHY1RST/VMONP_VDDPHRIF0RST register value"
+    },
+    "UCB0_PMS_OVERLA_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 76,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "P_VDDPHPHY2P3NV MRST VMONP_VDDPHPHY2RST/VMONP_VDDP3NVMRST register value"
+    },
+    "UCB0_PMS_VMONP__17": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 80,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDHSIFRST VMONP_VDDHSIFRST register value"
+    },
+    "UCB0_PMS_VMONP__18": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 84,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDPADRST VMONP_VDDPADRST register value"
+    },
+    "UCB0_PMS_OVERLA_3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 88,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "P_VDDCPUALMU0RS T VMONP_VDDCPUARST/VMONP_VDDLMU0RST register value"
+    },
+    "UCB0_PMS_OVERLA_4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 92,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "P_VDDCPUBLMU1RS T VMONP_VDDCPUBRST/VMONP_VDDLMU1RST register value"
+    },
+    "UCB0_PMS_VMONP__19": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 96,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDPPURST VMONP_VDDPPURST register value"
+    },
+    "UCB0_PMS_VMONP__20": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 100,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDPHY0RST VMONP_VDDPHY0RST register value"
+    },
+    "UCB0_PMS_OVERLA_5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 104,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "P_VDDPHY1RIF0RST VMONP_VDDPHY1RST/VMONP_VDDRIF0RST register value"
+    },
+    "UCB0_PMS_OVERLA_6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 108,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "P_VDDPHY2SBRST VMONP_VDDPHY2RST/VMONP_VDDSBRST register value"
+    },
+    "UCB0_PMS_VMONP__21": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 112,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDSPARERST VMONP_VDDSPARERST register value"
+    },
+    "UCB0_PMS_VMONP__22": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 116,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDSPAREHVRST VMONP_VDDSPAREHVRST register value"
+    },
+    "UCB0_PMS_VMONP__23": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 120,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDSPAREHVCON VMONP_VDDSPAREHVCON register value"
+    },
+    "UCB0_PMS_OVERLA_7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 124,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "P_VDDPHPHY2P3NV MCON VMONP_VDDPHPHY2CON/VDDP3NVMCON register value"
+    },
+    "UCB0_PMS_VMONP__24": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 128,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "TRKTRIM0 VMONP_TRKTRIM0 register value"
+    },
+    "UCB0_PMS_VMONP__25": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 132,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "TRKTRIM1 VMONP_TRKTRIM1 register value"
+    },
+    "UCB0_PMS_VMONP__26": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 136,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "TRKTRIM2 VMONP_TRKTRIM2 register value"
+    },
+    "UCB0_PMS_VMONS_": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 140,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDPMS0CON VMONS_VDDPMS0CON register value"
+    },
+    "UCB0_PMS_VMONS__2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 144,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDPMS1CON VMONS_VDDPMS1CON register value"
+    },
+    "UCB0_PMS_VMONS__3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 148,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDPMS2CON VMONS_VDDPMS2CON register value"
+    },
+    "UCB0_PMS_VMONS__4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 152,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "LVLSEL VMONS_LVLSEL register value"
+    },
+    "UCB0_PMS_VID_CON": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 156,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "0 VID_CON0 register value"
+    },
+    "UCB0_PMS_VID_CON_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 160,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "1 VID_CON1 register value"
+    },
+    "UCB0_PMS_HPOSCC": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 164,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "ON0 HPOSCCON0 register value"
+    },
+    "UCB0_PMS_HPBGCO": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 168,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "N0 HPBGCON0 register value"
+    },
+    "UCB0_PMS_ADCCON": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 172,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "ADCCON register value"
+    },
+    "UCB0_PMS_LPCON": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 176,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "LPCON register value"
+    },
+    "UCB0_PMS_EVRC_C": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 180,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "ON0I EVRC_CON0I register value"
+    },
+    "UCB0_PMS_EVRC_C_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 184,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "ON0 EVRC_CON0 register value"
+    },
+    "UCB0_PMS_EVRC_C_3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 188,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "ON1 EVRC_CON1 register value"
+    },
+    "UCB0_PMS_EVRC_C_4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 192,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "ON2 EVRC_CON2 register value"
+    },
+    "UCB0_PMS_EVRC_C_5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 196,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "ON3 EVRC_CON3 register value"
+    },
+    "UCB0_PMS_EVRC_C_6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 200,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "ON4 EVRC_CON4 value"
+    },
+    "UCB0_PMS_EVRC_C_7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 204,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "OEFF0 EVRC_COEFF0 register value"
+    },
+    "UCB0_PMS_EVRC_C_8": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 208,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "OEFF1 EVRC_COEFF1 register value"
+    },
+    "UCB0_PMS_EVRC_C_9": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 212,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "OEFF2 EVRC_COEFF2 register value"
+    },
+    "UCB0_PMS_EVRC_C_10": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 216,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "OEFF3 EVRC_COEFF3 register value"
+    },
+    "UCB0_PMS_EVRC_C_11": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 220,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "OEFF4 EVRC_COEFF4 register value"
+    },
+    "UCB0_PMS_EVRC_C_12": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 224,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "OEFF5 EVRC_COEFF5 register value"
+    },
+    "UCB0_PMS_DTS_TRI": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 228,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "M PMS_DTS_TRIM register value"
+    },
+    "UCB0_PMS_ALIAS_P": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 232,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VDDEXTDCCON ALIAS_PVDDEXTDCCON register value"
+    },
+    "UCB0_PMS_ALIAS_V": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 236,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "DDEXTDCRST ALIAS_VDDEXTDCRST register value"
+    },
+    "UCB0_PMS_ALIAS_E": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 240,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VRCCON1 ALIAS_EVRCCON1 register value"
+    },
+    "UCB0_PMS_ALIAS_E_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 244,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VRCCOEFF0 ALIAS_EVRCCOEFF0 register value"
+    },
+    "UCB0_PMS_ALIAS_E_3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 248,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VRCCOEFF1 ALIAS_EVRCCOEFF1 register value"
+    },
+    "UCB0_PMS_ALIAS_E_4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 252,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VRCCOEFF2 ALIAS_EVRCCOEFF2 register value"
+    },
+    "UCB0_PMS_ALIAS_E_5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 256,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VRCCOEFF3 ALIAS_EVRCCOEFF3 register value"
+    },
+    "UCB0_PMS_ALIAS_E_6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 260,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VRCCOEFF4 ALIAS_EVRCCOEFF4 register value"
+    },
+    "UCB0_PMS_HPOSCT": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 264,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "RIM PMS_HPOSCTRIM register value"
+    },
+    "UCB0_PMS_HPBGTRI": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 268,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "M PMS_HPBGTRIM register value"
+    },
+    "UCB0_PMS_PMS0TRI": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 272,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "M PMS_PMS0TRIM register value"
+    },
+    "UCB0_PMS_DTS_CO": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 276,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "N PMS_DTS_CON register value"
+    },
+    "CRC_RTCCFG1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 280,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "CRC Checksum for values from RTCCFG1 area",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "UCB0_RTCCFG2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 352,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "System Address of this Location"
+    },
+    "LENGTH2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 356,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Length of this table"
+    },
+    "UCB0_TRI_LBIST_CTRL_CFGA": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 360,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "TRI_LBIST_CTRL_CFGA register value",
+      "x-danger": "brick"
+    },
+    "UCB0_TRI_LBIST_CTRL_CFGB": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 364,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "TRI_LBIST_CTRL_CFGB register value",
+      "x-danger": "brick"
+    },
+    "UCB0_TRI_LBIST_CTRL_CFGC": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 368,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "TRI_LBIST_CTRL_CFGC register value",
+      "x-danger": "brick"
+    },
+    "UCB0_TRI_LBIST_CTRL_CFGD": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 372,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "TRI_LBIST_CTRL_CFGD register value",
+      "x-danger": "brick"
+    },
+    "UCB0_TRI_LBIST_CTRL_CFGE": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 376,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "TRI_LBIST_CTRL_CFGE register value",
+      "x-danger": "brick"
+    },
+    "UCB0_TRI_LBIST_CTRL_CFGF": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 380,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "TRI_LBIST_CTRL_CFGF register value",
+      "x-danger": "brick"
+    },
+    "UCB0_TRI_LBIST_CTRL_DOM": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 384,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "TRI_LBIST_CTRL_DOM register value",
+      "x-danger": "brick"
+    },
+    "UCB0_HSPHY_DLL_D": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 388,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "LLCTL0 HSPHY_DLL_DLLCTL0 register value"
+    },
+    "UCB0_HSPHY_DLL_D_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 392,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "LLCTL1 HSPHY_DLL_DLLCTL1 register value"
+    },
+    "UCB0_HSPHY_PADTR": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 396,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "IM HSPHY_PADTRIM register value"
+    },
+    "CRC_RTCCFG2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 400,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "CRC Checksum for values from RTCCFG2 area",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "UCB0_RTCCFG3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 496,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "System Address of this Location"
+    },
+    "LENGTH3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 500,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Length of this table"
+    },
+    "UCB0_P13_LPCR0P13_LPCR0": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 504,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "UCB0_P13_LPCR1P13_LPCR1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 508,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "UCB0_P13_LPCR2P13_LPCR2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 512,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "UCB0_P13_LPCR3P13_LPCR3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 516,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "UCB0_P14_LPCR5P14_LPCR5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 520,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "UCB0_P15_LPCR5P15_LPCR5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 524,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "UCB0_P15_LPCR6P15_LPCR6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 528,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "UCB0_P21_LPCR0P21_LPCR0": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 532,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "UCB0_P21_LPCR1P21_LPCR1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 536,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "UCB0_P21_LPCR2P21_LPCR2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 540,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "UCB0_P22_LPCR0P22_LPCR0": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 544,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "UCB0_P22_LPCR1P22_LPCR1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 548,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "UCB0_DMU_GP_PCO": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 552,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "NTROL DMU_GP_PCONTROL"
+    },
+    "UCB0_TCB": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 556,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "TCB Test constraint Register for Resistor trimming/default"
+    },
+    "UCB0_SCU_SPARE0SCU_SPARE0": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 560,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "UCB0_SCU_SPARE1SCU_SPARE1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 564,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "CRC_RTCCFG3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 568,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "CRC Checksum for values from RTCCFG3 area",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "UCB0_RTCCFG4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 576,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "System Address of this Location"
+    },
+    "LENGTH4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 580,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Length of this table"
+    },
+    "UCB0_P01_BGTRIMP01_BGTRIM": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 584,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "UCB0_P13_BGTRIMP13_BGTRIM": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 588,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "UCB0_P14_BGTRIMP14_BGTRIM": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 592,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "UCB0_P21_BGTRIMP21_BGTRIM": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 596,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "UCB0_P22_BGTRIMP22_BGTRIM": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 600,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "UCB0_P30_BGTRIMP30_BGTRIM": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 604,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "register value"
+    },
+    "CRC_RTCCFG4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 608,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "CRC Checksum for values from RTCCFG4 area",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "UCB0_RTCCFG7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 656,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "System Address of this Location"
+    },
+    "LENGTH7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 660,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Length of this table"
+    },
+    "UCB0_VTMON_DTS0_TRIM": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 664,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VTMON_DTSx_TRIM (for x=0; x=1..4 if using broadcast)"
+    },
+    "UCB0_VTMON_DTS1_TRIM": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 668,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VTMON_DTS1_TRIM (if separate value, no broadcast)"
+    },
+    "UCB0_VTMON_DTS2_TRIM": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 672,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VTMON_DTS2_TRIM (if separate value, no broadcast)"
+    },
+    "UCB0_VTMON_DTS3_TRIM": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 676,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VTMON_DTS3_TRIM (if separate value, no broadcast)"
+    },
+    "UCB0_VTMON_DTS4_TRIM": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 680,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "VTMON_DTS4_TRIM (if separate value, no broadcast)"
+    },
+    "CRC_RTCCFG7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 684,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "CRC Checksum for values from RTCCFG7 area",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "CONFIRMATION_ORIG": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2032,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "Confirmation CODE ORIGINAL, 32-bit",
+      "x-danger": "lock"
+    },
+    "CONFIRMATION_COPY": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615,
+      "x-offset": 2040,
+      "x-size": 8,
+      "x-endian": "little",
+      "x-help": "Confirmation CODE COPY, 32-bit",
+      "x-danger": "lock",
+      "x-computed": "confirmation"
+    }
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://tc4dx/BMHD0_CS",
+  "title": "BMHD0_CS (TC4Dx UCB1_03)",
+  "x-ucb-meta": {
+    "name": "BMHD0_CS",
+    "size": 2048,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC4Dx": {
+        "orig": "0xAEC01800"
+      }
+    },
+    "source": "TC4Dx UM \u00a749.4 (v1.1 (2025-04-22)) slot UCB1_03"
+  },
+  "type": "object",
+  "properties": {
+    "SAL": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 0,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "System Address of this Location"
+    },
+    "BMI_BMHDID": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 4,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Boot Mode Index and Boot Mode Header ID",
+      "x-danger": "brick"
+    },
+    "STAD": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 8,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Start address",
+      "x-danger": "brick"
+    },
+    "CRCBMHD": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 12,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "Check Result for the BMI Header (offset 000H - 00BH)",
+      "x-danger": "brick",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "PW0": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2000,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW0 (least significant)",
+      "x-danger": "lock"
+    },
+    "PW1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2004,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW1",
+      "x-danger": "lock"
+    },
+    "PW2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2008,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW2",
+      "x-danger": "lock"
+    },
+    "PW3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2012,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW3",
+      "x-danger": "lock"
+    },
+    "PW4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2016,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW4",
+      "x-danger": "lock"
+    },
+    "PW5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2020,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW5",
+      "x-danger": "lock"
+    },
+    "PW6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2024,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW6",
+      "x-danger": "lock"
+    }
+  }
+}

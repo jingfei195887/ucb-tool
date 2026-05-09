@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://tc4zx/UCB0_20",
+  "title": "UCB0_20 (TC4Zx UCB0_20)",
+  "x-ucb-meta": {
+    "name": "UCB0_20",
+    "size": 256,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC4Zx": {
+        "orig": "0xAE401400"
+      }
+    },
+    "source": "TC4Zx UM \u00a744.4 (v0.9 (2025-03-25)) slot UCB0_20"
+  },
+  "type": "object",
+  "properties": {
+    "UCB_RTC_USER20_WORD": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 4294967295
+      },
+      "minItems": 60,
+      "maxItems": 60,
+      "x-offset": 0,
+      "x-size": 240,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "UCB_RTC_USER20 Word x"
+    },
+    "CONFIRMATION": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 240,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "Confirmation CODE ORIGINAL, 32-bit",
+      "x-danger": "lock"
+    },
+    "CONFIRMATION_COP": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 248,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "Y Confirmation CODE COPY, 32-bit",
+      "x-danger": "lock"
+    }
+  }
+}

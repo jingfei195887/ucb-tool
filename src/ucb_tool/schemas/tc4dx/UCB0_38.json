@@ -1,0 +1,368 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://tc4dx/UCB0_38",
+  "title": "UCB0_38 (TC4Dx UCB0_38)",
+  "x-ucb-meta": {
+    "name": "UCB0_38",
+    "size": 2048,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC4Dx": {
+        "orig": "0xAE413000"
+      }
+    },
+    "source": "TC4Dx UM \u00a749.4 (v1.1 (2025-04-22)) slot UCB0_38"
+  },
+  "type": "object",
+  "properties": {
+    "SAL": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 0,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "System Address of this Location"
+    },
+    "TMADCx_HOT_0": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 4,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Correction values dVDDK for TMADCx at HOT (entry 0)"
+    },
+    "TMADCx_HOT_1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 12,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Correction values dVDDK for TMADCx at HOT (entry 1)"
+    },
+    "TMADCx_HOT_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 20,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Correction values dVDDK for TMADCx at HOT (entry 2)"
+    },
+    "TMADCx_HOT_3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 28,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Correction values dVDDK for TMADCx at HOT (entry 3)"
+    },
+    "TMADCx_HOT_4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 36,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Correction values dVDDK for TMADCx at HOT (entry 4)"
+    },
+    "TMADCx_HOT_5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 44,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Correction values dVDDK for TMADCx at HOT (entry 5)"
+    },
+    "TMADCx_HOT_6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 52,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Correction values dVDDK for TMADCx at HOT (entry 6)"
+    },
+    "TMADCx_HOT_7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 60,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Correction values dVDDK for TMADCx at HOT (entry 7)"
+    },
+    "TMADCx_COLD_0": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 8,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Correction values dVDDK for TMADCx at COLD (entry 0)"
+    },
+    "TMADCx_COLD_1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 16,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Correction values dVDDK for TMADCx at COLD (entry 1)"
+    },
+    "TMADCx_COLD_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 24,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Correction values dVDDK for TMADCx at COLD (entry 2)"
+    },
+    "TMADCx_COLD_3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 32,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Correction values dVDDK for TMADCx at COLD (entry 3)"
+    },
+    "TMADCx_COLD_4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 40,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Correction values dVDDK for TMADCx at COLD (entry 4)"
+    },
+    "TMADCx_COLD_5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 48,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Correction values dVDDK for TMADCx at COLD (entry 5)"
+    },
+    "TMADCx_COLD_6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 56,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Correction values dVDDK for TMADCx at COLD (entry 6)"
+    },
+    "TMADCx_COLD_7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 64,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Correction values dVDDK for TMADCx at COLD (entry 7)"
+    },
+    "CRC_ADCTRIM": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 68,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "Check Result for this table",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "UCB0_LBIST_RES": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 72,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "System Address of this Location",
+      "x-danger": "brick"
+    },
+    "LBIST_STAT_RESx_K": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 76,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "EYON LBIST_STAT_RESx_KEYON reference value",
+      "x-danger": "lock"
+    },
+    "LBIST_STAT_RESx_K_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 116,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "EYOFF LBIST_STAT_RESx_KEYOFF reference value",
+      "x-danger": "lock"
+    },
+    "CRC_LBIST_RES": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 156,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "Check Result for this table",
+      "x-danger": "brick",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "SAL1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 160,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "System Address of this Location"
+    },
+    "VTMON_VMOND0_CO": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 164,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "NA DVMON0 calibration value"
+    },
+    "VTMON_VMOND1_CO": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 168,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "NA DVMON1 calibration value"
+    },
+    "VTMON_VMOND2_CO": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 172,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "NA DVMON2 calibration value"
+    },
+    "VTMON_VMOND3_CO": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 176,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "NA DVMON3 calibration value"
+    },
+    "VTMON_VMOND4_CO": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 180,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "NA DVMON4 calibration value"
+    },
+    "VTMON_VMOND5_CO": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 184,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "NA DVMON5 calibration value"
+    },
+    "VTMON_VMOND6_CO": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 188,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "NA DVMON6 calibration value"
+    },
+    "VTMON_VMOND7_CO": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 192,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "NA DVMON7 calibration value"
+    },
+    "CRC_RTCCFG8": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 196,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "CRC Checksum for values from RTCCFG8 area",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "CONFIRMATION": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615,
+      "x-offset": 2032,
+      "x-size": 8,
+      "x-endian": "little",
+      "x-help": "Confirmation CODE ORIGINAL, 32-bit",
+      "x-danger": "lock",
+      "x-computed": "confirmation"
+    },
+    "CONFIRMATION_COPY": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615,
+      "x-offset": 2040,
+      "x-size": 8,
+      "x-endian": "little",
+      "x-help": "Confirmation CODE COPY, 32-bit",
+      "x-danger": "lock",
+      "x-computed": "confirmation"
+    }
+  }
+}

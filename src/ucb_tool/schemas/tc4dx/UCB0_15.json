@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://tc4dx/UCB0_15",
+  "title": "UCB0_15 (TC4Dx UCB0_15)",
+  "x-ucb-meta": {
+    "name": "UCB0_15",
+    "size": 2048,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC4Dx": {
+        "orig": "0xAE407800"
+      }
+    },
+    "source": "TC4Dx UM \u00a749.4 (v1.1 (2025-04-22)) slot UCB0_15"
+  },
+  "type": "object",
+  "properties": {
+    "CUST_RTC_DATA0_WORDx": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 0,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Customer RTC data0 Word x"
+    },
+    "PW0": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2000,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW0 (least significant)",
+      "x-danger": "lock"
+    }
+  }
+}

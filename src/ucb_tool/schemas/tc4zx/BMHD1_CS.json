@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://tc4zx/BMHD1_CS",
+  "title": "BMHD1_CS (TC4Zx UCB1_04)",
+  "x-ucb-meta": {
+    "name": "BMHD1_CS",
+    "size": 256,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC4Zx": {
+        "orig": "0xAEC00400"
+      }
+    },
+    "source": "TC4Zx UM \u00a744.4 (v0.9 (2025-03-25)) slot UCB1_04"
+  },
+  "type": "object",
+  "properties": {
+    "SAL": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 0,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "System address of this location"
+    },
+    "BMI_BMHDID": {
+      "type": "object",
+      "x-offset": 4,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-bitfield": true,
+      "title": "Boot Mode Index (BMI) and Boot Mode Header ID (CODE) = B359H",
+      "properties": {
+        "BMI": {
+          "type": "integer",
+          "x-bits": [
+            0,
+            15
+          ],
+          "title": "Boot Mode Index",
+          "x-danger": "brick"
+        },
+        "BMHDID": {
+          "type": "integer",
+          "x-bits": [
+            16,
+            31
+          ],
+          "title": "Boot Mode Header ID B359H BMHD: Constant value for BMHD identification",
+          "x-danger": "brick"
+        }
+      }
+    },
+    "STAD": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 8,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Start Address",
+      "x-danger": "brick"
+    },
+    "CRC_BMH": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 12,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "Check Result for the BMI Header (offset 000H - 007H)",
+      "x-danger": "brick",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "CONFIRMATION": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 240,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "32-bit CODE",
+      "x-danger": "lock"
+    },
+    "CONFIRMATION_COP": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 248,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "32-bit CODE",
+      "x-danger": "lock"
+    }
+  }
+}

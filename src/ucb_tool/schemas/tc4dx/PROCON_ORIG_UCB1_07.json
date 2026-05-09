@@ -1,0 +1,172 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://tc4dx/PROCON_ORIG_UCB1_07",
+  "title": "PROCON_ORIG_UCB1_07 (TC4Dx UCB1_07)",
+  "x-ucb-meta": {
+    "name": "PROCON_ORIG_UCB1_07",
+    "size": 2048,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC4Dx": {
+        "orig": "0xAEC03800"
+      }
+    },
+    "source": "TC4Dx UM \u00a749.4 (v1.1 (2025-04-22)) slot UCB1_07"
+  },
+  "type": "object",
+  "properties": {
+    "DMU_GP_": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 0,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "CSRM_PFPROCONP WPn_Set_1 DMU_GP_CSRM_PFPROCONPWPn, OTP set 1",
+      "x-danger": "lock"
+    },
+    "DMU_GP__2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 16,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "CSRM_DBGCFG_Set_ 1 DMU_GP_CSRM_DBGCFG",
+      "x-danger": "brick"
+    },
+    "DMU_GP__3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 256,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "CSRM_PFPROCONP WOPn_Set_1 DMU_GP_CSRM_PFPROCONPWOPn, OTP set 1",
+      "x-danger": "lock"
+    },
+    "DMU_GP__4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 512,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "CSRM_PFPROCONP WPn_Set_2 DMU_GP_CSRM_PFPROCONPWPn, OTP set 2",
+      "x-danger": "lock"
+    },
+    "DMU_GP__5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 528,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "CSRM_DBGCFG_Set_ 2 DMU_GP_CSRM_DBGCFG",
+      "x-danger": "brick"
+    },
+    "DMU_GP__6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 768,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "CSRM_PFPROCONP WOPn_Set_2 DMU_GP_CSRM_PFPROCONPWOPn, OTP set 2",
+      "x-danger": "lock"
+    },
+    "DMU_GP__7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 1024,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "CSRM_PFPROCONP WPn_Set_3 DMU_GP_CSRM_PFPROCONPWPn, OTP set 3",
+      "x-danger": "lock"
+    },
+    "DMU_GP__8": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 1040,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "CSRM_DBGCFG_Set_ 3 DMU_GP_CSRM_DBGCFG",
+      "x-danger": "brick"
+    },
+    "DMU_GP__9": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 1280,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "CSRM_PFPROCONP WOPn_Set_3 DMU_GP_CSRM_PFPROCONPWOPn, OTP set 3",
+      "x-danger": "lock"
+    },
+    "DMU_PRO": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 1536,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "T_APUBYPASS DMU_PROT_APUBYPASS"
+    },
+    "CONFIRMATION_Set_1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 1984,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "Confirmation CODE ORIGINAL Set_1, 32-bit",
+      "x-danger": "lock"
+    },
+    "CONFIRMATION_Set_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2000,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "Confirmation CODE ORIGINAL Set_2, 32-bit",
+      "x-danger": "lock"
+    },
+    "CONFIRMATION_Set_3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2016,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "Confirmation CODE ORIGINAL Set_3, 32-bit",
+      "x-danger": "lock"
+    },
+    "CONFIRMA": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2032,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "TION_APUBYPASS Confirmation CODE ORIGINAL APUBYPASS, 32-bit",
+      "x-danger": "lock"
+    }
+  }
+}

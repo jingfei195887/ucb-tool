@@ -1,0 +1,270 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://tc4dx/UCB0_36",
+  "title": "UCB0_36 (TC4Dx UCB0_36)",
+  "x-ucb-meta": {
+    "name": "UCB0_36",
+    "size": 2048,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC4Dx": {
+        "orig": "0xAE412000"
+      }
+    },
+    "source": "TC4Dx UM \u00a749.4 (v1.1 (2025-04-22)) slot UCB0_36"
+  },
+  "type": "object",
+  "properties": {
+    "UCID0": {
+      "type": "object",
+      "x-offset": 0,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-bitfield": true,
+      "title": "Unique Chip Identifier Word 0",
+      "properties": {
+        "Man_ID": {
+          "type": "integer",
+          "x-bits": [
+            0,
+            7
+          ],
+          "title": "Manufacturer ID (0x40 for IFX)",
+          "x-enum-names": {
+            "1": "blind"
+          }
+        },
+        "RES": {
+          "type": "integer",
+          "x-bits": [
+            8,
+            9
+          ],
+          "title": "RESERVED",
+          "x-enum-names": {
+            "1": "blind"
+          }
+        },
+        "e_low": {
+          "type": "integer",
+          "x-bits": [
+            10,
+            14
+          ],
+          "title": "e[4:0]",
+          "x-enum-names": {
+            "1": "blind"
+          }
+        },
+        "Y_coor": {
+          "type": "integer",
+          "x-bits": [
+            15,
+            22
+          ],
+          "title": "Y coordinate wafer (invalid if BLIND=1)",
+          "x-enum-names": {
+            "1": "blind"
+          }
+        },
+        "X_coor": {
+          "type": "integer",
+          "x-bits": [
+            23,
+            30
+          ],
+          "title": "X coordinate wafer (invalid if BLIND=1) BLIND 31 r Indicator for wafer test or blind assembly device: 0=wafer tested; 1=blind assembled",
+          "x-enum-names": {
+            "1": "blind"
+          }
+        }
+      }
+    },
+    "UCID1": {
+      "type": "object",
+      "x-offset": 4,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-bitfield": true,
+      "title": "Unique Chip Identifier Word 1",
+      "properties": {
+        "WAFER": {
+          "type": "integer",
+          "x-bits": [
+            0,
+            5
+          ],
+          "title": "Wafer Number (invalid if UCID0.BLIND=1)"
+        },
+        "X": {
+          "type": "integer",
+          "x-bits": [
+            6,
+            11
+          ],
+          "title": "Splitlot coding character x[5:0] RES 12 r RESERVED e_high 13 r e[5] (always 0)"
+        },
+        "D": {
+          "type": "integer",
+          "x-bits": [
+            14,
+            19
+          ],
+          "title": "Serial Number d[5:0]"
+        },
+        "C": {
+          "type": "integer",
+          "x-bits": [
+            20,
+            25
+          ],
+          "title": "c[5:0]"
+        },
+        "B": {
+          "type": "integer",
+          "x-bits": [
+            26,
+            31
+          ],
+          "title": "b[5:0]"
+        }
+      }
+    },
+    "UCID2": {
+      "type": "object",
+      "x-offset": 8,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-bitfield": true,
+      "title": "Unique Chip Identifier Word 2",
+      "properties": {
+        "A": {
+          "type": "integer",
+          "x-bits": [
+            0,
+            5
+          ],
+          "title": "a[5:0]"
+        },
+        "TSMC_FAB": {
+          "type": "integer",
+          "x-bits": [
+            6,
+            10
+          ],
+          "title": "TSMC Fab ID (0b10100)"
+        },
+        "DAY": {
+          "type": "integer",
+          "x-bits": [
+            11,
+            15
+          ],
+          "title": "Day of production"
+        },
+        "MONTH": {
+          "type": "integer",
+          "x-bits": [
+            16,
+            19
+          ],
+          "title": "Month of production"
+        },
+        "YEAR": {
+          "type": "integer",
+          "x-bits": [
+            20,
+            27
+          ],
+          "title": "Year of production"
+        },
+        "SUPP_ID": {
+          "type": "integer",
+          "x-bits": [
+            28,
+            31
+          ],
+          "title": "Supplier ID (DD=0001, TSMC=0010 (65nm), TSMC=0011(28nm), GF=0100 (40nm) )"
+        }
+      }
+    },
+    "BOM": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 16,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Bill of materials"
+    },
+    "UCODE": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 20,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Flash Microcode Version"
+    },
+    "DEVCFG_SBF_version": {
+      "type": "object",
+      "x-offset": 24,
+      "x-size": 1,
+      "x-endian": "little",
+      "x-bitfield": true,
+      "title": "SBF version",
+      "properties": {
+        "Vy_low": {
+          "type": "integer",
+          "x-bits": [
+            0,
+            3
+          ],
+          "title": "Vy_low"
+        },
+        "Vy_high": {
+          "type": "integer",
+          "x-bits": [
+            4,
+            7
+          ],
+          "title": "Vy_high 15:12 r Vy_high"
+        }
+      }
+    },
+    "DEVCFG_PTE_version": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 28,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "PTE version"
+    },
+    "CONFIRMATION": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615,
+      "x-offset": 2032,
+      "x-size": 8,
+      "x-endian": "little",
+      "x-help": "Confirmation CODE ORIGINAL, 32-bit",
+      "x-danger": "lock",
+      "x-computed": "confirmation"
+    },
+    "CONFIRMATION_COPY": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615,
+      "x-offset": 2040,
+      "x-size": 8,
+      "x-endian": "little",
+      "x-help": "Confirmation CODE COPY, 32-bit",
+      "x-danger": "lock",
+      "x-computed": "confirmation"
+    }
+  }
+}
