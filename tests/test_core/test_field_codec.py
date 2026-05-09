@@ -81,32 +81,47 @@ def test_crc32_single_zero():
 
 def test_magic_lengths_are_8_bytes():
     for state in ConfirmationState:
-        assert len(confirmation_magic(state, mode=0)) == 8
-        assert len(confirmation_magic(state, mode=1)) == 8
+        assert len(confirmation_magic(state)) == 8
 
 
-def test_unlocked_mode0_matches_real_ucb_dump():
+def test_unlocked_magic_matches_real_ucb_dump():
     # Verified against a real TC4Dx UNLOCKED UCB dump: bytes 0x7F0..0x7F7
-    # in every UCB slot contain 34 12 21 43 00 00 00 00.
-    # Same byte pattern also appears in aurix_ucb.c:178 confirmation_code[]
-    # when UCB_CONFIRMATION_MODE=0 — the C code tests *for* UNLOCKED.
-    assert confirmation_magic(ConfirmationState.UNLOCKED, mode=0) == \
+    # in every UCB slot contain 34 12 21 43 00 00 00 00 (LE 0x43211234).
+    assert confirmation_magic(ConfirmationState.UNLOCKED) == \
         b"\x34\x12\x21\x43\x00\x00\x00\x00"
 
 
-def test_unlocked_mode1_matches_aurix_ucb_c():
-    # From aurix_ucb.c:173 confirmation_code[] when UCB_CONFIRMATION_MODE=1
-    assert confirmation_magic(ConfirmationState.UNLOCKED, mode=1) == \
+def test_confirmed_magic_is_0x57B5327F():
+    # Per user: the CONFIRMED state magic is 0x57B5327F
+    # (bytes 7F 32 B5 57 00 00 00 00, little-endian).
+    assert confirmation_magic(ConfirmationState.CONFIRMED) == \
         b"\x7f\x32\xb5\x57\x00\x00\x00\x00"
 
 
 def test_detect_unlocked_from_real_bytes():
-    # The exact byte pattern a virgin/unlocked UCB has in its CONFIRMATION slot.
-    blob = b"\x34\x12\x21\x43\x00\x00\x00\x00"
-    assert detect_confirmation(blob, mode=0) == ConfirmationState.UNLOCKED
+    assert detect_confirmation(b"\x34\x12\x21\x43\x00\x00\x00\x00") == \
+        ConfirmationState.UNLOCKED
+
+
+def test_detect_confirmed_from_real_bytes():
+    assert detect_confirmation(b"\x7f\x32\xb5\x57\x00\x00\x00\x00") == \
+        ConfirmationState.CONFIRMED
+
+
+def test_detect_anything_else_is_errored():
+    # Virgin flash
+    assert detect_confirmation(b"\xff" * 8) == ConfirmationState.ERRORED
+    # All zeros
+    assert detect_confirmation(b"\x00" * 8) == ConfirmationState.ERRORED
+    # Near-miss (last byte differs from UNLOCKED)
+    assert detect_confirmation(b"\x34\x12\x21\x43\x00\x00\x00\x01") == \
+        ConfirmationState.ERRORED
+    # Byte-swapped UNLOCKED
+    assert detect_confirmation(b"\x43\x21\x34\x12\x00\x00\x00\x00") == \
+        ConfirmationState.ERRORED
 
 
 def test_detect_roundtrip():
     for state in ConfirmationState:
-        blob = confirmation_magic(state, mode=0)
-        assert detect_confirmation(blob, mode=0) == state
+        blob = confirmation_magic(state)
+        assert detect_confirmation(blob) == state

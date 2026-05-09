@@ -201,7 +201,7 @@ class UcbInstance:
         self._write(self.buf_copy, self.field_by_path(path), value)
 
 
-def _recompute_fields(inst: UcbInstance, mode: int = 0) -> None:
+def _recompute_fields(inst: UcbInstance) -> None:
     for f in inst.fields:
         algo = f.computed
         if not algo:
@@ -217,7 +217,10 @@ def _recompute_fields(inst: UcbInstance, mode: int = 0) -> None:
                     f.size, "little"
                 )
         elif algo == "confirmation":
-            magic = confirmation_magic(ConfirmationState.CONFIRMED, mode=mode)
+            # Default to UNLOCKED when auto-recomputing — this is the safe
+            # choice for freshly written UCBs that are not yet password-locked.
+            # Users who explicitly want CONFIRMED must write it before save.
+            magic = confirmation_magic(ConfirmationState.UNLOCKED)
             # f.size should be 8; if the schema says otherwise, truncate/extend
             magic = magic[:f.size].ljust(f.size, b"\x00")
             inst.buf_orig[f.offset:f.offset + f.size] = magic
