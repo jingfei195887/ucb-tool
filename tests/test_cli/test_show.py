@@ -2,6 +2,7 @@ from pathlib import Path
 
 from click.testing import CliRunner
 
+from tests.conftest import LEGACY_COMMON_DIR
 from ucb_tool.cli.__main__ import main
 from ucb_tool.core.hex_io import write_hex
 
@@ -12,7 +13,8 @@ def test_show_prints_ucb_tree(tmp_path: Path):
     write_hex(hex_path, data)
 
     runner = CliRunner()
-    result = runner.invoke(main, ["show", str(hex_path), "--chip", "tc4d9"])
+    result = runner.invoke(main, ["show", str(hex_path), "--chip", "tc4d9",
+                                  "--schemas", str(LEGACY_COMMON_DIR)])
     assert result.exit_code == 0, result.output
     assert "BMHD_0" in result.output
     assert "STAD" in result.output

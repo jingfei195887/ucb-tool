@@ -1,6 +1,7 @@
 from click.testing import CliRunner
 from openpyxl import load_workbook
 
+from tests.conftest import LEGACY_COMMON_DIR
 from ucb_tool.cli.__main__ import main
 from ucb_tool.core.hex_io import write_hex
 
@@ -18,6 +19,7 @@ def test_diff_produces_change_rows(tmp_path):
     out = tmp_path / "diff.xlsx"
     result = runner.invoke(main, [
         "diff", str(a), str(b), "--chip", "tc4d9", "--out", str(out),
+        "--schemas", str(LEGACY_COMMON_DIR),
     ])
     assert result.exit_code == 0, result.output
 

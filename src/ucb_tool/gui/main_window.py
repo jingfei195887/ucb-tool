@@ -148,11 +148,17 @@ class MainWindow(QMainWindow):
         self.statusBar().showMessage(f"Applied {path_s}")
 
     # ---- Helpers ----
+
+    #: Tests may append additional schema directories here before calling
+    #: :meth:`_load`; the GUI never touches this list itself.
+    _extra_common_dirs: list[Path] = []  # noqa: RUF012
+
     def _load(self, path: str, chip: str) -> UcbBundle:
         root = Path(ucb_tool.__file__).parent / "schemas"
         chip_dir = root / get_profile(chip).schema_dir
+        common_dirs = [root / "common", *self._extra_common_dirs]
         return UcbBundle.load(Path(path), chip,
-                              common_dirs=[root / "common"],
+                              common_dirs=common_dirs,
                               chip_schema_dir=chip_dir if chip_dir.is_dir() else None)
 
     def _populate_tree(self) -> None:

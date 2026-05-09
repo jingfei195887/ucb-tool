@@ -1,13 +1,9 @@
-from pathlib import Path
-
 import pytest
 
-import ucb_tool
+from tests.conftest import LEGACY_COMMON_DIR
 from ucb_tool.core.hex_io import write_hex
 from ucb_tool.core.ucb_bundle import UcbBundle
 from ucb_tool.gui.views.field_form import FieldForm
-
-SCHEMAS = Path(ucb_tool.__file__).parent / "schemas"
 
 
 @pytest.fixture
@@ -16,7 +12,8 @@ def bmhd_inst(tmp_path):
     data = {0xAF400000 + i: 0xFF for i in range(256)}
     write_hex(hex_path, data)
     bundle = UcbBundle.load(hex_path, "tc4d9",
-                            common_dirs=[SCHEMAS / "common"], chip_schema_dir=None)
+                            common_dirs=[LEGACY_COMMON_DIR],
+                            chip_schema_dir=None)
     return bundle["BMHD_0"]
 
 

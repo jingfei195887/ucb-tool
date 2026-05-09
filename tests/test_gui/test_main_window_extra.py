@@ -1,12 +1,8 @@
-from pathlib import Path
-
 import pytest
 
-import ucb_tool
+from tests.conftest import LEGACY_COMMON_DIR
 from ucb_tool.core.hex_io import write_hex
 from ucb_tool.gui.main_window import MainWindow
-
-SCHEMAS = Path(ucb_tool.__file__).parent / "schemas"
 
 
 @pytest.fixture
@@ -20,6 +16,7 @@ def hex_file(tmp_path):
 @pytest.fixture
 def loaded_win(qtbot, qapp, hex_file):
     win = MainWindow()
+    win._extra_common_dirs = [LEGACY_COMMON_DIR]
     qtbot.addWidget(win)
     win._source_path = hex_file
     win._current_chip = "tc4d9"
@@ -94,6 +91,7 @@ def test_on_open_chip_dialog_cancelled(qtbot, qapp, hex_file, monkeypatch):
 
 def test_on_open_success(qtbot, qapp, hex_file, monkeypatch):
     win = MainWindow()
+    win._extra_common_dirs = [LEGACY_COMMON_DIR]
     qtbot.addWidget(win)
     monkeypatch.setattr(
         "ucb_tool.gui.main_window.QFileDialog.getOpenFileName",

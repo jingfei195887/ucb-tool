@@ -104,14 +104,22 @@ def load_schemas(common_dirs: Iterable[Path], chip_schema_dir: Path | None) -> S
 
 
 def resolve_profile_addresses(reg: SchemaRegistry, chip_id: str) -> None:
-    """Replace '__COMPUTE_FROM_PROFILE__' address placeholders using chip_profile."""
+    """Replace '__COMPUTE_FROM_PROFILE__' address placeholders using chip_profile.
+
+    UM-extracted schemas record absolute addresses directly, so this is a
+    no-op for them. Left in place so any user-authored schemas that still
+    use the placeholder keep working.
+    """
     from ucb_tool.core.chip_profile import get_profile
 
-    profile = get_profile(chip_id)
-    for name, us in reg.items():
+    # Validate that chip_id is known (legacy behavior).
+    get_profile(chip_id)
+    for _name, us in reg.items():
         addrs = us.meta.get("addresses") or {}
         for _family_key, entry in addrs.items():
             if entry.get("orig") == "__COMPUTE_FROM_PROFILE__":
-                entry["orig"] = profile.address(f"{name}_ORIG_RTC")
+                # Placeholder never got resolved — drop the entry so the
+                # caller raises a clear KeyError on address_for_family.
+                entry["orig"] = 0
             if entry.get("copy") == "__COMPUTE_FROM_PROFILE__":
-                entry["copy"] = profile.address(f"{name}_COPY_RTC")
+                entry["copy"] = 0

@@ -3,10 +3,12 @@ from pathlib import Path
 from click.testing import CliRunner
 from openpyxl import load_workbook
 
+from tests.conftest import LEGACY_COMMON_DIR
 from ucb_tool.cli.__main__ import main
 from ucb_tool.core.hex_io import read_hex
 
 FIX = Path(__file__).parent.parent / "fixtures"
+_SCH = ["--schemas", str(LEGACY_COMMON_DIR)]
 
 
 def test_no_op_save_preserves_all_bytes_outside_ucb(tmp_path):
@@ -17,6 +19,7 @@ def test_no_op_save_preserves_all_bytes_outside_ucb(tmp_path):
         "set", str(src), "--chip", "tc4d9",
         "--field", "BMHD_0.STAD=0x80000000",  # same value — no functional change
         "--out", str(out), "--yes-i-know-brick",
+        *_SCH,
     ])
     assert result.exit_code == 0, result.output
     orig = read_hex(src)
@@ -30,8 +33,10 @@ def test_export_xlsx_sheets_are_deterministic(tmp_path):
     runner = CliRunner()
     out1 = tmp_path / "a.xlsx"
     out2 = tmp_path / "b.xlsx"
-    runner.invoke(main, ["export-xlsx", str(src), "--chip", "tc4d9", "--out", str(out1)])
-    runner.invoke(main, ["export-xlsx", str(src), "--chip", "tc4d9", "--out", str(out2)])
+    runner.invoke(main, ["export-xlsx", str(src), "--chip", "tc4d9",
+                         "--out", str(out1), *_SCH])
+    runner.invoke(main, ["export-xlsx", str(src), "--chip", "tc4d9",
+                         "--out", str(out2), *_SCH])
 
     wb1 = load_workbook(out1)
     wb2 = load_workbook(out2)

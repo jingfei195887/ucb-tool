@@ -1,13 +1,9 @@
-from pathlib import Path
-
 from openpyxl import load_workbook
 
-import ucb_tool
+from tests.conftest import LEGACY_COMMON_DIR
 from ucb_tool.core.hex_io import write_hex
 from ucb_tool.core.ucb_bundle import UcbBundle
 from ucb_tool.core.xlsx_io import export_to_xlsx
-
-SCHEMAS = Path(ucb_tool.__file__).parent / "schemas"
 
 
 def test_export_creates_meta_summary_and_per_ucb_sheets(tmp_path):
@@ -15,7 +11,7 @@ def test_export_creates_meta_summary_and_per_ucb_sheets(tmp_path):
     data = {0xAF400000 + i: 0xFF for i in range(256)}
     write_hex(hex_path, data)
     bundle = UcbBundle.load(hex_path, "tc4d9",
-                            common_dirs=[SCHEMAS / "common"],
+                            common_dirs=[LEGACY_COMMON_DIR],
                             chip_schema_dir=None)
 
     out = tmp_path / "u.xlsx"

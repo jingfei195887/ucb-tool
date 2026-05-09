@@ -162,6 +162,7 @@ def test_set_copy_requires_advanced(tmp_path):
 
 
 def test_save_recomputes_crc32(tmp_path):
+    from tests.conftest import LEGACY_COMMON_DIR
     from ucb_tool.core.field_codec import crc32_aurix
     from ucb_tool.core.hex_io import read_hex, slice_range, write_hex
 
@@ -169,10 +170,8 @@ def test_save_recomputes_crc32(tmp_path):
     data = {0xAF400000 + i: 0xFF for i in range(256)}
     write_hex(hex_path, data)
 
-    import ucb_tool
-    SCHEMAS = Path(ucb_tool.__file__).parent / "schemas"
     bundle = UcbBundle.load(hex_path, "tc4d9",
-                            common_dirs=[SCHEMAS / "common"],
+                            common_dirs=[LEGACY_COMMON_DIR],
                             chip_schema_dir=None)
     bundle["BMHD_0"].set("STAD", 0x80000000)
 

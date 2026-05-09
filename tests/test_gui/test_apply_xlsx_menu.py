@@ -1,13 +1,9 @@
-from pathlib import Path
-
 import pytest
 from openpyxl import load_workbook
 
-import ucb_tool
+from tests.conftest import LEGACY_COMMON_DIR
 from ucb_tool.core.hex_io import write_hex
 from ucb_tool.gui.main_window import MainWindow
-
-SCHEMAS = Path(ucb_tool.__file__).parent / "schemas"
 
 
 @pytest.fixture
@@ -17,6 +13,7 @@ def prepared_win(qtbot, qapp, tmp_path):
     write_hex(hex_path, data)
 
     win = MainWindow()
+    win._extra_common_dirs = [LEGACY_COMMON_DIR]
     qtbot.addWidget(win)
 
     # Programmatically load — bypass File/Open dialog

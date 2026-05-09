@@ -3,13 +3,11 @@ from pathlib import Path
 import pytest
 from openpyxl import load_workbook
 
-import ucb_tool
+from tests.conftest import LEGACY_COMMON_DIR
 from ucb_tool.core.errors import SchemaError
 from ucb_tool.core.hex_io import write_hex
 from ucb_tool.core.ucb_bundle import UcbBundle
 from ucb_tool.core.xlsx_io import apply_xlsx, export_to_xlsx
-
-SCHEMAS = Path(ucb_tool.__file__).parent / "schemas"
 
 
 def _make_bundle(tmp_path: Path) -> tuple[Path, UcbBundle]:
@@ -17,7 +15,8 @@ def _make_bundle(tmp_path: Path) -> tuple[Path, UcbBundle]:
     data = {0xAF400000 + i: 0xFF for i in range(256)}
     write_hex(hex_path, data)
     bundle = UcbBundle.load(hex_path, "tc4d9",
-                            common_dirs=[SCHEMAS / "common"], chip_schema_dir=None)
+                            common_dirs=[LEGACY_COMMON_DIR],
+                            chip_schema_dir=None)
     return hex_path, bundle
 
 
