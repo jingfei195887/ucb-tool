@@ -31,10 +31,14 @@ def test_populate_tree_fills_items(loaded_win):
 
 
 def test_on_select_updates_form(qtbot, loaded_win):
-    # Select the first tree item -> _on_select fires, form updated
+    # Tree top level is a HOST/CSRM region header; descend to the first
+    # real UCB child (one with a UserRole holding the UCB name).
+    from PySide6.QtCore import Qt
     item = loaded_win.tree.topLevelItem(0)
+    assert item is not None
+    while item.data(0, Qt.ItemDataRole.UserRole) is None and item.childCount() > 0:
+        item = item.child(0)
     loaded_win.tree.setCurrentItem(item)
-    # Form has rows after selection
     assert loaded_win.form.row_count() >= 1
 
 

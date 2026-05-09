@@ -161,16 +161,69 @@ class MainWindow(QMainWindow):
                               common_dirs=common_dirs,
                               chip_schema_dir=chip_dir if chip_dir.is_dir() else None)
 
+    # AURIX UCB address regions:
+    #   HOST (UCB0)  = 0xAE40_0000 .. 0xAE4F_FFFF  (RTC host CPU UCBs)
+    #   CSRM (UCB1)  = 0xAEC0_0000 .. 0xAECF_FFFF  (CS core / CSRM UCBs)
+    _HOST_REGION_LOW = 0xAE400000
+    _HOST_REGION_HIGH = 0xAE500000
+    _CSRM_REGION_LOW = 0xAEC00000
+    _CSRM_REGION_HIGH = 0xAED00000
+
     def _populate_tree(self) -> None:
+        """Group loaded UCBs into HOST / CSRM nodes, sort each group by address."""
         self.tree.clear()
         assert self._bundle is not None
-        for name in self._bundle.instances:
-            QTreeWidgetItem(self.tree, [name])
+
+        host_root = QTreeWidgetItem(self.tree, ["HOST (UCB0)"])
+        csrm_root = QTreeWidgetItem(self.tree, ["CSRM (UCB1)"])
+        other_root: QTreeWidgetItem | None = None  # lazy
+
+        # Collect (address, name, inst) and bucket by region.
+        host: list[tuple[int, str]] = []
+        csrm: list[tuple[int, str]] = []
+        other: list[tuple[int, str]] = []
+        for name, inst in self._bundle.instances.items():
+            addr = inst.orig_addr
+            if self._HOST_REGION_LOW <= addr < self._HOST_REGION_HIGH:
+                host.append((addr, name))
+            elif self._CSRM_REGION_LOW <= addr < self._CSRM_REGION_HIGH:
+                csrm.append((addr, name))
+            else:
+                other.append((addr, name))
+
+        for bucket, root in ((host, host_root), (csrm, csrm_root)):
+            bucket.sort()  # by address ascending
+            for addr, name in bucket:
+                label = f"{name}  @ 0x{addr:08X}"
+                child = QTreeWidgetItem(root, [label])
+                # Stash the raw UCB name for click-handling (display text has address suffix)
+                child.setData(0, Qt.ItemDataRole.UserRole, name)
+            root.setText(0, f"{root.text(0)}  ({len(bucket)})")
+            root.setExpanded(True)
+
+        if other:
+            other_root = QTreeWidgetItem(self.tree, [f"Other  ({len(other)})"])
+            other.sort()
+            for addr, name in other:
+                child = QTreeWidgetItem(other_root, [f"{name}  @ 0x{addr:08X}"])
+                child.setData(0, Qt.ItemDataRole.UserRole, name)
+            other_root.setExpanded(True)
+
+        # Hide empty region headers to avoid visual noise on chips that
+        # happen to have no UCBs in one region.
+        if not host:
+            host_root.setHidden(True)
+        if not csrm:
+            csrm_root.setHidden(True)
 
     def _on_select(self, current, previous) -> None:
         if current is None or self._bundle is None:
             return
-        name = current.text(0)
+        # Prefer the raw UCB name stashed in UserRole; fall back to display
+        # text (strips the " @ 0x..." suffix) for the top-level group nodes
+        # which carry no UserRole.
+        raw = current.data(0, Qt.ItemDataRole.UserRole)
+        name = raw if isinstance(raw, str) else current.text(0).split("  @ ")[0]
         inst = self._bundle.instances.get(name)
         if inst is not None:
             self.form.set_instance(inst)
