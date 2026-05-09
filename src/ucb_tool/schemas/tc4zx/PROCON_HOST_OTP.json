@@ -1,0 +1,524 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://tc4zx/PROCON_HOST_OTP",
+  "title": "PROCON_HOST_OTP (TC4Zx UCB0_04)",
+  "x-ucb-meta": {
+    "name": "PROCON_HOST_OTP",
+    "size": 256,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC4Zx": {
+        "orig": "0xAE400400"
+      }
+    },
+    "source": "TC4Zx UM \u00a744.4 (v0.9 (2025-03-25)) slot UCB0_04",
+    "tbd": [
+      "System offset 0x0 outside slot [0x400..0x500); skipped"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "UCB0_04SAL_1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 0,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "System Address of this Location"
+    },
+    "DMUR0_UR_UCBPRO": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 4,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "CONWP0 DMUR0_UR_UCBPROCONWP0",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_UCBPRO_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 8,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "CONWP1 DMUR0_UR_UCBPROCONWP1",
+      "x-danger": "lock"
+    },
+    "CRC_UCB0_04_1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 20,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "Check Result for this table",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "UCB0_04SAL_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 24,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "System Address of this Location"
+    },
+    "DMUR0_UR_UCBPRO_3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 28,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "CONOTP0 DMUR0_UR_UCBPROCONOTP0",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_UCBPRO_4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 32,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "CONOTP1 DMUR0_UR_UCBPROCONOTP1",
+      "x-danger": "lock"
+    },
+    "CRC_UCB0_04_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 44,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "Check Result for this table",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "UCB0_04SAL_3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 48,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "System Address of this Location"
+    },
+    "DMUR0_UR_DRPROCONWP0": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 52,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONWP0",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONWP1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 56,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONWP1",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONWP2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 60,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONWP2",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONWP3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 64,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONWP3",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONWP4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 68,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONWP4",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONWP5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 72,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONWP5",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONWP6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 76,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONWP6",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONWP7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 80,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONWP7",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONWP8": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 84,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONWP8",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONWP9": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 88,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONWP9",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONWP10": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 92,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONWP10",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONWP11": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 96,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONWP11",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONWP12": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 100,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONWP12",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONWP13": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 104,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONWP13",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONWP14": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 108,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONWP14",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONWP15": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 112,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONWP15",
+      "x-danger": "lock"
+    },
+    "CRC_UCB0_04_2_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 116,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "Check Result for this table",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "UCB0_04SAL_3_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 120,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "System Address of this Location"
+    },
+    "DMUR0_UR_DRPROCONOTP0": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 124,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONOTP0",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONOTP1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 128,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONOTP1",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONOTP2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 132,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONOTP2",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONOTP3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 136,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONOTP3",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONOTP4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 140,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONOTP4",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONOTP5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 144,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONOTP5",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONOTP6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 148,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONOTP6",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONOTP7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 152,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONOTP7",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONOTP8": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 156,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONOTP8",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONOTP9": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 160,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONOTP9",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONOTP10": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 164,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONOTP10",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONOTP11": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 168,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONOTP11",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONOTP12": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 172,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONOTP12",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONOTP13": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 176,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONOTP13",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONOTP14": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 180,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONOTP14",
+      "x-danger": "lock"
+    },
+    "DMUR0_UR_DRPROCONOTP15": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 184,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "DMUR0_UR_DRPROCONOTP15",
+      "x-danger": "lock"
+    },
+    "CRC_UCB0_04_2_3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 188,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "Check Result for this table",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "CONFIRMATION": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 240,
+      "x-size": 8,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "Confirmation CODE ORIGINAL, 32-bit",
+      "x-danger": "lock"
+    },
+    "CONFIRMATION_COPY": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 248,
+      "x-size": 8,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "Y Confirmation CODE COPY, 32-bit",
+      "x-danger": "lock"
+    }
+  }
+}

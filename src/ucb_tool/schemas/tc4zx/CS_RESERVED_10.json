@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://tc4zx/CS_RESERVED_10",
+  "title": "CS_RESERVED_10 (TC4Zx UCB1_10)",
+  "x-ucb-meta": {
+    "name": "CS_RESERVED_10",
+    "size": 256,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC4Zx": {
+        "orig": "0xAEC00A00"
+      }
+    },
+    "source": "TC4Zx UM \u00a744.4 (v0.9 (2025-03-25)) slot UCB1_10"
+  },
+  "type": "object",
+  "properties": {
+    "CUST_CS_DATA0_WO": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 0,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "RDx Customer CS data0 Word x"
+    },
+    "CONFIRMATION": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615,
+      "x-offset": 240,
+      "x-size": 8,
+      "x-endian": "little",
+      "x-help": "Confirmation CODE ORIGINAL, 32-bit",
+      "x-danger": "lock",
+      "x-computed": "confirmation"
+    },
+    "CONFIRMATION_COPY": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 248,
+      "x-size": 8,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "Confirmation CODE COPY, 32-bit",
+      "x-danger": "lock"
+    }
+  }
+}

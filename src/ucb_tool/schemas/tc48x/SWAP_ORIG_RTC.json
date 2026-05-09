@@ -1,0 +1,431 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://tc48x/SWAP_ORIG_RTC",
+  "title": "SWAP_ORIG_RTC (TC48x UCB0_06)",
+  "x-ucb-meta": {
+    "name": "SWAP_ORIG_RTC",
+    "size": 256,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC48x": {
+        "orig": "0xAE400600"
+      }
+    },
+    "source": "TC48x UM \u00a744.4 (v0.9 (2025-03-25)) slot UCB0_06"
+  },
+  "type": "object",
+  "properties": {
+    "SWAP_ORIG_SAL_0": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 0,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_SAL x (entry 0)"
+    },
+    "SWAP_ORIG_SAL_1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 16,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_SAL x (entry 1)"
+    },
+    "SWAP_ORIG_SAL_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 32,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_SAL x (entry 2)"
+    },
+    "SWAP_ORIG_SAL_3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 48,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_SAL x (entry 3)"
+    },
+    "SWAP_ORIG_SAL_4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 64,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_SAL x (entry 4)"
+    },
+    "SWAP_ORIG_SAL_5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 80,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_SAL x (entry 5)"
+    },
+    "SWAP_ORIG_SAL_6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 96,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_SAL x (entry 6)"
+    },
+    "SWAP_ORIG_SAL_7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 112,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_SAL x (entry 7)"
+    },
+    "SWAP_ORIG_SAL_8": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 128,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_SAL x (entry 8)"
+    },
+    "SWAP_ORIG_SAL_9": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 144,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_SAL x (entry 9)"
+    },
+    "SWAP_ORIG_SAL_10": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 160,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_SAL x (entry 10)"
+    },
+    "SWAP_ORIG_SAL_11": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 176,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_SAL x (entry 11)"
+    },
+    "SWAP_ORIG_SAL_12": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 192,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_SAL x (entry 12)"
+    },
+    "SWAP_ORIG_STATUS_0": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 4,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_STATUS x (entry 0)"
+    },
+    "SWAP_ORIG_STATUS_1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 20,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_STATUS x (entry 1)"
+    },
+    "SWAP_ORIG_STATUS_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 36,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_STATUS x (entry 2)"
+    },
+    "SWAP_ORIG_STATUS_3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 52,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_STATUS x (entry 3)"
+    },
+    "SWAP_ORIG_STATUS_4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 68,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_STATUS x (entry 4)"
+    },
+    "SWAP_ORIG_STATUS_5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 84,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_STATUS x (entry 5)"
+    },
+    "SWAP_ORIG_STATUS_6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 100,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_STATUS x (entry 6)"
+    },
+    "SWAP_ORIG_STATUS_7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 116,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_STATUS x (entry 7)"
+    },
+    "SWAP_ORIG_STATUS_8": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 132,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_STATUS x (entry 8)"
+    },
+    "SWAP_ORIG_STATUS_9": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 148,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_STATUS x (entry 9)"
+    },
+    "SWAP_ORIG_STATUS_10": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 164,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_STATUS x (entry 10)"
+    },
+    "SWAP_ORIG_STATUS_11": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 180,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_STATUS x (entry 11)"
+    },
+    "SWAP_ORIG_STATUS_12": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 196,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_STATUS x (entry 12)"
+    },
+    "SWAP_ORIG_MARKER_0": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 8,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_MARKER x (entry 0)"
+    },
+    "SWAP_ORIG_MARKER_1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 24,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_MARKER x (entry 1)"
+    },
+    "SWAP_ORIG_MARKER_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 40,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_MARKER x (entry 2)"
+    },
+    "SWAP_ORIG_MARKER_3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 56,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_MARKER x (entry 3)"
+    },
+    "SWAP_ORIG_MARKER_4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 72,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_MARKER x (entry 4)"
+    },
+    "SWAP_ORIG_MARKER_5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 88,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_MARKER x (entry 5)"
+    },
+    "SWAP_ORIG_MARKER_6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 104,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_MARKER x (entry 6)"
+    },
+    "SWAP_ORIG_MARKER_7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 120,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_MARKER x (entry 7)"
+    },
+    "SWAP_ORIG_MARKER_8": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 136,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_MARKER x (entry 8)"
+    },
+    "SWAP_ORIG_MARKER_9": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 152,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_MARKER x (entry 9)"
+    },
+    "SWAP_ORIG_MARKER_10": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 168,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_MARKER x (entry 10)"
+    },
+    "SWAP_ORIG_MARKER_11": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 184,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_MARKER x (entry 11)"
+    },
+    "SWAP_ORIG_MARKER_12": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 200,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAP_ORIG_MARKER x (entry 12)"
+    },
+    "SWAP_ORIG_CRCSEx": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 12,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "SWAP_ORIG_CRCSE x",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "UCB0_19_CONFIRMATION": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 240,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "Confirmation CODE ORIGINAL, 32-bit",
+      "x-danger": "lock"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://tc4zx/CS_USER19",
+  "title": "CS_USER19 (TC4Zx UCB1_19)",
+  "x-ucb-meta": {
+    "name": "CS_USER19",
+    "size": 256,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC4Zx": {
+        "orig": "0xAEC01300"
+      }
+    },
+    "source": "TC4Zx UM \u00a744.4 (v0.9 (2025-03-25)) slot UCB1_19"
+  },
+  "type": "object",
+  "properties": {
+    "UCB_CS_USER19_WORD": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 4294967295
+      },
+      "minItems": 60,
+      "maxItems": 60,
+      "x-offset": 0,
+      "x-size": 240,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "UCB_CS_USER19 Word x"
+    },
+    "CONFIRMATION": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615,
+      "x-offset": 240,
+      "x-size": 8,
+      "x-endian": "little",
+      "x-help": "Confirmation CODE ORIGINAL, 32-bit",
+      "x-danger": "lock",
+      "x-computed": "confirmation"
+    },
+    "CONFIRMATION_COPY": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 248,
+      "x-size": 8,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "Y Confirmation CODE COPY, 32-bit",
+      "x-danger": "lock"
+    }
+  }
+}

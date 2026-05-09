@@ -41,17 +41,17 @@
           ],
           "title": "Boot Mode Index",
           "x-danger": "brick",
+          "x-render": "hex",
           "x-enum-names": {
-            "247": "Alternate Boot Mode (ABM)",
-            "249": "Generic Bootstrap Loader (GBL)",
-            "250": "CAN Bootstrap Loader (BSL_CAN)",
-            "252": "ASCLIN Bootstrap Loader (BSL_ASC)",
-            "254": "Internal Start (Flash / normal boot)",
-            "8": "Custom: boot with HWCFG decode",
-            "15": "Custom: normal boot + HWCFG from pins",
-            "0": "Reserved / invalid"
-          },
-          "x-help": "Boot Mode Index. Dropdown lists common AURIX boot mode values; custom 16-bit values may be typed directly. Value is read by the boot ROM to decide start mode."
+            "247": "Alternate Boot Mode (ABM) 0x00F7",
+            "249": "Generic Bootstrap Loader (GBL) 0x00F9",
+            "250": "CAN Bootstrap Loader (BSL_CAN) 0x00FA",
+            "252": "ASCLIN Bootstrap Loader (BSL_ASC) 0x00FC",
+            "254": "Internal Start / Flash 0x00FE",
+            "15": "Custom: normal boot + HWCFG from pins 0x000F",
+            "8": "Custom: boot with HWCFG decode 0x0008",
+            "0": "Reserved / invalid 0x0000"
+          }
         },
         "BMHDID": {
           "type": "integer",
@@ -59,12 +59,12 @@
             16,
             31
           ],
-          "title": "Boot Mode Header ID B359H BMHDID: Constant value for BMHD identification",
+          "title": "Boot Mode Header ID \u2014 must be 0xB359",
           "x-danger": "brick",
           "x-enum-names": {
             "45913": "0xB359 (mandatory BMHD magic)"
           },
-          "x-help": "BMHD identification magic \u2014 must be 0xB359 (45913); any other value invalidates the BMHD."
+          "x-help": "Must be 0xB359; any other value invalidates the BMHD."
         }
       }
     },
@@ -76,8 +76,8 @@
       "x-size": 4,
       "x-endian": "little",
       "x-render": "hex",
-      "x-help": "Start address",
-      "x-danger": "brick"
+      "x-danger": "brick",
+      "x-help": "Start Address (entry PC)"
     },
     "CRCBMHD": {
       "type": "integer",
@@ -86,10 +86,9 @@
       "x-offset": 12,
       "x-size": 4,
       "x-endian": "little",
-      "x-help": "Check Result for the BMI Header (offset 000H - 00BH)",
-      "x-danger": "brick",
       "x-computed": "crc32-aurix",
-      "readOnly": true
+      "readOnly": true,
+      "x-help": "Check Result for the BMI Header (offset 0..11)"
     },
     "PW0": {
       "type": "integer",
@@ -99,8 +98,8 @@
       "x-size": 4,
       "x-endian": "little",
       "x-render": "password",
-      "x-help": "256-bit password protection, PW0 (least significant)",
-      "x-danger": "lock"
+      "x-danger": "lock",
+      "x-help": "256-bit password protection, PW0 (least significant)"
     },
     "PW1": {
       "type": "integer",
@@ -110,8 +109,8 @@
       "x-size": 4,
       "x-endian": "little",
       "x-render": "password",
-      "x-help": "256-bit password protection, PW1",
-      "x-danger": "lock"
+      "x-danger": "lock",
+      "x-help": "256-bit password protection, PW1"
     },
     "PW2": {
       "type": "integer",
@@ -121,8 +120,8 @@
       "x-size": 4,
       "x-endian": "little",
       "x-render": "password",
-      "x-help": "256-bit password protection, PW2",
-      "x-danger": "lock"
+      "x-danger": "lock",
+      "x-help": "256-bit password protection, PW2"
     },
     "PW3": {
       "type": "integer",
@@ -132,8 +131,8 @@
       "x-size": 4,
       "x-endian": "little",
       "x-render": "password",
-      "x-help": "256-bit password protection, PW3",
-      "x-danger": "lock"
+      "x-danger": "lock",
+      "x-help": "256-bit password protection, PW3"
     },
     "PW4": {
       "type": "integer",
@@ -143,8 +142,8 @@
       "x-size": 4,
       "x-endian": "little",
       "x-render": "password",
-      "x-help": "256-bit password protection, PW4",
-      "x-danger": "lock"
+      "x-danger": "lock",
+      "x-help": "256-bit password protection, PW4"
     },
     "PW5": {
       "type": "integer",
@@ -154,8 +153,8 @@
       "x-size": 4,
       "x-endian": "little",
       "x-render": "password",
-      "x-help": "256-bit password protection, PW5",
-      "x-danger": "lock"
+      "x-danger": "lock",
+      "x-help": "256-bit password protection, PW5"
     },
     "PW6": {
       "type": "integer",
@@ -165,8 +164,8 @@
       "x-size": 4,
       "x-endian": "little",
       "x-render": "password",
-      "x-help": "256-bit password protection, PW6",
-      "x-danger": "lock"
+      "x-danger": "lock",
+      "x-help": "256-bit password protection, PW6"
     },
     "PW7": {
       "type": "integer",
@@ -176,30 +175,34 @@
       "x-size": 4,
       "x-endian": "little",
       "x-render": "password",
-      "x-help": "256-bit password protection, PW7",
-      "x-danger": "lock"
+      "x-danger": "lock",
+      "x-help": "256-bit password protection, PW7"
     },
     "CONFIRMATION": {
       "type": "integer",
-      "minimum": 0,
-      "maximum": 18446744073709551615,
       "x-offset": 2032,
       "x-size": 8,
       "x-endian": "little",
-      "x-help": "32-bit CODE",
+      "x-computed": "confirmation",
       "x-danger": "lock",
-      "x-computed": "confirmation"
+      "x-enum-names": {
+        "1126240820": "UNLOCKED (0x43211234)",
+        "1471492735": "CONFIRMED (0x57B5327F)"
+      },
+      "x-help": "ORIG confirmation code \u2014 UNLOCKED or CONFIRMED magic."
     },
     "CONFIRMATION_COPY": {
       "type": "integer",
-      "minimum": 0,
-      "maximum": 18446744073709551615,
       "x-offset": 2040,
       "x-size": 8,
       "x-endian": "little",
-      "x-help": "32-bit CODE",
+      "x-computed": "confirmation",
       "x-danger": "lock",
-      "x-computed": "confirmation"
+      "x-enum-names": {
+        "1126240820": "UNLOCKED (0x43211234)",
+        "1471492735": "CONFIRMED (0x57B5327F)"
+      },
+      "x-help": "COPY confirmation code \u2014 must match ORIG."
     }
   }
 }

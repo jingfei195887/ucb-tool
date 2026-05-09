@@ -1,0 +1,191 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://tc48x/SWAP_ORIG_CS",
+  "title": "SWAP_ORIG_CS (TC48x UCB1_12)",
+  "x-ucb-meta": {
+    "name": "SWAP_ORIG_CS",
+    "size": 256,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC48x": {
+        "orig": "0xAEC00C00"
+      }
+    },
+    "source": "TC48x UM \u00a744.4 (v0.9 (2025-03-25)) slot UCB1_12"
+  },
+  "type": "object",
+  "properties": {
+    "SWAPCS_ORIG_SAL_0": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 0,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 0)"
+    },
+    "SWAPCS_ORIG_SAL_1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 16,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 1)"
+    },
+    "SWAPCS_ORIG_SAL_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 32,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 2)"
+    },
+    "SWAPCS_ORIG_SAL_3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 48,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 3)"
+    },
+    "SWAPCS_ORIG_SAL_4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 64,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 4)"
+    },
+    "SWAPCS_ORIG_SAL_5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 80,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 5)"
+    },
+    "SWAPCS_ORIG_SAL_6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 96,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 6)"
+    },
+    "SWAPCS_ORIG_SAL_7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 112,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 7)"
+    },
+    "SWAPCS_ORIG_SAL_8": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 128,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 8)"
+    },
+    "SWAPCS_ORIG_SAL_9": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 144,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 9)"
+    },
+    "SWAPCS_ORIG_SAL_10": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 160,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 10)"
+    },
+    "SWAPCS_ORIG_SAL_11": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 176,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 11)"
+    },
+    "SWAPCS_ORIG_SAL_12": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 192,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 12)"
+    },
+    "SWAPCS_O": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 4,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "RIG_STATUSx SWAPCS_ORIG_STATUS x"
+    },
+    "SWAPCS_O_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 8,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "RIG_MARKERx SWAPCS_ORIG_MARKER x"
+    },
+    "SWAPCS_ORIG_CRCSEx": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 12,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "SWAPCS_ORIG_CRCSE x",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "CONFIRMATION": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615,
+      "x-offset": 240,
+      "x-size": 8,
+      "x-endian": "little",
+      "x-help": "Confirmation CODE ORIGINAL, 32-bit",
+      "x-danger": "lock",
+      "x-computed": "confirmation"
+    }
+  }
+}
