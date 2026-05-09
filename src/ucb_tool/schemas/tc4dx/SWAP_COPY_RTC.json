@@ -1,17 +1,17 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "ucb://tc4dx/SWAP_ORIG_RTC_UCB0_19",
-  "title": "SWAP_ORIG_RTC_UCB0_19 (TC4Dx UCB0_19)",
+  "$id": "ucb://tc4dx/SWAP_COPY_RTC",
+  "title": "SWAP_COPY_RTC (TC4Dx COPY mirror of SWAP_ORIG_RTC)",
   "x-ucb-meta": {
-    "name": "SWAP_ORIG_RTC_UCB0_19",
+    "name": "SWAP_COPY_RTC",
     "size": 2048,
     "has_orig_copy": false,
     "addresses": {
       "TC4Dx": {
-        "orig": "0xAE409800"
+        "orig": "0xAE40A000"
       }
     },
-    "source": "TC4Dx UM \u00a749.4 (v1.1 (2025-04-22)) slot UCB0_19"
+    "source": "TC4Dx UM \u00a749.4 (v1.1 (2025-04-22)) slot UCB0_19 (COPY mirror, slot +1)"
   },
   "type": "object",
   "properties": {

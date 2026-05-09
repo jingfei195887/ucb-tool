@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "ucb://tc4dx/UCB0_23",
-  "title": "UCB0_23 (TC4Dx UCB0_23)",
+  "$id": "ucb://tc4dx/HOST_PFECPRIO_ORIG",
+  "title": "HOST_PFECPRIO_ORIG (TC4Dx TC4Dx UCB0_23)",
   "x-ucb-meta": {
-    "name": "UCB0_23",
+    "name": "HOST_PFECPRIO_ORIG",
     "size": 2048,
     "has_orig_copy": false,
     "addresses": {

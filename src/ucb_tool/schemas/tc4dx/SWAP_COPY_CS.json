@@ -1,17 +1,17 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "ucb://tc4dx/SWAP_ORIG_CS_UCB1_12",
-  "title": "SWAP_ORIG_CS_UCB1_12 (TC4Dx UCB1_12)",
+  "$id": "ucb://tc4dx/SWAP_COPY_CS",
+  "title": "SWAP_COPY_CS (TC4Dx COPY mirror of SWAP_ORIG_CS)",
   "x-ucb-meta": {
-    "name": "SWAP_ORIG_CS_UCB1_12",
+    "name": "SWAP_COPY_CS",
     "size": 2048,
     "has_orig_copy": false,
     "addresses": {
       "TC4Dx": {
-        "orig": "0xAEC06000"
+        "orig": "0xAEC06800"
       }
     },
-    "source": "TC4Dx UM \u00a749.4 (v1.1 (2025-04-22)) slot UCB1_12"
+    "source": "TC4Dx UM \u00a749.4 (v1.1 (2025-04-22)) slot UCB1_12 (COPY mirror, slot +1)"
   },
   "type": "object",
   "properties": {

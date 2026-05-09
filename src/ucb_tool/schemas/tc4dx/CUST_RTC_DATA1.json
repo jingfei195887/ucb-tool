@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "ucb://tc4dx/UCB0_16",
-  "title": "UCB0_16 (TC4Dx UCB0_16)",
+  "$id": "ucb://tc4dx/CUST_RTC_DATA1",
+  "title": "CUST_RTC_DATA1 (TC4Dx TC4Dx UCB0_16)",
   "x-ucb-meta": {
-    "name": "UCB0_16",
+    "name": "CUST_RTC_DATA1",
     "size": 2048,
     "has_orig_copy": false,
     "addresses": {

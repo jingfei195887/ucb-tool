@@ -1,17 +1,17 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "ucb://tc4dx/SWAP_ORIG_RTC_UCB0_17",
-  "title": "SWAP_ORIG_RTC_UCB0_17 (TC4Dx UCB0_17)",
+  "$id": "ucb://tc4dx/USERCFG_ORIG_CS",
+  "title": "USERCFG_ORIG_CS (TC4Dx TC4Dx UCB1_15)",
   "x-ucb-meta": {
-    "name": "SWAP_ORIG_RTC_UCB0_17",
+    "name": "USERCFG_ORIG_CS",
     "size": 2048,
     "has_orig_copy": false,
     "addresses": {
       "TC4Dx": {
-        "orig": "0xAE408800"
+        "orig": "0xAEC07800"
       }
     },
-    "source": "TC4Dx UM \u00a749.4 (v1.1 (2025-04-22)) slot UCB0_17"
+    "source": "TC4Dx UM \u00a749.4 (v1.1 (2025-04-22)) slot UCB1_15"
   },
   "type": "object",
   "properties": {
@@ -25,127 +25,22 @@
       "x-render": "hex",
       "x-help": "System Address of this Location"
     },
-    "LSENA": {
-      "type": "integer",
-      "minimum": 0,
-      "maximum": 4294967295,
+    "BML": {
+      "type": "object",
       "x-offset": 4,
       "x-size": 4,
       "x-endian": "little",
-      "x-render": "hex",
-      "x-help": "User selection for LOCKSTEP activation",
-      "x-danger": "brick"
-    },
-    "UCB0_SMM_EXTIF_E": {
-      "type": "integer",
-      "minimum": 0,
-      "maximum": 4294967295,
-      "x-offset": 12,
-      "x-size": 4,
-      "x-endian": "little",
-      "x-render": "hex",
-      "x-help": "SR0CNTCTRL User configuration value for SMM_EXTIF_ESR0CNTCTRL"
-    },
-    "UCB0_PMS_PAD_ESR": {
-      "type": "integer",
-      "minimum": 0,
-      "maximum": 4294967295,
-      "x-offset": 16,
-      "x-size": 4,
-      "x-endian": "little",
-      "x-render": "hex",
-      "x-help": "2CON User configuration value for PMS_PAD_ESR2CON"
-    },
-    "UCB0_RAMINIT": {
-      "type": "object",
-      "x-offset": 20,
-      "x-size": 4,
-      "x-endian": "little",
       "x-bitfield": true,
-      "title": "User selection for RTC SRAMs initialization",
+      "title": "Boot Mode Lock",
       "properties": {
-        "RAMIN": {
-          "type": "integer",
-          "x-bits": [
-            0,
-            1
-          ],
-          "title": "RTC SRAM initialization done by FW 00B WCPORST_INIT:\u00a0after warm and cold power-on 01B WPORST_INIT:\u00a0after warm power-on only 10B CPORST_INIT:\u00a0after cold power-on only 11B NO_INIT: never RES 15:2, 23:22, 31 r Reserved, write with 0"
-        },
-        "RAMINSEL": {
-          "type": "integer",
-          "x-bits": [
-            16,
-            21
-          ],
-          "title": "RTC CPUx SRAM initialization done by FW 0bxxxxx0 - for CPU0 SRAMs 0bxxxx0x - for CPU1 SRAMs 0bxxx0xx - for CPU2 SRAMs 0bxx0xxx - for CPU3 SRAMs 0bx0xxxx - for CPU4 SRAMs 0b0xxxxx - for CPU5 SRAMs"
-        },
-        "LMUINSEL": {
-          "type": "integer",
-          "x-bits": [
-            24,
-            30
-          ],
-          "title": "RTC LMUx SRAM initialization done by FW 0bxxxxxx0 - for CPU0 DLMU SRAM 0bxxxxx0x - for CPU1 DLMU SRAM 0bxxxx0xx - for CPU2 DLMU SRAM 0bxxx0xxx - for CPU3 DLMU SRAM 0bxx0xxxx - for CPU4 DLMU SRAM 0bx0xxxxx - for CPU5 DLMU SRAM else - reserved"
-        }
-      }
-    },
-    "UCB0_LBISTEXE": {
-      "type": "integer",
-      "minimum": 0,
-      "maximum": 4294967295,
-      "x-offset": 24,
-      "x-size": 4,
-      "x-endian": "little",
-      "x-render": "hex",
-      "x-help": "User selection for LBIST execution",
-      "x-danger": "brick",
-      "x-enum-names": {
-        "0": "enter",
-        "7": "legacy"
-      }
-    },
-    "UCB0_HOSTRAMAIN": {
-      "type": "object",
-      "x-offset": 28,
-      "x-size": 4,
-      "x-endian": "little",
-      "x-bitfield": true,
-      "title": "HOST SRAMs auto-init control",
-      "properties": {
-        "HOSTRAMAIN": {
-          "type": "integer",
-          "x-bits": [
-            0,
-            1
-          ],
-          "title": "HOST SRAMs auto-initialization 01b - enabled 10b - disabled else - invalid, enter error state"
-        },
-        "RES": {
-          "type": "integer",
-          "x-bits": [
-            2,
-            31
-          ],
-          "title": "Reserved, write with 0"
-        }
-      }
-    },
-    "UCB0_SWAP_ena": {
-      "type": "object",
-      "x-offset": 32,
-      "x-size": 4,
-      "x-endian": "little",
-      "x-bitfield": true,
-      "title": "User selection for SWAP activation",
-      "properties": {
-        "SWAPEN": {
+        "BML": {
           "type": "integer",
           "x-bits": [
             0,
             3
           ],
-          "title": "SWAP activation for HOST cluster 1010b - enable 0101b - disable else - invalid, enter fall-back/error state"
+          "title": "Boot Mode Lock 1010b - activated 0101b - not activated else - invalid, enter error state",
+          "x-danger": "brick"
         },
         "RES": {
           "type": "integer",
@@ -153,25 +48,71 @@
             4,
             31
           ],
-          "title": "Reserved, write with 0"
+          "title": "Reserved Shall be programmed to all zero, else - invalid."
         }
       }
     },
-    "UCB0_ADDRR_ena": {
+    "SWAPCS_e": {
       "type": "integer",
       "minimum": 0,
       "maximum": 4294967295,
-      "x-offset": 36,
+      "x-offset": 8,
       "x-size": 4,
       "x-endian": "little",
       "x-render": "hex",
-      "x-help": "User selection for ADDRESS ROUTING"
+      "x-help": "na User selection for SWAP activation in CS"
     },
-    "CRC_RTCUSERCFGO1": {
+    "CSRMCFG": {
+      "type": "object",
+      "x-offset": 12,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-bitfield": true,
+      "title": "user selection",
+      "properties": {
+        "SSWWAIT_APP": {
+          "type": "integer",
+          "x-bits": [
+            0,
+            2
+          ],
+          "title": "CSRM user code boot mode after Application reset 100b - foreground 010b - background fatal/blocking 001b - background non-blocking else - invalid, enter error state",
+          "x-danger": "brick"
+        },
+        "SSWWAIT_SYS": {
+          "type": "integer",
+          "x-bits": [
+            3,
+            5
+          ],
+          "title": "CSRM user code boot mode after System reset 100b - foreground 010b - background fatal/blocking 001b - background non-blocking else - invalid, enter error state SSWWAIT_WP ORST 8:6 r CSRM user code boot mode after Warm power-on reset 100b - foreground 010b - background fatal/blocking 001b - background non-blocking else - invalid, enter error state SSWWAIT_CP ORST 11:9 r CSRM user code boot mode after Coldpower-on reset 100b - foreground 010b - background fatal/blocking 001b - background non-blocking else - invalid, enter error state",
+          "x-danger": "brick"
+        },
+        "RES": {
+          "type": "integer",
+          "x-bits": [
+            12,
+            31
+          ],
+          "title": "Reserved Shall be programmed to all zero, else - invalid."
+        }
+      }
+    },
+    "CSSRAM_i": {
       "type": "integer",
       "minimum": 0,
       "maximum": 4294967295,
-      "x-offset": 40,
+      "x-offset": 16,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "nit User selection for CS SRAMs initialization"
+    },
+    "CRC_CSUSERCFGO1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 28,
       "x-size": 4,
       "x-endian": "little",
       "x-help": "Check Result for this table",

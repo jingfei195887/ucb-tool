@@ -1,0 +1,778 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://tc4dx/SWAP_ORIG_CS",
+  "title": "SWAP_ORIG_CS (TC4Dx TC4Dx UCB1_12)",
+  "x-ucb-meta": {
+    "name": "SWAP_ORIG_CS",
+    "size": 2048,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC4Dx": {
+        "orig": "0xAEC06000"
+      }
+    },
+    "source": "TC4Dx UM \u00a749.4 (v1.1 (2025-04-22)) slot UCB1_12"
+  },
+  "type": "object",
+  "properties": {
+    "SWAPCS_ORIG_SAL_0": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 0,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 0)"
+    },
+    "SWAPCS_ORIG_SAL_1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 16,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 1)"
+    },
+    "SWAPCS_ORIG_SAL_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 32,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 2)"
+    },
+    "SWAPCS_ORIG_SAL_3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 48,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 3)"
+    },
+    "SWAPCS_ORIG_SAL_4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 64,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 4)"
+    },
+    "SWAPCS_ORIG_SAL_5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 80,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 5)"
+    },
+    "SWAPCS_ORIG_SAL_6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 96,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 6)"
+    },
+    "SWAPCS_ORIG_SAL_7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 112,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 7)"
+    },
+    "SWAPCS_ORIG_SAL_8": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 128,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 8)"
+    },
+    "SWAPCS_ORIG_SAL_9": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 144,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 9)"
+    },
+    "SWAPCS_ORIG_SAL_10": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 160,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 10)"
+    },
+    "SWAPCS_ORIG_SAL_11": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 176,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 11)"
+    },
+    "SWAPCS_ORIG_SAL_12": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 192,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 12)"
+    },
+    "SWAPCS_ORIG_SAL_13": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 208,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 13)"
+    },
+    "SWAPCS_ORIG_SAL_14": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 224,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 14)"
+    },
+    "SWAPCS_ORIG_SAL_15": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 240,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 15)"
+    },
+    "SWAPCS_ORIG_SAL_16": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 256,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 16)"
+    },
+    "SWAPCS_ORIG_SAL_17": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 272,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 17)"
+    },
+    "SWAPCS_ORIG_SAL_18": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 288,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 18)"
+    },
+    "SWAPCS_ORIG_SAL_19": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 304,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 19)"
+    },
+    "SWAPCS_ORIG_SAL_20": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 320,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 20)"
+    },
+    "SWAPCS_ORIG_SAL_21": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 336,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 21)"
+    },
+    "SWAPCS_ORIG_SAL_22": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 352,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 22)"
+    },
+    "SWAPCS_ORIG_SAL_23": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 368,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 23)"
+    },
+    "SWAPCS_ORIG_SAL_24": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 384,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 24)"
+    },
+    "SWAPCS_ORIG_SAL_25": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 400,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 25)"
+    },
+    "SWAPCS_ORIG_SAL_26": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 416,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 26)"
+    },
+    "SWAPCS_ORIG_SAL_27": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 432,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 27)"
+    },
+    "SWAPCS_ORIG_SAL_28": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 448,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 28)"
+    },
+    "SWAPCS_ORIG_SAL_29": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 464,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 29)"
+    },
+    "SWAPCS_ORIG_SAL_30": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 480,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 30)"
+    },
+    "SWAPCS_ORIG_SAL_31": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 496,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_SAL x (entry 31)"
+    },
+    "SWAPCS_O": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 4,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "RIG_STATUSx SWAPCS_ORIG_STATUS x"
+    },
+    "SWAPCS_O_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 8,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "RIG_MARKERx SWAPCS_ORIG_MARKER x"
+    },
+    "SWAPCS_ORIG_CRCSE_0": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 12,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 0)"
+    },
+    "SWAPCS_ORIG_CRCSE_1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 28,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 1)"
+    },
+    "SWAPCS_ORIG_CRCSE_2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 44,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 2)"
+    },
+    "SWAPCS_ORIG_CRCSE_3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 60,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 3)"
+    },
+    "SWAPCS_ORIG_CRCSE_4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 76,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 4)"
+    },
+    "SWAPCS_ORIG_CRCSE_5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 92,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 5)"
+    },
+    "SWAPCS_ORIG_CRCSE_6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 108,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 6)"
+    },
+    "SWAPCS_ORIG_CRCSE_7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 124,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 7)"
+    },
+    "SWAPCS_ORIG_CRCSE_8": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 140,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 8)"
+    },
+    "SWAPCS_ORIG_CRCSE_9": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 156,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 9)"
+    },
+    "SWAPCS_ORIG_CRCSE_10": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 172,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 10)"
+    },
+    "SWAPCS_ORIG_CRCSE_11": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 188,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 11)"
+    },
+    "SWAPCS_ORIG_CRCSE_12": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 204,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 12)"
+    },
+    "SWAPCS_ORIG_CRCSE_13": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 220,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 13)"
+    },
+    "SWAPCS_ORIG_CRCSE_14": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 236,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 14)"
+    },
+    "SWAPCS_ORIG_CRCSE_15": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 252,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 15)"
+    },
+    "SWAPCS_ORIG_CRCSE_16": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 268,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 16)"
+    },
+    "SWAPCS_ORIG_CRCSE_17": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 284,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 17)"
+    },
+    "SWAPCS_ORIG_CRCSE_18": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 300,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 18)"
+    },
+    "SWAPCS_ORIG_CRCSE_19": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 316,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 19)"
+    },
+    "SWAPCS_ORIG_CRCSE_20": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 332,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 20)"
+    },
+    "SWAPCS_ORIG_CRCSE_21": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 348,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 21)"
+    },
+    "SWAPCS_ORIG_CRCSE_22": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 364,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 22)"
+    },
+    "SWAPCS_ORIG_CRCSE_23": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 380,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 23)"
+    },
+    "SWAPCS_ORIG_CRCSE_24": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 396,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 24)"
+    },
+    "SWAPCS_ORIG_CRCSE_25": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 412,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 25)"
+    },
+    "SWAPCS_ORIG_CRCSE_26": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 428,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 26)"
+    },
+    "SWAPCS_ORIG_CRCSE_27": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 444,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 27)"
+    },
+    "SWAPCS_ORIG_CRCSE_28": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 460,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 28)"
+    },
+    "SWAPCS_ORIG_CRCSE_29": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 476,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 29)"
+    },
+    "SWAPCS_ORIG_CRCSE_30": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 492,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 30)"
+    },
+    "SWAPCS_ORIG_CRCSE_31": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 508,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "SWAPCS_ORIG_CRCSE x (entry 31)"
+    },
+    "PW0": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2000,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW0 (least significant)",
+      "x-danger": "lock"
+    },
+    "PW1": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2004,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW1",
+      "x-danger": "lock"
+    },
+    "PW2": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2008,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW2",
+      "x-danger": "lock"
+    },
+    "PW3": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2012,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW3",
+      "x-danger": "lock"
+    },
+    "PW4": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2016,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW4",
+      "x-danger": "lock"
+    },
+    "PW5": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2020,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW5",
+      "x-danger": "lock"
+    },
+    "PW6": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2024,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW6",
+      "x-danger": "lock"
+    },
+    "PW7": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 2028,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "256-bit password protection, PW7",
+      "x-danger": "lock"
+    },
+    "CONFIRMATION": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615,
+      "x-offset": 2032,
+      "x-size": 8,
+      "x-endian": "little",
+      "x-help": "Confirmation CODE ORIGINAL, 32-bit",
+      "x-danger": "lock",
+      "x-computed": "confirmation"
+    }
+  }
+}
