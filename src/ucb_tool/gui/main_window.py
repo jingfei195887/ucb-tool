@@ -68,6 +68,12 @@ class MainWindow(QMainWindow):
         apply_act.triggered.connect(self.on_apply_xlsx)
         bar.addAction(apply_act)
 
+        help_menu = self.menuBar().addMenu("&Help")
+        about_act = QAction("&About...", self)
+        about_act.triggered.connect(self.on_about)
+        help_menu.addAction(about_act)
+        self.action_about = about_act
+
     # ---- Slots ----
     def on_open(self) -> None:
         path_s, _ = QFileDialog.getOpenFileName(self, "Open ucb.hex", "", "Intel HEX (*.hex)")
@@ -146,6 +152,27 @@ class MainWindow(QMainWindow):
             if dlg.exec() != dlg.DialogCode.Accepted:
                 return
         self.statusBar().showMessage(f"Applied {path_s}")
+
+    def on_about(self) -> None:
+        """Show the About dialog (author / version)."""
+        try:
+            version = ucb_tool.__version__
+        except AttributeError:
+            version = "unknown"
+        QMessageBox.about(
+            self,
+            "About UCB Tool",
+            (
+                "<h3>UCB Tool</h3>"
+                "<p>Infineon AURIX TC4x UCB hex editor</p>"
+                f"<p><b>Version:</b> {version}</p>"
+                "<p><b>Author:</b> 景飞 &lt;jingfei@xiaomi.com&gt;</p>"
+                "<p>Source: "
+                "<a href=\"https://github.com/jingfei195887/ucb-tool\">"
+                "github.com/jingfei195887/ucb-tool</a></p>"
+                "<p>License: Apache-2.0</p>"
+            ),
+        )
 
     # ---- Helpers ----
 
