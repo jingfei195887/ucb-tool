@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ucb://tc48x/BMHD2",
+  "title": "BMHD2 (TC48x UCB0_11)",
+  "x-ucb-meta": {
+    "name": "BMHD2",
+    "size": 256,
+    "has_orig_copy": false,
+    "addresses": {
+      "TC48x": {
+        "orig": "0xAE400B00"
+      }
+    },
+    "source": "TC48x UM \u00a744.4 (v0.9 (2025-03-25)) slot UCB0_11"
+  },
+  "type": "object",
+  "properties": {
+    "SAL": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 0,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "System Address of this Location"
+    },
+    "BMI_BMHDID": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 4,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Boot Mode Index (BMI) and Boot Mode Header ID (CODE) = B359H",
+      "x-danger": "brick"
+    },
+    "STAD": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 8,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "hex",
+      "x-help": "Start address",
+      "x-danger": "brick"
+    },
+    "CRCBMHD": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 12,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-help": "Check Result for the BMI Header (offset 000H - 007H)",
+      "x-danger": "brick",
+      "x-computed": "crc32-aurix",
+      "readOnly": true
+    },
+    "CONFIRMATION": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615,
+      "x-offset": 240,
+      "x-size": 8,
+      "x-endian": "little",
+      "x-help": "Confirmation CODE ORIGINAL, 32-bit",
+      "x-danger": "lock",
+      "x-computed": "confirmation"
+    },
+    "CONFIRMATION_COP": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "x-offset": 248,
+      "x-size": 4,
+      "x-endian": "little",
+      "x-render": "password",
+      "x-help": "Y Confirmation CODE COPY, 32-bit",
+      "x-danger": "lock"
+    }
+  }
+}
