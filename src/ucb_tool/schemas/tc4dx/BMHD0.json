@@ -40,7 +40,18 @@
             15
           ],
           "title": "Boot Mode Index",
-          "x-danger": "brick"
+          "x-danger": "brick",
+          "x-enum-names": {
+            "247": "Alternate Boot Mode (ABM)",
+            "249": "Generic Bootstrap Loader (GBL)",
+            "250": "CAN Bootstrap Loader (BSL_CAN)",
+            "252": "ASCLIN Bootstrap Loader (BSL_ASC)",
+            "254": "Internal Start (Flash / normal boot)",
+            "8": "Custom: boot with HWCFG decode",
+            "15": "Custom: normal boot + HWCFG from pins",
+            "0": "Reserved / invalid"
+          },
+          "x-help": "Boot Mode Index. Dropdown lists common AURIX boot mode values; custom 16-bit values may be typed directly. Value is read by the boot ROM to decide start mode."
         },
         "BMHDID": {
           "type": "integer",
@@ -49,7 +60,11 @@
             31
           ],
           "title": "Boot Mode Header ID B359H BMHDID: Constant value for BMHD identification",
-          "x-danger": "brick"
+          "x-danger": "brick",
+          "x-enum-names": {
+            "45913": "0xB359 (mandatory BMHD magic)"
+          },
+          "x-help": "BMHD identification magic \u2014 must be 0xB359 (45913); any other value invalidates the BMHD."
         }
       }
     },

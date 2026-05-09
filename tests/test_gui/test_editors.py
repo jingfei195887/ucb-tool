@@ -98,29 +98,32 @@ def test_enum_combo_emits_on_change(qtbot, qapp):
     assert captured == [1]
 
 
-def test_enum_combo_unknown_value_is_noop(qtbot, qapp):
+def test_enum_combo_unknown_value_falls_back_to_editable_text(qtbot, qapp):
+    # EnumCombo is now editable — unknown values appear in the line edit as hex.
     w = EnumCombo({0: "zero", 1: "one"})
     qtbot.addWidget(w)
-    w.setCurrentIndex(0)
-    w.set_value(999)  # not in mapping — no crash, index unchanged
-    assert w.currentIndex() == 0
+    w.set_value(999)
+    assert "999" in w.currentText() or "3E7" in w.currentText().upper()
 
 
 def test_bool_check_set_value(qtbot, qapp):
+    # BoolCheck is now a Disabled/Enabled dropdown (BoolCombo).
     w = BoolCheck()
     qtbot.addWidget(w)
     w.set_value(1)
-    assert w.isChecked() is True
+    assert w.currentIndex() == 1
+    assert "Enabled" in w.currentText()
     w.set_value(0)
-    assert w.isChecked() is False
+    assert w.currentIndex() == 0
+    assert "Disabled" in w.currentText()
 
 
-def test_bool_check_emits_on_toggle(qtbot, qapp):
+def test_bool_check_emits_on_change(qtbot, qapp):
     w = BoolCheck()
     qtbot.addWidget(w)
     captured = []
     w.valueChanged.connect(captured.append)
-    w.setChecked(True)
+    w.setCurrentIndex(1)
     assert captured == [1]
-    w.setChecked(False)
+    w.setCurrentIndex(0)
     assert captured == [1, 0]
