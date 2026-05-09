@@ -67,30 +67,38 @@ class ConfirmationState(str, Enum):
     ERRORED = "ERRORED"
 
 
-# Source: user-provided TC4Dx UM §49 UCB dump (empirically verified).
+# UCB confirmation magic values.
 #
-# In an *unlocked* (password-less, user-writable) UCB, both CONFIRMATION and
-# CONFIRMATION_COPY contain the UNLOCKED magic.  This was the meaning of
-# `confirmation_code[]` in vendor/infineon/chips/aurix/aurix_ucb.c:173/178 —
-# despite the variable name the code tests for the UNLOCKED state.
+# Decoding rule (from user + Infineon):
+#   blob == UNLOCKED magic  → UNLOCKED
+#   blob == CONFIRMED magic → CONFIRMED
+#   anything else           → ERRORED
 #
-#   mode 0 (non-secure / default):  UNLOCKED = 0x0000_0000_4321_1234
-#   mode 1 (secure alternate):      UNLOCKED = 0x0000_0000_57B5_327F
+# UNLOCKED (verified against a real TC4Dx UCB dump):
+#   mode 0 (non-secure / default):  0x0000_0000_4321_1234
+#   mode 1 (secure alternate):      0x0000_0000_57B5_327F
+#   In aurix_ucb.c:173/178 this same byte pattern is named `confirmation_code[]`;
+#   the C code's memcmp() at line 906 actually tests *for* UNLOCKED (despite the
+#   variable name).
 #
-# CONFIRMED magic (password-locked, writes require password) is documented in
-# the UM chapter on UCB confirmation codes but not yet extracted; we encode it
-# as a distinct sentinel here and treat any non-UNLOCKED value as ERRORED when
-# decoding.  TODO: extract CONFIRMED magic from UM §6.3.13 and aurix_ucb.c:334.
+# CONFIRMED: UNKNOWN.  Needs extraction from Infineon UM §6.3.13 "UCB
+# confirmation code and UCB state evaluation" or aurix_ucb.c:334
+# ucb_confirmation_status().  Until then we use a placeholder byte pattern
+# that is UNLIKELY to appear in real flash (all 0xA5).  Consequences:
+#   - A real UCB in CONFIRMED state WILL be misdetected as ERRORED.
+#   - Writing state=CONFIRMED will produce a non-canonical byte pattern.
+# This is acceptable for v0.1 because all real TC4Dx UCBs we have samples
+# of are UNLOCKED; tighten before anyone attempts to read a CONFIRMED UCB.
+_CONFIRMED_PLACEHOLDER = b"\xa5\xa5\xa5\xa5\xa5\xa5\xa5\xa5"  # TBD: extract real magic
+
 _MAGIC: dict[tuple[int, ConfirmationState], bytes] = {
     (0, ConfirmationState.UNLOCKED):  b"\x34\x12\x21\x43\x00\x00\x00\x00",
     (1, ConfirmationState.UNLOCKED):  b"\x7f\x32\xb5\x57\x00\x00\x00\x00",
-    # CONFIRMED magic: placeholder distinct sentinel; decode uses negative
-    # match (anything not-UNLOCKED and not-ERRORED → CONFIRMED) so encoding
-    # accuracy here only matters if the caller explicitly writes CONFIRMED.
-    (0, ConfirmationState.CONFIRMED): b"\x43\x21\x34\x12\x00\x00\x00\x00",
-    (1, ConfirmationState.CONFIRMED): b"\xb5\x57\x7f\x32\x00\x00\x00\x00",
-    # ERRORED sentinel: erased flash (all 0xFF) is the canonical "errored /
-    # uninitialized" state — a virgin UCB with no confirmation written.
+    (0, ConfirmationState.CONFIRMED): _CONFIRMED_PLACEHOLDER,
+    (1, ConfirmationState.CONFIRMED): _CONFIRMED_PLACEHOLDER,
+    # ERRORED sentinel used only for *encoding* (write back) — any value that
+    # is neither UNLOCKED nor CONFIRMED works.  All-0xFF is the erased-flash
+    # convention.  Decoding never reads this entry; it catches the "else" case.
     (0, ConfirmationState.ERRORED):   b"\xff\xff\xff\xff\xff\xff\xff\xff",
     (1, ConfirmationState.ERRORED):   b"\xff\xff\xff\xff\xff\xff\xff\xff",
 }
@@ -101,12 +109,12 @@ def confirmation_magic(state: ConfirmationState, mode: int = 0) -> bytes:
 
 
 def detect_confirmation(blob: bytes, mode: int = 0) -> ConfirmationState:
-    """Given an 8-byte confirmation region, return which state it represents.
+    """Decode an 8-byte CONFIRMATION region to a UCB state.
 
-    Anything that is not UNLOCKED nor CONFIRMED is treated as ERRORED.
+    Rule: match against UNLOCKED, then CONFIRMED; anything else is ERRORED.
     """
-    if blob == _MAGIC[(mode, ConfirmationState.CONFIRMED)]:
-        return ConfirmationState.CONFIRMED
     if blob == _MAGIC[(mode, ConfirmationState.UNLOCKED)]:
         return ConfirmationState.UNLOCKED
+    if blob == _MAGIC[(mode, ConfirmationState.CONFIRMED)]:
+        return ConfirmationState.CONFIRMED
     return ConfirmationState.ERRORED
