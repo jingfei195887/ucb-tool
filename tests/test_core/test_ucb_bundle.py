@@ -184,3 +184,74 @@ def test_save_recomputes_crc32(tmp_path):
     expected_crc = crc32_aurix(bytes(payload))
     actual_crc = int.from_bytes(slice_range(reloaded, 0xAF400000 + 248, 4), "little")
     assert actual_crc == expected_crc
+
+
+def test_empty_ucb_has_present_false(tmp_path):
+    """Load a hex covering only some UCBs — the rest must be marked not-present."""
+    import ucb_tool
+    from ucb_tool.core.hex_io import write_hex
+    hex_path = tmp_path / "partial.hex"
+    # Only BMHD0's 2 KB slot is populated; every other UCB is outside the hex.
+    data = {0xAE404800 + i: 0x00 for i in range(2048)}
+    for i, b in enumerate(b"\x00\x48\x40\xAE\x0F\x00\x59\xB3"):  # SAL+BMI magic
+        data[0xAE404800 + i] = b
+    write_hex(hex_path, data)
+
+    SCHEMAS = Path(ucb_tool.__file__).parent / "schemas"
+    bundle = UcbBundle.load(hex_path, "tc4d9",
+                            common_dirs=[SCHEMAS / "common"],
+                            chip_schema_dir=SCHEMAS / "tc4dx")
+
+    # BMHD0 is in the hex → present
+    assert bundle["BMHD0"].present is True
+    # CHIPINFO_UCB0_00 was NOT in the hex → empty
+    assert bundle["CHIPINFO_UCB0_00"].present is False
+    # At least half the UCBs should be marked not-present
+    not_present = sum(1 for i in bundle.instances.values() if not i.present)
+    assert not_present >= len(bundle.instances) // 2
+
+
+def test_save_skips_not_present_ucbs(tmp_path):
+    """Absent UCBs must not leak 0xFF bytes into the saved hex."""
+    import ucb_tool
+    from ucb_tool.core.hex_io import read_hex, write_hex
+    hex_path = tmp_path / "partial.hex"
+    data = {0xAE404800 + i: 0x00 for i in range(2048)}  # only BMHD0
+    write_hex(hex_path, data)
+
+    SCHEMAS = Path(ucb_tool.__file__).parent / "schemas"
+    bundle = UcbBundle.load(hex_path, "tc4d9",
+                            common_dirs=[SCHEMAS / "common"],
+                            chip_schema_dir=SCHEMAS / "tc4dx")
+
+    out = tmp_path / "out.hex"
+    bundle.save(out)
+    reloaded = read_hex(out)
+    # BMHD0 region should still be present
+    assert 0xAE404800 in reloaded
+    # CHIPINFO region (not present on input) must NOT be in the output
+    assert 0xAE400000 not in reloaded
+
+
+def test_export_ucb_single(tmp_path):
+    """export_ucb() writes ONLY that UCB's bytes to its own hex file."""
+    import ucb_tool
+    from ucb_tool.core.hex_io import read_hex, write_hex
+    hex_path = tmp_path / "partial.hex"
+    data = {0xAE404800 + i: 0x00 for i in range(2048)}  # BMHD0
+    data[0x80000000] = 0xAA  # unrelated flash byte we should NOT include
+    write_hex(hex_path, data)
+
+    SCHEMAS = Path(ucb_tool.__file__).parent / "schemas"
+    bundle = UcbBundle.load(hex_path, "tc4d9",
+                            common_dirs=[SCHEMAS / "common"],
+                            chip_schema_dir=SCHEMAS / "tc4dx")
+
+    out = tmp_path / "bmhd0.hex"
+    bundle.export_ucb("BMHD0", out, recompute=False)
+    reloaded = read_hex(out)
+    # Exactly BMHD0's bytes (2048 B) should be present
+    assert 0xAE404800 in reloaded
+    # Nothing else
+    assert 0x80000000 not in reloaded
+    assert 0xAE400000 not in reloaded

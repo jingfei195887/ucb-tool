@@ -36,6 +36,8 @@ class MainWindow(QMainWindow):
         self.tree = QTreeWidget()
         self.tree.setHeaderLabels(["UCB"])
         self.tree.currentItemChanged.connect(self._on_select)
+        self.tree.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.tree.customContextMenuRequested.connect(self._on_tree_context_menu)
 
         self.form = FieldForm()
 
@@ -153,6 +155,45 @@ class MainWindow(QMainWindow):
                 return
         self.statusBar().showMessage(f"Applied {path_s}")
 
+    def _on_tree_context_menu(self, pos) -> None:
+        """Right-click on a UCB tree leaf → 'Export this UCB to hex...'"""
+        from PySide6.QtWidgets import QMenu
+        if self._bundle is None:
+            return
+        item = self.tree.itemAt(pos)
+        if item is None:
+            return
+        name = item.data(0, Qt.ItemDataRole.UserRole)
+        if not isinstance(name, str) or name not in self._bundle.instances:
+            return  # group header, not a leaf
+        inst = self._bundle.instances[name]
+        menu = QMenu(self.tree)
+        act = menu.addAction(f"Export '{name}' to hex…")
+        if not inst.present:
+            act.setEnabled(False)
+            act.setText(f"Export '{name}' (empty — nothing to export)")
+        act.triggered.connect(lambda _=False, n=name: self._export_ucb(n))
+        menu.exec(self.tree.viewport().mapToGlobal(pos))
+
+    def _export_ucb(self, name: str) -> None:
+        if self._bundle is None:
+            return
+        inst = self._bundle.instances.get(name)
+        if inst is None or not inst.present:
+            return
+        default_name = f"{name}_0x{inst.orig_addr:08X}.hex"
+        path_s, _ = QFileDialog.getSaveFileName(
+            self, f"Export {name}", default_name, "Intel HEX (*.hex)"
+        )
+        if not path_s:
+            return
+        try:
+            self._bundle.export_ucb(name, path_s)
+        except Exception as exc:  # noqa: BLE001
+            QMessageBox.critical(self, "Export failed", str(exc))
+            return
+        self.statusBar().showMessage(f"Wrote {name} → {path_s}")
+
     def on_about(self) -> None:
         """Show the About dialog (author / version)."""
         try:
@@ -197,7 +238,14 @@ class MainWindow(QMainWindow):
     _CSRM_REGION_HIGH = 0xAED00000
 
     def _populate_tree(self) -> None:
-        """Group loaded UCBs into HOST / CSRM nodes, sort each group by address."""
+        """Group loaded UCBs into HOST / CSRM nodes, sort each group by address.
+
+        UCBs that aren't actually present in the loaded hex (their address
+        range has zero bytes defined) get an '(empty)' suffix and are shown
+        in grey so the user can immediately tell which UCBs are real.
+        """
+        from PySide6.QtGui import QBrush, QColor
+
         self.tree.clear()
         assert self._bundle is not None
 
@@ -205,39 +253,48 @@ class MainWindow(QMainWindow):
         csrm_root = QTreeWidgetItem(self.tree, ["CSRM (UCB1)"])
         other_root: QTreeWidgetItem | None = None  # lazy
 
-        # Collect (address, name, inst) and bucket by region.
-        host: list[tuple[int, str]] = []
-        csrm: list[tuple[int, str]] = []
-        other: list[tuple[int, str]] = []
+        # Collect (address, name, present) and bucket by region.
+        host: list[tuple[int, str, bool]] = []
+        csrm: list[tuple[int, str, bool]] = []
+        other: list[tuple[int, str, bool]] = []
         for name, inst in self._bundle.instances.items():
             addr = inst.orig_addr
+            entry = (addr, name, inst.present)
             if self._HOST_REGION_LOW <= addr < self._HOST_REGION_HIGH:
-                host.append((addr, name))
+                host.append(entry)
             elif self._CSRM_REGION_LOW <= addr < self._CSRM_REGION_HIGH:
-                csrm.append((addr, name))
+                csrm.append(entry)
             else:
-                other.append((addr, name))
+                other.append(entry)
 
+        grey = QBrush(QColor(140, 140, 140))
         for bucket, root in ((host, host_root), (csrm, csrm_root)):
-            bucket.sort()  # by address ascending
-            for addr, name in bucket:
+            bucket.sort()
+            present_count = 0
+            for addr, name, present in bucket:
                 label = f"{name}  @ 0x{addr:08X}"
+                if not present:
+                    label += "   (empty)"
                 child = QTreeWidgetItem(root, [label])
-                # Stash the raw UCB name for click-handling (display text has address suffix)
                 child.setData(0, Qt.ItemDataRole.UserRole, name)
-            root.setText(0, f"{root.text(0)}  ({len(bucket)})")
+                if not present:
+                    child.setForeground(0, grey)
+                else:
+                    present_count += 1
+            root.setText(0, f"{root.text(0)}  ({present_count}/{len(bucket)})")
             root.setExpanded(True)
 
         if other:
             other_root = QTreeWidgetItem(self.tree, [f"Other  ({len(other)})"])
             other.sort()
-            for addr, name in other:
-                child = QTreeWidgetItem(other_root, [f"{name}  @ 0x{addr:08X}"])
+            for addr, name, present in other:
+                lbl = f"{name}  @ 0x{addr:08X}" + ("   (empty)" if not present else "")
+                child = QTreeWidgetItem(other_root, [lbl])
                 child.setData(0, Qt.ItemDataRole.UserRole, name)
+                if not present:
+                    child.setForeground(0, grey)
             other_root.setExpanded(True)
 
-        # Hide empty region headers to avoid visual noise on chips that
-        # happen to have no UCBs in one region.
         if not host:
             host_root.setHidden(True)
         if not csrm:

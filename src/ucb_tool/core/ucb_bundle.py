@@ -144,6 +144,11 @@ class UcbInstance:
     buf_copy: bytearray | None
     advanced: bool = False
     fields: list[FieldDescriptor] = field(default_factory=list)
+    #: True if the loaded hex file actually covers any byte of this UCB's
+    #: address range.  When False, the UCB is displayed as "empty / not
+    #: present" in the UI and excluded from the saved hex output, so the
+    #: partial-hex input shape is preserved on round-trip.
+    present: bool = True
 
     def field_by_path(self, path: str) -> FieldDescriptor:
         for f in self.fields:
@@ -265,23 +270,71 @@ class UcbBundle:
                 bytearray(slice_range(raw, copy, size))
                 if copy is not None else None
             )
+            # Presence = at least one byte of the UCB's address range is
+            # actually defined in the input hex.  Missing UCBs are shown as
+            # empty in the UI instead of decoding their 0xFF fill-bytes into
+            # fabricated 0xFFFFFFFF field values.
+            present = any((orig + i) in raw for i in range(size))
+            if not present and copy is not None:
+                present = any((copy + i) in raw for i in range(size))
             inst = UcbInstance(
                 schema=schema, family=family_key,
                 orig_addr=orig, copy_addr=copy,
                 buf_orig=buf_orig, buf_copy=buf_copy,
                 fields=_walk_fields(schema.schema),
+                present=present,
             )
             instances[name] = inst
         return cls(chip_id=chip_id, family=family_key,
                    instances=instances, raw_bytes=raw)
 
     def save(self, out_path: str | Path, recompute: bool = True) -> None:
+        """Emit hex with edited UCBs merged back.
+
+        UCBs whose `present` is False (absent from the input hex) are NOT
+        written — this preserves the partial-hex shape of the input.  A user
+        who wants to synthesize a brand-new UCB must explicitly flip
+        `inst.present = True` (e.g., via an upcoming 'Initialize' UI action)
+        before saving.
+        """
         if recompute:
             for inst in self.instances.values():
-                _recompute_fields(inst)
+                if inst.present:
+                    _recompute_fields(inst)
         data = dict(self.raw_bytes)
         for inst in self.instances.values():
+            if not inst.present:
+                continue
             merge_range(data, inst.orig_addr, bytes(inst.buf_orig))
             if inst.buf_copy is not None and inst.copy_addr is not None:
                 merge_range(data, inst.copy_addr, bytes(inst.buf_copy))
+        write_hex(out_path, data)
+
+    def export_ucb(self, name: str, out_path: str | Path,
+                   recompute: bool = True,
+                   include_copy: bool = True) -> None:
+        """Write a SINGLE UCB's bytes to an Intel HEX file.
+
+        Unlike :meth:`save`, this does NOT include any other UCBs or
+        surrounding flash bytes — only the ORIG (and, by default, COPY)
+        region(s) of the named UCB are emitted.  Useful for sharing a
+        single UCB with another engineer or a flashing tool without
+        leaking the rest of the chip image.
+
+        Args:
+            name: UCB name (matching a key in ``self.instances``).
+            out_path: destination .hex path.
+            recompute: if True (default) auto-fill x-computed fields
+                (CRC, confirmation) before emitting.
+            include_copy: if True (default) and the UCB has a COPY, its
+                bytes are emitted alongside ORIG so the result stands
+                alone when re-loaded.
+        """
+        inst = self.instances[name]
+        if recompute and inst.present:
+            _recompute_fields(inst)
+        data: dict[int, int] = {}
+        merge_range(data, inst.orig_addr, bytes(inst.buf_orig))
+        if include_copy and inst.buf_copy is not None and inst.copy_addr is not None:
+            merge_range(data, inst.copy_addr, bytes(inst.buf_copy))
         write_hex(out_path, data)

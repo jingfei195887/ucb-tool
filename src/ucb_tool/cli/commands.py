@@ -233,3 +233,34 @@ def diff_cmd(hex_a: Path, hex_b: Path, chip: str, out_path: Path,
     b = _load_bundle(hex_b, chip.lower(), schemas_dir)
     n = diff_bundles(a, b, out_path)
     click.echo(f"wrote {out_path} ({n} changed field(s))")
+
+
+@click.command(name="export-ucb")
+@click.argument("hex_path", type=click.Path(exists=True, dir_okay=False, path_type=Path))
+@click.option("--chip", required=True,
+              type=click.Choice(list_chips(), case_sensitive=False))
+@click.option("--name", "ucb_name", required=True,
+              help="UCB name to export (e.g. BMHD0, USERCFG_ORIG_RTC). "
+                   "Run `show` to list names.")
+@click.option("--out", "out_path", required=True, type=click.Path(path_type=Path),
+              help="Destination .hex path for this single UCB.")
+@click.option("--no-copy", "skip_copy", is_flag=True, default=False,
+              help="Emit ORIG only; skip the COPY mirror bytes.")
+@click.option("--skip-checksum", is_flag=True, default=False,
+              help="Don't auto-recompute CRC / confirmation before writing.")
+@click.option("--schemas", "schemas_dir", multiple=True,
+              type=click.Path(exists=True, file_okay=False, path_type=Path))
+def export_ucb_cmd(hex_path: Path, chip: str, ucb_name: str, out_path: Path,
+                   skip_copy: bool, skip_checksum: bool,
+                   schemas_dir: tuple[Path, ...]) -> None:
+    """Export a single UCB from a hex file as its own standalone .hex."""
+    bundle = _load_bundle(hex_path, chip.lower(), schemas_dir)
+    if ucb_name not in bundle.instances:
+        known = ", ".join(sorted(bundle.instances.keys())[:10])
+        raise click.ClickException(
+            f"UCB {ucb_name!r} not found. Known (first 10): {known} ...",
+        )
+    bundle.export_ucb(ucb_name, out_path,
+                      recompute=not skip_checksum,
+                      include_copy=not skip_copy)
+    click.echo(f"wrote {out_path} (UCB={ucb_name})")
