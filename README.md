@@ -170,6 +170,95 @@ Auto-computed fields (`CRC`, `CONFIRMATION`, `ecc-aurix`) are recomputed on save
 
 UNLOCKED magic is verified against a real TC4Dx dump. Source: see `src/ucb_tool/core/field_codec.py`.
 
+## Mandatory UCBs & reference templates
+
+Some UCBs are **mandatory** — the AURIX boot ROM refuses to boot or enters a
+degraded state if they are not populated.  Every chip family ships with a
+**reference template hex** that defines its mandatory set:
+
+```
+src/ucb_tool/templates/
+├── tc4dx.hex     ← TC4Dx mandatory UCBs (16): BMHD0-3 + _CS,
+│                   USERCFG ORIG/COPY RTC+CS, SWAP ORIG/COPY RTC+CS
+├── tc48x.hex     ← TC48x mandatory UCBs (12): BMHD0-3 + _CS,
+│                   SWAP_ORIG_RTC slots 02/06, SWAP_ORIG_CS slots 07/12
+└── tc4zx.hex     ← TC4Zx mandatory UCBs (12): same as TC48x
+```
+
+A UCB is considered mandatory if **at least one byte of its ORIG (or COPY)
+address range is populated in the template**.  At load time the tool
+computes this set and:
+
+- GUI tree: shows `★ mandatory` (present) or `⚠ MISSING mandatory` (absent,
+  amber-coloured) next to each UCB; region headers display
+  `(present/total, ⚠N missing)`.
+- Field form header: `[EMPTY — not in loaded hex]` if the selected UCB is
+  absent.
+- Save / apply: **absent** UCBs are NOT written back so a partial-hex input
+  round-trips to a partial-hex output; **user edits** are never overwritten.
+
+### Expanding the mandatory set
+
+To add more UCBs to the mandatory set for a chip, add their address ranges
+to the corresponding template hex:
+
+```bash
+# 1. Work from a known-good UCB dump for your project/board
+cp my_board_golden_ucb.hex src/ucb_tool/templates/tc4dx.hex
+
+# 2. Or extend the existing template with more UCBs (e.g. using an Intel HEX
+#    editor or the tool's `set` command to merge a partial hex in)
+ucbtool set src/ucb_tool/templates/tc4dx.hex --chip tc4d9 \
+    --field HOST_PFPROCON_ORIG.WP0=0x5A5A5A5A \
+    --out src/ucb_tool/templates/tc4dx.hex --yes-i-know-lock
+```
+
+After the change, `ucbtool show ...` will mark the newly-covered UCBs as
+`★ mandatory`, and `--fill-missing` will pull their bytes for users who
+load hex files without them.
+
+### Per-project custom templates (`--template`)
+
+Different projects / boards may disagree about what's mandatory (e.g., one
+project uses HSM, another doesn't).  Instead of editing the bundled
+template, override it for a single invocation:
+
+```bash
+# Use a project-specific template for mandatory-UCB detection AND fill
+ucbtool set partial.hex --chip tc4d9 \
+    --template /path/to/project_golden_ucb.hex \
+    --fill-missing \
+    --field BMHD0.STAD=0x80000000 \
+    --out new.hex --yes-i-know-brick
+
+# Same for Excel round-trip
+ucbtool apply-xlsx partial.hex --chip tc4d9 \
+    --xlsx edits.xlsx --out new.hex \
+    --template /path/to/project_golden_ucb.hex \
+    --yes-i-know-brick
+```
+
+The bundled template is the **default**; `--template` only affects the
+current invocation.  Python API equivalent:
+
+```python
+bundle = UcbBundle.load(hex_path, chip_id,
+                        common_dirs=[...], chip_schema_dir=...,
+                        template_path="/path/to/project_golden_ucb.hex")
+bundle.fill_missing_mandatory(template_path="/path/to/project_golden_ucb.hex")
+```
+
+### Programmatic fill
+
+```python
+bundle = UcbBundle.load(...)
+missing = bundle.missing_mandatory()     # list of UCB names absent in input
+filled  = bundle.fill_missing_mandatory() # copies from template; returns filled names
+bundle.save(out_path)                     # emits completed hex
+```
+
+GUI equivalent: **Tools → Fill missing mandatory UCBs from template**.
+
 ## Build system
 
 - **Dev loop**: `pytest` (261 tests, 88%+ coverage), `ruff check`, `mypy src/ucb_tool/core` (strict).

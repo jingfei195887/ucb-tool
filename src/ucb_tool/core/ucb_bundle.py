@@ -241,13 +241,18 @@ def _load_template_raw(chip_id: str) -> dict[int, int] | None:
 
 def _load_mandatory_set(chip_id: str,
                         schemas: SchemaRegistry,
-                        profile: Any) -> set[str]:
-    """Derive the chip's mandatory UCB set from the bundled template.
+                        profile: Any,
+                        template_path: str | Path | None = None) -> set[str]:
+    """Derive the chip's mandatory UCB set from a template.
 
     A UCB is "mandatory" for a given chip if the chip's reference template
     covers at least one byte of the UCB's ORIG (or COPY) address range.
+    Pass ``template_path`` to override the bundled default.
     """
-    tpl_raw = _load_template_raw(chip_id)
+    if template_path is not None:
+        tpl_raw: dict[int, int] | None = read_hex(template_path)
+    else:
+        tpl_raw = _load_template_raw(chip_id)
     if tpl_raw is None:
         return set()
     family_key = profile.family.value
@@ -308,18 +313,32 @@ class UcbBundle:
     @classmethod
     def load(cls, hex_path: str | Path, chip_id: str,
              common_dirs: Iterable[Path],
-             chip_schema_dir: Path | None) -> UcbBundle:
+             chip_schema_dir: Path | None,
+             template_path: str | Path | None = None) -> UcbBundle:
+        """Load a hex + schemas into a bundle.
+
+        Args:
+            hex_path: user's ucb.hex to analyse / edit.
+            chip_id: target chip (tc4d9 / tc4d7 / tc489 / tc4z9).
+            common_dirs: schema directories applied to every chip.
+            chip_schema_dir: chip-specific schema directory.
+            template_path: optional override for the 'mandatory UCB set'
+                template.  When None, the bundled
+                ``src/ucb_tool/templates/{family}.hex`` is used.  Pass a
+                project-specific template here to customise which UCBs
+                count as mandatory without editing the installed package.
+        """
         profile = get_profile(chip_id)
         schemas: SchemaRegistry = load_schemas(common_dirs, chip_schema_dir)
         resolve_profile_addresses(schemas, chip_id)
         raw = read_hex(hex_path)
 
         # Compute the mandatory UCB set for this chip: a UCB is "mandatory"
-        # if it is populated in the bundled reference template
-        # (src/ucb_tool/templates/{schema_dir}.hex).  This lets users add
-        # more mandatory UCBs simply by updating the template file without
-        # editing code.
-        mandatory: set[str] = _load_mandatory_set(chip_id, schemas, profile)
+        # if it is populated in the reference template hex.  Override with
+        # `template_path` to swap in a project-specific template.
+        mandatory: set[str] = _load_mandatory_set(
+            chip_id, schemas, profile, template_path=template_path,
+        )
 
         instances: dict[str, UcbInstance] = {}
         family_key = profile.family.value
@@ -358,16 +377,28 @@ class UcbBundle:
         return [n for n, i in self.instances.items()
                 if i.is_mandatory and not i.present]
 
-    def fill_missing_mandatory(self, chip_id: str | None = None) -> list[str]:
-        """Copy bytes from the bundled template into every mandatory UCB
-        whose `present` is False, marking it present.
+    def fill_missing_mandatory(self, chip_id: str | None = None,
+                               template_path: str | Path | None = None,
+                               ) -> list[str]:
+        """Copy bytes from a template into every mandatory UCB whose
+        `present` is False, marking it present.
+
+        Args:
+            chip_id: override chip id (default: self.chip_id).
+            template_path: optional explicit template hex path.  When
+                None, falls back to the bundled
+                ``src/ucb_tool/templates/{family}.hex``.  Pass a
+                project-specific template here to pull in UCB byte
+                patterns that differ from the default reference.
 
         Returns the list of UCB names that were filled.  Does not modify
         UCBs that were already present (user edits are never overwritten).
-        The return value is useful for the GUI to surface a status message.
         """
         cid = chip_id or self.chip_id
-        template_raw = _load_template_raw(cid)
+        template_raw: dict[int, int] | None = (
+            read_hex(template_path) if template_path is not None
+            else _load_template_raw(cid)
+        )
         if template_raw is None:
             return []  # no template bundled for this chip
         filled: list[str] = []

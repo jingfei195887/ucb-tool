@@ -19,10 +19,14 @@ def _default_schema_dirs(chip_id: str) -> tuple[list[Path], Path | None]:
 
 
 def _load_bundle(hex_path: Path, chip_id: str,
-                 extra_schemas: Iterable[Path]) -> UcbBundle:
+                 extra_schemas: Iterable[Path],
+                 template_path: Path | None = None) -> UcbBundle:
     common, chip_dir = _default_schema_dirs(chip_id)
     common = list(common) + list(extra_schemas)
-    return UcbBundle.load(hex_path, chip_id, common_dirs=common, chip_schema_dir=chip_dir)
+    return UcbBundle.load(hex_path, chip_id,
+                          common_dirs=common,
+                          chip_schema_dir=chip_dir,
+                          template_path=template_path)
 
 
 @click.command(name="show")
@@ -68,25 +72,34 @@ def show_cmd(hex_path: Path, chip: str, schemas_dir: tuple[Path, ...]) -> None:
 @click.option("--skip-checksum", is_flag=True, default=False)
 @click.option("--fill-missing", is_flag=True, default=False,
               help="Auto-populate mandatory UCBs that are absent in the input "
-                   "hex from the bundled per-chip reference template.")
+                   "hex from the reference template.")
+@click.option("--template", "template_path",
+              type=click.Path(exists=True, dir_okay=False, path_type=Path),
+              help="Override the bundled per-chip reference template with a "
+                   "project-specific template hex.  Both the mandatory-UCB "
+                   "set and --fill-missing source are driven from this file.")
 @click.option("--schemas", "schemas_dir", multiple=True,
               type=click.Path(exists=True, file_okay=False, path_type=Path))
 def set_cmd(hex_path: Path, chip: str, fields: tuple[str, ...], out_path: Path,
             yes_i_know_lock: bool, yes_i_know_brick: bool,
             skip_checksum: bool, fill_missing: bool,
+            template_path: Path | None,
             schemas_dir: tuple[Path, ...]) -> None:
     """Change one or more fields and write a new hex."""
     try:
-        bundle = _load_bundle(hex_path, chip.lower(), schemas_dir)
-        baseline = _load_bundle(hex_path, chip.lower(), schemas_dir)
+        bundle = _load_bundle(hex_path, chip.lower(), schemas_dir,
+                              template_path=template_path)
+        baseline = _load_bundle(hex_path, chip.lower(), schemas_dir,
+                                template_path=template_path)
     except UcbError as exc:
         raise click.ClickException(str(exc)) from exc
 
     if fill_missing:
-        filled = bundle.fill_missing_mandatory()
+        filled = bundle.fill_missing_mandatory(template_path=template_path)
         if filled:
+            src = template_path or "bundled template"
             click.echo(f"filled {len(filled)} missing mandatory UCB(s) "
-                       f"from template: {', '.join(filled)}")
+                       f"from {src}: {', '.join(filled)}")
 
     for spec in fields:
         if "=" not in spec:
@@ -188,17 +201,24 @@ def export_xlsx_cmd(hex_path: Path, chip: str, out_path: Path,
 @click.option("--lenient-xlsx", is_flag=True, default=False)
 @click.option("--yes-i-know-lock", is_flag=True, default=False)
 @click.option("--yes-i-know-brick", is_flag=True, default=False)
+@click.option("--template", "template_path",
+              type=click.Path(exists=True, dir_okay=False, path_type=Path),
+              help="Override bundled reference template for mandatory-set "
+                   "detection.")
 @click.option("--schemas", "schemas_dir", multiple=True,
               type=click.Path(exists=True, file_okay=False, path_type=Path))
 def apply_xlsx_cmd(hex_path: Path, chip: str, xlsx_path: Path, out_path: Path,
                    lenient_xlsx: bool, yes_i_know_lock: bool,
                    yes_i_know_brick: bool,
+                   template_path: Path | None,
                    schemas_dir: tuple[Path, ...]) -> None:
     """Apply an edited .xlsx snapshot to produce a new hex."""
     from ucb_tool.core.xlsx_io import apply_xlsx
     try:
-        bundle = _load_bundle(hex_path, chip.lower(), schemas_dir)
-        baseline = _load_bundle(hex_path, chip.lower(), schemas_dir)
+        bundle = _load_bundle(hex_path, chip.lower(), schemas_dir,
+                              template_path=template_path)
+        baseline = _load_bundle(hex_path, chip.lower(), schemas_dir,
+                                template_path=template_path)
     except UcbError as exc:
         raise click.ClickException(str(exc)) from exc
 
