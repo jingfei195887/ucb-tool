@@ -149,6 +149,13 @@ class UcbInstance:
     #: present" in the UI and excluded from the saved hex output, so the
     #: partial-hex input shape is preserved on round-trip.
     present: bool = True
+    #: True if this UCB is part of the chip's *mandatory* set — one that
+    #: the boot ROM expects to find populated for the chip to boot cleanly.
+    #: Derived at load time by comparing against the bundled reference
+    #: template (src/ucb_tool/templates/{family}.hex).  Missing mandatory
+    #: UCBs are flagged in the UI and can be auto-filled from the template
+    #: on save via `fill_missing_mandatory()` or the `--fill-missing` flag.
+    is_mandatory: bool = False
 
     def field_by_path(self, path: str) -> FieldDescriptor:
         for f in self.fields:
@@ -206,6 +213,56 @@ class UcbInstance:
         self._write(self.buf_copy, self.field_by_path(path), value)
 
 
+def _template_path_for_chip(chip_id: str) -> Path | None:
+    """Locate the bundled reference template hex for a given chip.
+
+    Templates live under ``src/ucb_tool/templates/{schema_dir}.hex`` where
+    ``schema_dir`` is the chip-family directory (``tc4dx`` / ``tc48x`` /
+    ``tc4zx``).  Returns None if no template exists for this chip.
+    """
+    from ucb_tool.core.chip_profile import get_profile
+    try:
+        profile = get_profile(chip_id)
+    except KeyError:
+        return None
+    # Locate the package's templates dir regardless of install mode.
+    import ucb_tool
+    tpl = Path(ucb_tool.__file__).parent / "templates" / f"{profile.schema_dir}.hex"
+    return tpl if tpl.is_file() else None
+
+
+def _load_template_raw(chip_id: str) -> dict[int, int] | None:
+    """Read the chip's reference template hex into a sparse address map."""
+    tpl = _template_path_for_chip(chip_id)
+    if tpl is None:
+        return None
+    return read_hex(tpl)
+
+
+def _load_mandatory_set(chip_id: str,
+                        schemas: SchemaRegistry,
+                        profile: Any) -> set[str]:
+    """Derive the chip's mandatory UCB set from the bundled template.
+
+    A UCB is "mandatory" for a given chip if the chip's reference template
+    covers at least one byte of the UCB's ORIG (or COPY) address range.
+    """
+    tpl_raw = _load_template_raw(chip_id)
+    if tpl_raw is None:
+        return set()
+    family_key = profile.family.value
+    mandatory: set[str] = set()
+    for name, schema in schemas.items():
+        try:
+            orig, copy = schema.address_for_family(family_key)
+        except KeyError:
+            continue
+        size = schema.size
+        if any((orig + i) in tpl_raw for i in range(size)) or copy is not None and any((copy + i) in tpl_raw for i in range(size)):
+            mandatory.add(name)
+    return mandatory
+
+
 def _recompute_fields(inst: UcbInstance) -> None:
     for f in inst.fields:
         algo = f.computed
@@ -257,6 +314,13 @@ class UcbBundle:
         resolve_profile_addresses(schemas, chip_id)
         raw = read_hex(hex_path)
 
+        # Compute the mandatory UCB set for this chip: a UCB is "mandatory"
+        # if it is populated in the bundled reference template
+        # (src/ucb_tool/templates/{schema_dir}.hex).  This lets users add
+        # more mandatory UCBs simply by updating the template file without
+        # editing code.
+        mandatory: set[str] = _load_mandatory_set(chip_id, schemas, profile)
+
         instances: dict[str, UcbInstance] = {}
         family_key = profile.family.value
         for name, schema in schemas.items():
@@ -283,10 +347,42 @@ class UcbBundle:
                 buf_orig=buf_orig, buf_copy=buf_copy,
                 fields=_walk_fields(schema.schema),
                 present=present,
+                is_mandatory=(name in mandatory),
             )
             instances[name] = inst
         return cls(chip_id=chip_id, family=family_key,
                    instances=instances, raw_bytes=raw)
+
+    def missing_mandatory(self) -> list[str]:
+        """Names of mandatory UCBs that are not present in the loaded hex."""
+        return [n for n, i in self.instances.items()
+                if i.is_mandatory and not i.present]
+
+    def fill_missing_mandatory(self, chip_id: str | None = None) -> list[str]:
+        """Copy bytes from the bundled template into every mandatory UCB
+        whose `present` is False, marking it present.
+
+        Returns the list of UCB names that were filled.  Does not modify
+        UCBs that were already present (user edits are never overwritten).
+        The return value is useful for the GUI to surface a status message.
+        """
+        cid = chip_id or self.chip_id
+        template_raw = _load_template_raw(cid)
+        if template_raw is None:
+            return []  # no template bundled for this chip
+        filled: list[str] = []
+        for name, inst in self.instances.items():
+            if inst.present or not inst.is_mandatory:
+                continue
+            size = inst.schema.size
+            inst.buf_orig = bytearray(slice_range(template_raw, inst.orig_addr, size))
+            if inst.copy_addr is not None:
+                inst.buf_copy = bytearray(
+                    slice_range(template_raw, inst.copy_addr, size)
+                )
+            inst.present = True
+            filled.append(name)
+        return filled
 
     def save(self, out_path: str | Path, recompute: bool = True) -> None:
         """Emit hex with edited UCBs merged back.

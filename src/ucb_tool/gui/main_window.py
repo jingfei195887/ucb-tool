@@ -70,6 +70,12 @@ class MainWindow(QMainWindow):
         apply_act.triggered.connect(self.on_apply_xlsx)
         bar.addAction(apply_act)
 
+        tools_menu = self.menuBar().addMenu("&Tools")
+        fill_act = QAction("&Fill missing mandatory UCBs from template", self)
+        fill_act.triggered.connect(self.on_fill_missing)
+        tools_menu.addAction(fill_act)
+        self.action_fill_missing = fill_act
+
         help_menu = self.menuBar().addMenu("&Help")
         about_act = QAction("&About...", self)
         about_act.triggered.connect(self.on_about)
@@ -194,6 +200,37 @@ class MainWindow(QMainWindow):
             return
         self.statusBar().showMessage(f"Wrote {name} → {path_s}")
 
+    def on_fill_missing(self) -> None:
+        """Tools → Fill missing mandatory UCBs from template."""
+        if self._bundle is None:
+            QMessageBox.information(
+                self, "Fill Missing",
+                "Open a hex file first.")
+            return
+        missing = self._bundle.missing_mandatory()
+        if not missing:
+            QMessageBox.information(
+                self, "Fill Missing",
+                "No missing mandatory UCBs — this hex is complete.")
+            return
+        msg = (
+            "The following mandatory UCBs are missing from the loaded hex:\n\n"
+            + "\n".join(f"  • {n}" for n in missing)
+            + "\n\nFill them with bytes from the bundled "
+            f"{self._current_chip} reference template?")
+        if QMessageBox.question(self, "Fill Missing", msg) != QMessageBox.StandardButton.Yes:
+            return
+        filled = self._bundle.fill_missing_mandatory()
+        if not filled:
+            QMessageBox.warning(
+                self, "Fill Missing",
+                f"No template is bundled for chip {self._current_chip}.")
+            return
+        self._populate_tree()
+        self.statusBar().showMessage(
+            f"Filled {len(filled)} mandatory UCB(s) from template: "
+            + ", ".join(filled))
+
     def on_about(self) -> None:
         """Show the About dialog (author / version)."""
         try:
@@ -253,13 +290,13 @@ class MainWindow(QMainWindow):
         csrm_root = QTreeWidgetItem(self.tree, ["CSRM (UCB1)"])
         other_root: QTreeWidgetItem | None = None  # lazy
 
-        # Collect (address, name, present) and bucket by region.
-        host: list[tuple[int, str, bool]] = []
-        csrm: list[tuple[int, str, bool]] = []
-        other: list[tuple[int, str, bool]] = []
+        # Collect (address, name, present, mandatory) and bucket by region.
+        host: list[tuple[int, str, bool, bool]] = []
+        csrm: list[tuple[int, str, bool, bool]] = []
+        other: list[tuple[int, str, bool, bool]] = []
         for name, inst in self._bundle.instances.items():
             addr = inst.orig_addr
-            entry = (addr, name, inst.present)
+            entry = (addr, name, inst.present, inst.is_mandatory)
             if self._HOST_REGION_LOW <= addr < self._HOST_REGION_HIGH:
                 host.append(entry)
             elif self._CSRM_REGION_LOW <= addr < self._CSRM_REGION_HIGH:
@@ -268,31 +305,43 @@ class MainWindow(QMainWindow):
                 other.append(entry)
 
         grey = QBrush(QColor(140, 140, 140))
+        warning = QBrush(QColor(180, 80, 20))  # amber for missing-mandatory
+
+        def _leaf(root, addr, name, present, mandatory):
+            tag = ""
+            if mandatory and not present:
+                tag = "   ⚠ MISSING mandatory"
+            elif not present:
+                tag = "   (empty)"
+            elif mandatory:
+                tag = "   ★ mandatory"
+            label = f"{name}  @ 0x{addr:08X}{tag}"
+            child = QTreeWidgetItem(root, [label])
+            child.setData(0, Qt.ItemDataRole.UserRole, name)
+            if mandatory and not present:
+                child.setForeground(0, warning)
+            elif not present:
+                child.setForeground(0, grey)
+
         for bucket, root in ((host, host_root), (csrm, csrm_root)):
             bucket.sort()
             present_count = 0
-            for addr, name, present in bucket:
-                label = f"{name}  @ 0x{addr:08X}"
-                if not present:
-                    label += "   (empty)"
-                child = QTreeWidgetItem(root, [label])
-                child.setData(0, Qt.ItemDataRole.UserRole, name)
-                if not present:
-                    child.setForeground(0, grey)
-                else:
+            missing_mandatory = 0
+            for addr, name, present, mandatory in bucket:
+                _leaf(root, addr, name, present, mandatory)
+                if present:
                     present_count += 1
-            root.setText(0, f"{root.text(0)}  ({present_count}/{len(bucket)})")
+                elif mandatory:
+                    missing_mandatory += 1
+            extra = f", ⚠{missing_mandatory} missing" if missing_mandatory else ""
+            root.setText(0, f"{root.text(0)}  ({present_count}/{len(bucket)}{extra})")
             root.setExpanded(True)
 
         if other:
             other_root = QTreeWidgetItem(self.tree, [f"Other  ({len(other)})"])
             other.sort()
-            for addr, name, present in other:
-                lbl = f"{name}  @ 0x{addr:08X}" + ("   (empty)" if not present else "")
-                child = QTreeWidgetItem(other_root, [lbl])
-                child.setData(0, Qt.ItemDataRole.UserRole, name)
-                if not present:
-                    child.setForeground(0, grey)
+            for addr, name, present, mandatory in other:
+                _leaf(other_root, addr, name, present, mandatory)
             other_root.setExpanded(True)
 
         if not host:

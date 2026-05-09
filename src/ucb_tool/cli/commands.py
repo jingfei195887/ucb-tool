@@ -59,23 +59,34 @@ def show_cmd(hex_path: Path, chip: str, schemas_dir: tuple[Path, ...]) -> None:
 @click.argument("hex_path", type=click.Path(exists=True, dir_okay=False, path_type=Path))
 @click.option("--chip", required=True,
               type=click.Choice(list_chips(), case_sensitive=False))
-@click.option("--field", "fields", multiple=True, required=True,
-              help="UCB.path=value pairs, e.g. BMHD_0.STAD=0x80000000")
+@click.option("--field", "fields", multiple=True, required=False, default=(),
+              help="UCB.path=value pairs, e.g. BMHD_0.STAD=0x80000000. "
+                   "Optional when --fill-missing is given.")
 @click.option("--out", "out_path", required=True, type=click.Path(path_type=Path))
 @click.option("--yes-i-know-lock", is_flag=True, default=False)
 @click.option("--yes-i-know-brick", is_flag=True, default=False)
 @click.option("--skip-checksum", is_flag=True, default=False)
+@click.option("--fill-missing", is_flag=True, default=False,
+              help="Auto-populate mandatory UCBs that are absent in the input "
+                   "hex from the bundled per-chip reference template.")
 @click.option("--schemas", "schemas_dir", multiple=True,
               type=click.Path(exists=True, file_okay=False, path_type=Path))
 def set_cmd(hex_path: Path, chip: str, fields: tuple[str, ...], out_path: Path,
             yes_i_know_lock: bool, yes_i_know_brick: bool,
-            skip_checksum: bool, schemas_dir: tuple[Path, ...]) -> None:
+            skip_checksum: bool, fill_missing: bool,
+            schemas_dir: tuple[Path, ...]) -> None:
     """Change one or more fields and write a new hex."""
     try:
         bundle = _load_bundle(hex_path, chip.lower(), schemas_dir)
         baseline = _load_bundle(hex_path, chip.lower(), schemas_dir)
     except UcbError as exc:
         raise click.ClickException(str(exc)) from exc
+
+    if fill_missing:
+        filled = bundle.fill_missing_mandatory()
+        if filled:
+            click.echo(f"filled {len(filled)} missing mandatory UCB(s) "
+                       f"from template: {', '.join(filled)}")
 
     for spec in fields:
         if "=" not in spec:

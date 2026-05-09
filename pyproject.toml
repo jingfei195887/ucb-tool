@@ -37,6 +37,7 @@ ucbtool-gui = "ucb_tool.gui.__main__:main"
 include = [
     "src/ucb_tool/**/*.py",
     "src/ucb_tool/schemas/**/*.json",
+    "src/ucb_tool/templates/*.hex",
 ]
 
 [tool.hatch.build.targets.wheel]

@@ -255,3 +255,59 @@ def test_export_ucb_single(tmp_path):
     # Nothing else
     assert 0x80000000 not in reloaded
     assert 0xAE400000 not in reloaded
+
+
+def test_mandatory_ucbs_detected_from_template(tmp_path):
+    """Loading against TC4Dx → BMHDs + USERCFG/SWAP ORIG+COPY are marked mandatory."""
+    import ucb_tool
+    from ucb_tool.core.hex_io import write_hex
+
+    hex_path = tmp_path / "empty.hex"
+    write_hex(hex_path, {0: 0xFF})  # nothing real
+
+    SCHEMAS = Path(ucb_tool.__file__).parent / "schemas"
+    bundle = UcbBundle.load(hex_path, "tc4d9",
+                            common_dirs=[SCHEMAS / "common"],
+                            chip_schema_dir=SCHEMAS / "tc4dx")
+
+    mandatory = {n for n, i in bundle.instances.items() if i.is_mandatory}
+    # Must include the core boot-critical set per TC4Dx reference template
+    expected = {
+        "BMHD0", "BMHD1", "BMHD2", "BMHD3",
+        "BMHD0_CS", "BMHD1_CS", "BMHD2_CS", "BMHD3_CS",
+        "USERCFG_ORIG_RTC", "USERCFG_COPY_RTC",
+        "SWAP_ORIG_RTC", "SWAP_COPY_RTC",
+        "USERCFG_ORIG_CS", "USERCFG_COPY_CS",
+        "SWAP_ORIG_CS", "SWAP_COPY_CS",
+    }
+    assert expected.issubset(mandatory), \
+        f"mandatory set missing: {expected - mandatory}"
+
+
+def test_missing_mandatory_list_and_fill(tmp_path):
+    """missing_mandatory() lists absent-but-required; fill_missing_mandatory()
+    populates them from template and marks them present."""
+    import ucb_tool
+    from ucb_tool.core.hex_io import write_hex
+
+    hex_path = tmp_path / "empty.hex"
+    write_hex(hex_path, {0: 0xFF})
+
+    SCHEMAS = Path(ucb_tool.__file__).parent / "schemas"
+    bundle = UcbBundle.load(hex_path, "tc4d9",
+                            common_dirs=[SCHEMAS / "common"],
+                            chip_schema_dir=SCHEMAS / "tc4dx")
+
+    missing_before = bundle.missing_mandatory()
+    assert "BMHD0" in missing_before
+    assert len(missing_before) >= 16  # full TC4Dx mandatory set
+
+    filled = bundle.fill_missing_mandatory()
+    assert set(filled) == set(missing_before)
+    assert bundle.missing_mandatory() == []
+    # BMHD0 should now have real bytes from the template (not all 0xFF)
+    assert bundle["BMHD0"].present is True
+    # The BMHDID (bytes 6-7 of the BMI_BMHDID word at offset 4) must be 0xB359
+    bmhd0_bytes = bytes(bundle["BMHD0"].buf_orig)
+    bmhdid = int.from_bytes(bmhd0_bytes[6:8], "little")
+    assert bmhdid == 0xB359, f"BMHDID mismatch: 0x{bmhdid:04X}"
